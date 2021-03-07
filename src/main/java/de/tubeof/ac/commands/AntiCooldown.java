@@ -4,7 +4,6 @@ import de.tubeof.ac.data.Messages;
 import de.tubeof.ac.enums.MessageType;
 import de.tubeof.ac.data.Data;
 import de.tubeof.ac.enums.SettingsType;
-import de.tubeof.ac.main.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
@@ -15,8 +14,8 @@ import org.bukkit.entity.Player;
 
 public class AntiCooldown implements CommandExecutor {
 
-    private Messages messages = Main.getMessages();
-    private Data data = Main.getData();
+    private Messages messages = de.tubeof.ac.main.AntiCooldown.getMessages();
+    private Data data = de.tubeof.ac.main.AntiCooldown.getData();
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {

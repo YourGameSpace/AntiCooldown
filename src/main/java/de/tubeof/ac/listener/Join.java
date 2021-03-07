@@ -4,7 +4,7 @@ import de.tubeof.ac.data.Data;
 import de.tubeof.ac.data.Messages;
 import de.tubeof.ac.enums.MessageType;
 import de.tubeof.ac.enums.SettingsType;
-import de.tubeof.ac.main.Main;
+import de.tubeof.ac.main.AntiCooldown;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,8 +13,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class Join implements Listener {
 
-    private Data data = Main.getData();
-    private Messages messages = Main.getMessages();
+    private Data data = AntiCooldown.getData();
+    private Messages messages = AntiCooldown.getMessages();
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {

@@ -4,7 +4,7 @@ import de.tubeof.ac.data.Messages;
 import de.tubeof.ac.enums.MessageType;
 import de.tubeof.ac.data.Data;
 import de.tubeof.ac.enums.SettingsType;
-import de.tubeof.ac.main.Main;
+import de.tubeof.ac.main.AntiCooldown;
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -16,8 +16,8 @@ import java.util.List;
 public class Config {
 
     private static ConsoleCommandSender ccs = Bukkit.getConsoleSender();
-    private static Messages messages = Main.getMessages();
-    private static Data data = Main.getData();
+    private static Messages messages = AntiCooldown.getMessages();
+    private static Data data = AntiCooldown.getData();
 
     private static File file = new File("plugins/AntiCooldown", "Config.yml");
     private static FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);

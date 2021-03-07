@@ -2,7 +2,7 @@ package de.tubeof.ac.listener;
 
 import de.tubeof.ac.data.Data;
 import de.tubeof.ac.enums.SettingsType;
-import de.tubeof.ac.main.Main;
+import de.tubeof.ac.main.AntiCooldown;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -10,7 +10,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 public class SweepAttack implements Listener {
 
-    private Data data = Main.getData();
+    private Data data = AntiCooldown.getData();
 
     @EventHandler
     public void onSweep(EntityDamageByEntityEvent event) {

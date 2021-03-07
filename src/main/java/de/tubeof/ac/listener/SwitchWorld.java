@@ -4,7 +4,7 @@ import de.tubeof.ac.data.Data;
 import de.tubeof.ac.data.Messages;
 import de.tubeof.ac.enums.MessageType;
 import de.tubeof.ac.enums.SettingsType;
-import de.tubeof.ac.main.Main;
+import de.tubeof.ac.main.AntiCooldown;
 import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
@@ -14,8 +14,8 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 
 public class SwitchWorld implements Listener {
 
-    private Data data = Main.getData();
-    private Messages messages = Main.getMessages();
+    private Data data = AntiCooldown.getData();
+    private Messages messages = AntiCooldown.getMessages();
 
 
     @EventHandler
@@ -24,7 +24,7 @@ public class SwitchWorld implements Listener {
         Player player = event.getPlayer();
         String world = event.getTo().getWorld().getName();
 
-        Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getMain(), () -> {
+        Bukkit.getScheduler().scheduleSyncDelayedTask(AntiCooldown.getInstance(), () -> {
             if (data.isWorldDisabled(world)) {
                 player.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(4);
                 if (data.getBooleanSettings(SettingsType.USE_SWITCH_WORLD_MESSAGES))  player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + messages.getTextMessage(MessageType.SWITCH_WORLD_DISABLED));

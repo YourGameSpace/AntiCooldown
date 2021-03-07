@@ -1,6 +1,6 @@
 package de.tubeof.ac.listener;
 
-import de.tubeof.ac.main.Main;
+import de.tubeof.ac.main.AntiCooldown;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -38,7 +38,7 @@ public class ItemRestriction implements Listener {
     public void onItemPickup(PlayerPickupItemEvent event) {
         if(event.isCancelled()) return;
 
-        Bukkit.getScheduler().runTaskLater(Main.getMain(), () -> {
+        Bukkit.getScheduler().runTaskLater(AntiCooldown.getInstance(), () -> {
             Player player = event.getPlayer();
             ItemStack item = player.getInventory().getItemInMainHand();
             if(item == null) return;
