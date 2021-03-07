@@ -6,7 +6,7 @@
 
     <groupId>de.tubeof</groupId>
     <artifactId>AntiCooldown</artifactId>
-    <version>3.6.4-PRE</version>
+    <version>SNAPSHOT-XXX</version>
     <packaging>jar</packaging>
 
     <properties>

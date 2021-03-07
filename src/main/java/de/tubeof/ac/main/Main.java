@@ -26,8 +26,6 @@ public class Main extends JavaPlugin {
     private final ConsoleCommandSender ccs = Bukkit.getConsoleSender();
     private final PluginManager pluginManager = Bukkit.getPluginManager();
 
-    private float downloadProgress = 0;
-
     @Override
     public void onEnable() {
         ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§aThe Plugin will be activated ...");
