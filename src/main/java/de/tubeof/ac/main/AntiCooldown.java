@@ -72,7 +72,7 @@ public class AntiCooldown extends JavaPlugin {
         pluginManager.registerEvents(new Quit(), this);
         pluginManager.registerEvents(new SwitchWorld(), this);
         pluginManager.registerEvents(new SweepAttack(), this);
-        pluginManager.registerEvents(new ItemRestriction(), this);
+        //pluginManager.registerEvents(new ItemRestriction(), this);
 
         ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§aListeners have been successfully registered!");
     }

@@ -14,8 +14,8 @@ public class SweepAttack implements Listener {
 
     @EventHandler
     public void onSweep(EntityDamageByEntityEvent event) {
-        if(event.getCause() != EntityDamageEvent.DamageCause.ENTITY_SWEEP_ATTACK) return;;
         if(!data.getBooleanSettings(SettingsType.DISABLE_SWEEP_ATTACK)) return;
+        if(event.getCause() != EntityDamageEvent.DamageCause.ENTITY_SWEEP_ATTACK) return;;
         event.setCancelled(true);
     }
 }
