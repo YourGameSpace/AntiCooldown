@@ -170,6 +170,34 @@ public class AntiCooldown implements CommandExecutor {
                 }
                 return true;
             }
+            else if(arg.equalsIgnoreCase("fixPlayerData")) {
+                File playerDataFolder = new File(world + "/playerdata");
+                if(!playerDataFolder.exists()) {
+                    player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§cNo world with this name could be found!");
+                    return true;
+                }
+                String[] uuids = playerDataFolder.list();
+                for(String playerDataFileName : uuids) {
+                    player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§aStarting fix for Playerdata-File §e" + playerDataFileName);
+
+                    try {
+                        File playerDataFile = new File(world + "/playerdata/" + playerDataFileName);
+                        NBTFile nbtPlayerFile = new NBTFile(playerDataFile);
+                        NBTList list = nbtPlayerFile.getCompoundList("Attributes");
+                        for (int i = 0; i < list.size(); i++) {
+                            NBTListCompound lc = (NBTListCompound) list.get(i);
+                            if (lc.getString("Name").equals("generic.attackSpeed")) {
+                                lc.setDouble("Base", 4D);
+                            }
+                        }
+                        nbtPlayerFile.save();
+                    } catch (IOException exception) {
+                        exception.printStackTrace();
+                        player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§cAn error has occurred! A detailed error report can be taken from the log!");
+                    }
+                }
+                return true;
+            }
             else {
                 sendUsageMessage(player);
                 return true;
