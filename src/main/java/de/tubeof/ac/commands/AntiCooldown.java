@@ -1,5 +1,8 @@
 package de.tubeof.ac.commands;
 
+import de.tr7zw.changeme.nbtapi.NBTFile;
+import de.tr7zw.changeme.nbtapi.NBTList;
+import de.tr7zw.changeme.nbtapi.NBTListCompound;
 import de.tubeof.ac.data.Messages;
 import de.tubeof.ac.enums.MessageType;
 import de.tubeof.ac.data.Data;
@@ -11,6 +14,10 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class AntiCooldown implements CommandExecutor {
 
@@ -25,12 +32,7 @@ public class AntiCooldown implements CommandExecutor {
         }
         Player player = (Player) commandSender;
         if(args.length > 2) {
-            player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§cWrong usage!");
-            player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§7> §e/anticooldown");
-            player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§7> §e/anticooldown help");
-            player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§7> §e/anticooldown listDisabledWorlds");
-            player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§7> §e/anticooldown enableWorld [<World>]");
-            player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§7> §e/anticooldown disableWorld [<World>]");
+            sendUsageMessage(player);
             return true;
         }
 
@@ -51,11 +53,7 @@ public class AntiCooldown implements CommandExecutor {
 
         if(args.length == 1) {
             if(arg.equalsIgnoreCase("help")) {
-                player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§7> §e/anticooldown");
-                player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§7> §e/anticooldown help");
-                player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§7> §e/anticooldown listDisabledWorlds");
-                player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§7> §e/anticooldown enableWorld [<World>]");
-                player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§7> §e/anticooldown disableWorld [<World>]");
+                sendUsageMessage(player);
                 return true;
             }
             else if(arg.equalsIgnoreCase("listDisabledWorlds")) {
@@ -100,13 +98,39 @@ public class AntiCooldown implements CommandExecutor {
                 }
                 return true;
             }
+            else if(arg.equalsIgnoreCase("fixPlayerData")) {
+                ArrayList<String> worlds = new ArrayList<>();
+                for(World world : Bukkit.getWorlds()) {
+                    worlds.add(world.getName());
+                }
+
+                for(String world : worlds) {
+                    File playerDataFolder = new File(world + "/playerdata");
+                    String[] uuids = playerDataFolder.list();
+                    for(String playerDataFileName : uuids) {
+                        player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§aStarting fix for Playerdata-File §e" + playerDataFileName);
+
+                        try {
+                            File playerDataFile = new File(world + "/playerdata/" + playerDataFileName);
+                            NBTFile nbtPlayerFile = new NBTFile(playerDataFile);
+                            NBTList list = nbtPlayerFile.getCompoundList("Attributes");
+                            for (int i = 0; i < list.size(); i++) {
+                                NBTListCompound lc = (NBTListCompound) list.get(i);
+                                if (lc.getString("Name").equals("generic.attackSpeed")) {
+                                    lc.setDouble("Base", 4D);
+                                }
+                            }
+                            nbtPlayerFile.save();
+                        } catch (IOException exception) {
+                            exception.printStackTrace();
+                            player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§cAn error has occurred! A detailed error report can be taken from the log!");
+                        }
+                    }
+                }
+                return true;
+            }
             else {
-                player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§cWrong usage!");
-                player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§7> §e/anticooldown");
-                player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§7> §e/anticooldown help");
-                player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§7> §e/anticooldown listDisabledWorlds");
-                player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§7> §e/anticooldown enableWorld [<World>]");
-                player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§7> §e/anticooldown disableWorld [<World>]");
+                sendUsageMessage(player);
                 return true;
             }
         }
@@ -147,15 +171,20 @@ public class AntiCooldown implements CommandExecutor {
                 return true;
             }
             else {
-                player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§cWrong usage!");
-                player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§7> §e/anticooldown");
-                player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§7> §e/anticooldown help");
-                player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§7> §e/anticooldown listDisabledWorlds");
-                player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§7> §e/anticooldown enableWorld [<World>]");
-                player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§7> §e/anticooldown disableWorld [<World>]");
+                sendUsageMessage(player);
                 return true;
             }
         }
         return true;
+    }
+    
+    private void sendUsageMessage(Player player) {
+        player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§cWrong usage!");
+        player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§7> §e/anticooldown");
+        player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§7> §e/anticooldown help");
+        player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§7> §e/anticooldown listDisabledWorlds");
+        player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§7> §e/anticooldown enableWorld [<World>]");
+        player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§7> §e/anticooldown disableWorld [<World>]");
+        player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§7> §e/anticooldown fixPlayerData [<World>]");
     }
 }
