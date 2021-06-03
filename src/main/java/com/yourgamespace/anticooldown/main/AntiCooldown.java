@@ -9,7 +9,6 @@ import com.yourgamespace.anticooldown.listener.Join;
 import com.yourgamespace.anticooldown.listener.Quit;
 import com.yourgamespace.anticooldown.listener.SweepAttack;
 import com.yourgamespace.anticooldown.listener.SwitchWorld;
-import de.tubeof.ac.listener.*;
 import com.yourgamespace.anticooldown.utils.Metrics;
 import com.yourgamespace.anticooldown.utils.UpdateChecker;
 import org.bukkit.Bukkit;
