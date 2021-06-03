@@ -60,7 +60,7 @@ public class AntiCooldown extends JavaPlugin {
 
         Config.cfgConfig();
         Config.setChache();
-        if(data.getConfigVersion() != 6) Config.configUpdateMessage();
+        if(data.getConfigVersion() != 7) Config.configUpdateMessage();
 
         ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§aConfig Files was successfully loaded!");
     }
