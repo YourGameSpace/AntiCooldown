@@ -32,8 +32,8 @@
 
     <repositories>
         <repository>
-            <id>repo.tubeof</id>
-            <url>https://hub.tubeof.de/repo/</url>
+            <id>repo.yourgamespace</id>
+            <url>https://hub.yourgamespace.com/repo/</url>
         </repository>
 
         <repository>
