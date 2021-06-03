@@ -1,7 +1,7 @@
 name: AntiCooldown
 version: 3.6.4-PRE
 api-version: 1.13
-main: de.tubeof.ac.main.AntiCooldown
+main: com.yourgamespace.anticooldown.main.AntiCooldown
 commands:
   anticooldown:
     usage: </command>

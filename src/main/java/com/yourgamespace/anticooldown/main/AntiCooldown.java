@@ -1,13 +1,17 @@
-package de.tubeof.ac.main;
+package com.yourgamespace.anticooldown.main;
 
-import de.tubeof.ac.data.Data;
-import de.tubeof.ac.data.Messages;
-import de.tubeof.ac.enums.MessageType;
-import de.tubeof.ac.enums.SettingsType;
-import de.tubeof.ac.files.Config;
+import com.yourgamespace.anticooldown.data.Data;
+import com.yourgamespace.anticooldown.data.Messages;
+import com.yourgamespace.anticooldown.enums.MessageType;
+import com.yourgamespace.anticooldown.enums.SettingsType;
+import com.yourgamespace.anticooldown.files.Config;
+import com.yourgamespace.anticooldown.listener.Join;
+import com.yourgamespace.anticooldown.listener.Quit;
+import com.yourgamespace.anticooldown.listener.SweepAttack;
+import com.yourgamespace.anticooldown.listener.SwitchWorld;
 import de.tubeof.ac.listener.*;
-import de.tubeof.ac.utils.Metrics;
-import de.tubeof.ac.utils.UpdateChecker;
+import com.yourgamespace.anticooldown.utils.Metrics;
+import com.yourgamespace.anticooldown.utils.UpdateChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.command.ConsoleCommandSender;
@@ -81,7 +85,7 @@ public class AntiCooldown extends JavaPlugin {
     private void registerCommands() {
         ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§aCommands will be registered ...");
 
-        getCommand("anticooldown").setExecutor(new de.tubeof.ac.commands.AntiCooldown());
+        getCommand("anticooldown").setExecutor(new com.yourgamespace.anticooldown.commands.AntiCooldown());
 
         ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§aCommands have been successfully registered!");
     }
