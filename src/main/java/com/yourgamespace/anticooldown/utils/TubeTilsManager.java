@@ -15,10 +15,12 @@ import java.util.TimerTask;
 
 public class TubeTilsManager {
 
-    private String version;
-    private Plugin runningPlugin;
+    private final String snapshot;
+    private final String version;
+    private final Plugin runningPlugin;
 
-    public TubeTilsManager(Plugin plugin, String version, boolean autoRun) {
+    public TubeTilsManager(Plugin plugin, String snapshot, String version, boolean autoRun) {
+        this.snapshot = snapshot;
         this.version = version;
         this.runningPlugin = plugin;
 
@@ -32,13 +34,13 @@ public class TubeTilsManager {
     @SuppressWarnings("ConstantConditions")
     public void check() {
         if(!isInstalled()) {
-            download(version);
+            download(snapshot);
             enablePlugin();
             return;
         }
 
         if(isInstalled()) {
-            if(!getVersion().equals(version)) download(version);
+            if(!getVersion().equals(version)) download(snapshot);
         }
     }
 
@@ -51,9 +53,9 @@ public class TubeTilsManager {
     }
 
     private float downloadProgress = 0;
-    private void download(String version) {
+    private void download(String downloadSnapshot) {
         try {
-            URL url = new URL("https://hub.yourgamespace.com/repo/de/tubeof/TubeTils/" + version + "/TubeTils-" + version + ".jar");
+            URL url = new URL("https://hub.yourgamespace.com/repo/de/tubeof/TubeTils/" + downloadSnapshot + "/TubeTils-" + downloadSnapshot + ".jar");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestProperty("User-Agent", "TubeApiBridgeConnector");
             connection.setRequestProperty("Header-Token", "SD998FS0FG07");
