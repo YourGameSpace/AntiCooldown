@@ -1,13 +1,16 @@
 package com.yourgamespace.anticooldown.data;
 
-import com.yourgamespace.anticooldown.files.Config;
+import com.yourgamespace.anticooldown.files.PluginConfig;
 import com.yourgamespace.anticooldown.enums.SettingsType;
+import com.yourgamespace.anticooldown.main.AntiCooldown;
 
 import java.util.ArrayList;
 
 public class Data {
 
     public Data() {}
+
+    private final PluginConfig pluginConfig = AntiCooldown.getPluginConfig();
 
     private boolean useSwitchWorldMessage;
     private boolean useLoginMessage;
@@ -35,12 +38,12 @@ public class Data {
 
     public void disabledWorld(String world) {
         disabledWorlds.add(world);
-        Config.setDisabledWorld(world, true);
+        pluginConfig.setDisabledWorld(world, true);
     }
 
     public void enableWorld(String world) {
         disabledWorlds.remove(world);
-        Config.setDisabledWorld(world, false);
+        pluginConfig.setDisabledWorld(world, false);
     }
 
     public void addDisableWorldToCache(String world) {

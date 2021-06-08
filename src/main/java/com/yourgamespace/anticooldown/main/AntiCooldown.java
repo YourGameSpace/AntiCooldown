@@ -1,15 +1,15 @@
 package com.yourgamespace.anticooldown.main;
 
+import com.yourgamespace.anticooldown.commands.CmdAntiCooldown;
 import com.yourgamespace.anticooldown.data.Data;
-import com.yourgamespace.anticooldown.data.Messages;
-import com.yourgamespace.anticooldown.enums.MessageType;
 import com.yourgamespace.anticooldown.enums.SettingsType;
-import com.yourgamespace.anticooldown.files.Config;
+import com.yourgamespace.anticooldown.files.PluginConfig;
 import com.yourgamespace.anticooldown.listener.Join;
 import com.yourgamespace.anticooldown.listener.Quit;
 import com.yourgamespace.anticooldown.listener.SweepAttack;
 import com.yourgamespace.anticooldown.listener.SwitchWorld;
 import com.yourgamespace.anticooldown.utils.Metrics;
+import de.tubeof.tubetils.api.cache.CacheContainer;
 import de.tubeof.tubetils.api.updatechecker.UpdateChecker;
 import de.tubeof.tubetils.api.updatechecker.enums.ApiMethode;
 import de.tubeof.tubetilsmanager.TubeTilsManager;
@@ -24,28 +24,29 @@ import java.io.IOException;
 
 public class AntiCooldown extends JavaPlugin {
 
-    private final TubeTilsManager tubeTilsManager = new TubeTilsManager("§7[§3AntiCooldownLogger§7] ", this, "SNAPSHOT-46", "1.0.2", false);
+    private final TubeTilsManager tubeTilsManager = new TubeTilsManager("§7[§3AntiCooldownLogger§7] ", this, "SNAPSHOT-46", "1.0.2", true);
 
     private final ConsoleCommandSender ccs = Bukkit.getConsoleSender();
     private final PluginManager pluginManager = Bukkit.getPluginManager();
 
-    private final static Messages messages = new Messages();
+    private final static CacheContainer cacheContainer = new CacheContainer("AntiCooldown", String.class, "STARTUP_PREFIX", "§7[§3AntiCooldownLogger§7] ");
     private final static Data data = new Data();
+    private final static PluginConfig pluginConfig = new PluginConfig();
 
     private static AntiCooldown main;
-    private static Object cacheContainer;
 
     @Override
     public void onEnable() {
-        ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§aThe Plugin will be activated ...");
+        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aThe Plugin will be activated ...");
 
         main = this;
         tubeTilsManager.check();
 
-        ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "==================================================");
-        ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "JOIN MY DISCORD OUR: §ehttps://discord.gg/73ZDfbx");
-        ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "==================================================");
+        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "==================================================");
+        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "JOIN MY DISCORD OUR: §ehttps://discord.gg/73ZDfbx");
+        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "==================================================");
 
+        setupCache();
         manageConfigs();
         registerListener();
         registerCommands();
@@ -54,30 +55,36 @@ public class AntiCooldown extends JavaPlugin {
         setOnlinePlayersCooldown();
         bStats();
 
-        ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§aThe plugin was successfully activated!");
+        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aThe plugin was successfully activated!");
     }
 
     @Override
     public void onDisable() {
-        ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§aThe Plugin will be deactivated ...");
+        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aThe Plugin will be deactivated ...");
 
         setDefaultCooldown();
 
-        ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§aThe plugin was successfully deactivated!");
+        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aThe plugin was successfully deactivated!");
+    }
+
+    private void setupCache() {
+        getCacheContainer().registerCacheType(String.class);
+        getCacheContainer().registerCacheType(Boolean.class);
+        getCacheContainer().registerCacheType(Integer.class);
     }
 
     private void manageConfigs() {
-        ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§aLoading Config Files ...");
+        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aLoading Config Files ...");
 
-        Config.cfgConfig();
-        Config.setChache();
-        if(data.getConfigVersion() != 7) Config.configUpdateMessage();
+        pluginConfig.cfgConfig();
+        pluginConfig.setChache();
+        if(data.getConfigVersion() != 7) pluginConfig.configUpdateMessage();
 
-        ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§aConfig Files was successfully loaded!");
+        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aConfig Files was successfully loaded!");
     }
 
     private void registerListener() {
-        ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§aListeners will be registered ...");
+        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aListeners will be registered ...");
 
         pluginManager.registerEvents(new Join(), this);
         pluginManager.registerEvents(new Quit(), this);
@@ -85,34 +92,33 @@ public class AntiCooldown extends JavaPlugin {
         pluginManager.registerEvents(new SweepAttack(), this);
         //pluginManager.registerEvents(new ItemRestriction(), this);
 
-        ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§aListeners have been successfully registered!");
+        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aListeners have been successfully registered!");
     }
 
     @SuppressWarnings("ConstantConditions")
     private void registerCommands() {
-        ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§aCommands will be registered ...");
+        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aCommands will be registered ...");
 
-        getCommand("anticooldown").setExecutor(new com.yourgamespace.anticooldown.commands.AntiCooldown());
+        getCommand("anticooldown").setExecutor(new CmdAntiCooldown());
 
-        ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§aCommands have been successfully registered!");
+        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aCommands have been successfully registered!");
     }
 
     private void checkUpdate() {
         if(!data.getBooleanSettings(SettingsType.USE_UPDATE_CHECKER)) {
-            ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§cCheck for updates disabled. The check will be skipped!");
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cCheck for updates disabled. The check will be skipped!");
             return;
         }
 
-        ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§aChecking for updates ...");
+        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aChecking for updates ...");
         try {
             UpdateChecker updateChecker = new UpdateChecker(51321, this, ApiMethode.YOURGAMESPACE, false);
             if(updateChecker.isOutdated()) {
                 data.setUpdateAvailable(true);
-                if(data.getBooleanSettings(SettingsType.UPDATE_NOTIFY_CONSOLE)) ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§cAn update was found! (v" + updateChecker.getLatestVersion() + ") Download here: " + updateChecker.getDownloadUrl());
-                return;
+                if(data.getBooleanSettings(SettingsType.UPDATE_NOTIFY_CONSOLE)) ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cAn update was found! (v" + updateChecker.getLatestVersion() + ") Download here: " + updateChecker.getDownloadUrl());
             }
         } catch (IOException exception) {
-            ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§cAn error occurred while checking for updates!");
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cAn error occurred while checking for updates!");
             exception.printStackTrace();
         }
     }
@@ -136,19 +142,23 @@ public class AntiCooldown extends JavaPlugin {
 
     @SuppressWarnings("unused")
     private void bStats() {
-        ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§aLoad and activate bStats ...");
+        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aLoad and activate bStats ...");
 
         Metrics metrics = new Metrics(this, 3440);
 
-        ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§abStats was successfully loaded and activated!");
+        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§abStats was successfully loaded and activated!");
     }
 
-    public static Messages getMessages() {
-        return messages;
+    public static PluginConfig getPluginConfig() {
+        return pluginConfig;
     }
 
     public static Data getData() {
         return data;
+    }
+
+    public static CacheContainer getCacheContainer() {
+        return cacheContainer;
     }
 
     public static AntiCooldown getInstance() {

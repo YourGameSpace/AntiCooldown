@@ -1,10 +1,9 @@
 package com.yourgamespace.anticooldown.files;
 
 import com.yourgamespace.anticooldown.data.Data;
-import com.yourgamespace.anticooldown.data.Messages;
-import com.yourgamespace.anticooldown.enums.MessageType;
 import com.yourgamespace.anticooldown.enums.SettingsType;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
+import de.tubeof.tubetils.api.cache.CacheContainer;
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -13,23 +12,25 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.util.List;
 
-public class Config {
+public class PluginConfig {
 
-    private static ConsoleCommandSender ccs = Bukkit.getConsoleSender();
-    private static Messages messages = AntiCooldown.getMessages();
-    private static Data data = AntiCooldown.getData();
+    private final ConsoleCommandSender ccs = Bukkit.getConsoleSender();
+    private final Data data = AntiCooldown.getData();
+    private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
+
+    public PluginConfig() {}
 
     private static File file = new File("plugins/AntiCooldown", "Config.yml");
     private static FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 
-    public static void configUpdateMessage() {
-        ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§e######################################################################");
-        ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§cA new config is included in the update!");
-        ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§cPlease delete the old config so that the changes will be applied.");
-        ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§e######################################################################");
+    public void configUpdateMessage() {
+        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§e######################################################################");
+        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cA new config is included in the update!");
+        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cPlease delete the old config so that the changes will be applied.");
+        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§e######################################################################");
     }
 
-    private static void saveCFG() {
+    private void saveCFG() {
         try {
             cfg.save(file);
         } catch (Exception ex) {
@@ -37,7 +38,7 @@ public class Config {
         }
     }
 
-    public static void cfgConfig() {
+    public void cfgConfig() {
         cfg.options().copyDefaults(true);
 
         //Messages
@@ -74,26 +75,26 @@ public class Config {
             try {
                 file.createNewFile();
             } catch (Exception localExeption) {
-                ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§cConfig.yml could not be created!");
+                ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cConfig.yml could not be created!");
             }
         }
     }
 
-    public static void setChache() {
-        ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§aConfig values are loaded into the cache ...");
+    public void setChache() {
+        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aConfig values are loaded into the cache ...");
 
         //Messages
-        messages.setTextMessages(MessageType.PREFIX, cfg.getString("Messages.Prefix"));
-        messages.setTextMessages(MessageType.SWITCH_WORLD_ENABLED, cfg.getString("Messages.Switch.WorldEnabled"));
-        messages.setTextMessages(MessageType.SWITCH_WORLD_DISABLED, cfg.getString("Messages.Switch.WorldDisabled"));
-        messages.setTextMessages(MessageType.LOGIN_ENABLED, cfg.getString("Messages.Login.Enabled"));
-        messages.setTextMessages(MessageType.LOGIN_DISABLED, cfg.getString("Messages.Login.Disabled"));
-        messages.setTextMessages(MessageType.SETTING_ADD_DISABLED_WORLD, cfg.getString("Messages.Setting.AddDisabledWorld"));
-        messages.setTextMessages(MessageType.SETTING_REMOVE_DISABLED_WORLD, cfg.getString("Messages.Setting.RemoveDisabledWorld"));
-        messages.setTextMessages(MessageType.ERROR_WORLD_ALRADY_LISTED, cfg.getString("Messages.Error.WorldAlreadyDisabled"));
-        messages.setTextMessages(MessageType.ERROR_WORLD_NOT_LISTED, cfg.getString("Messages.Error.WorldAlreadyEnabled"));
-        messages.setTextMessages(MessageType.ERROR_PLAYER_NOT_ONLINE, cfg.getString("Messages.Error.PlayerNotOnline"));
-        messages.setTextMessages(MessageType.ERROR_NO_PERMISSIONS, cfg.getString("Messages.Error.NoPerms"));
+        cacheContainer.add(String.class, "PREFIX", cfg.getString("Messages.Prefix"));
+        cacheContainer.add(String.class, "SWITCH_WORLD_ENABLED", cfg.getString("Messages.Switch.WorldEnabled"));
+        cacheContainer.add(String.class, "SWITCH_WORLD_DISABLED", cfg.getString("Messages.Switch.WorldDisabled"));
+        cacheContainer.add(String.class, "LOGIN_ENABLED", cfg.getString("Messages.Login.Enabled"));
+        cacheContainer.add(String.class, "LOGIN_DISABLED", cfg.getString("Messages.Login.Disabled"));
+        cacheContainer.add(String.class, "SETTING_ADD_DISABLED_WORLD", cfg.getString("Messages.Setting.AddDisabledWorld"));
+        cacheContainer.add(String.class, "SETTING_REMOVE_DISABLED_WORLD", cfg.getString("Messages.Setting.RemoveDisabledWorld"));
+        cacheContainer.add(String.class, "ERROR_WORLD_ALRADY_LISTED", cfg.getString("Messages.Error.WorldAlreadyDisabled"));
+        cacheContainer.add(String.class, "ERROR_WORLD_NOT_LISTED", cfg.getString("Messages.Error.WorldAlreadyEnabled"));
+        cacheContainer.add(String.class, "ERROR_PLAYER_NOT_ONLINE", cfg.getString("Messages.Error.PlayerNotOnline"));
+        cacheContainer.add(String.class, "ERROR_NO_PERMISSIONS", cfg.getString("Messages.Error.NoPerms"));
 
         //Settings
         data.setBooleanSettings(SettingsType.USE_LOGIN_MESSAGES, cfg.getBoolean("Settings.Messages.UseLoginMessage"));
@@ -108,13 +109,13 @@ public class Config {
 
         for (String disabledWorld : cfg.getStringList("Settings.DisabledWorlds")) {
             data.addDisableWorldToCache(disabledWorld);
-            ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§aWorld §e" + disabledWorld + " §adisabled!");
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aWorld §e" + disabledWorld + " §adisabled!");
         }
 
-        ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§aConfig values were successfully cached!");
+        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aConfig values were successfully cached!");
     }
 
-    public static void setDisabledWorld(String world, boolean bol) {
+    public void setDisabledWorld(String world, boolean bol) {
         List<String> disabledWorlds = cfg.getStringList("Settings.DisabledWorlds");
 
         if(bol) {
