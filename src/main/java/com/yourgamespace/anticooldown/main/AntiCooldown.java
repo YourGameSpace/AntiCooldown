@@ -10,13 +10,16 @@ import com.yourgamespace.anticooldown.listener.Quit;
 import com.yourgamespace.anticooldown.listener.SweepAttack;
 import com.yourgamespace.anticooldown.listener.SwitchWorld;
 import com.yourgamespace.anticooldown.utils.Metrics;
-import com.yourgamespace.anticooldown.utils.UpdateChecker;
+import de.tubeof.tubetils.api.updatechecker.UpdateChecker;
+import de.tubeof.tubetils.api.updatechecker.enums.ApiMethode;
 import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.IOException;
 
 public class AntiCooldown extends JavaPlugin {
 
@@ -96,24 +99,16 @@ public class AntiCooldown extends JavaPlugin {
         }
 
         ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§aChecking for updates ...");
-        UpdateChecker updateChecker = new UpdateChecker(51321, this);
-
-        if(updateChecker.getUpdateCheckResult() == UpdateChecker.UpdateCheckResult.UP_TO_DATE) {
-            data.setUpdateAvailable(false);
-            ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§aNo update available!");
-            return;
-        }
-        if(updateChecker.getUpdateCheckResult() == UpdateChecker.UpdateCheckResult.OUT_DATED) {
-            data.setUpdateAvailable(true);
-            if(data.getBooleanSettings(SettingsType.UPDATE_NOTIFY_CONSOLE)) ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§cAn update was found! Download here: " + updateChecker.getResourceURL());
-            return;
-        }
-        if(updateChecker.getUpdateCheckResult() == UpdateChecker.UpdateCheckResult.UNRELEASED) {
-            ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§aThis version will be released in the future!");
-            return;
-        }
-        if(updateChecker.getUpdateCheckResult() == UpdateChecker.UpdateCheckResult.NO_RESULT) {
-            ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§cAn error occurred in the dpdate checker. Possibly the API is currently offline.");
+        try {
+            UpdateChecker updateChecker = new UpdateChecker(51321, this, ApiMethode.YOURGAMESPACE, false);
+            if(updateChecker.isOutdated()) {
+                data.setUpdateAvailable(true);
+                if(data.getBooleanSettings(SettingsType.UPDATE_NOTIFY_CONSOLE)) ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§cAn update was found! (v" + updateChecker.getLatestVersion() + " Download here: " + updateChecker.getDownloadUrl());
+                return;
+            }
+        } catch (IOException exception) {
+            ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§cAn error occurred while checking for updates!");
+            exception.printStackTrace();
         }
     }
 
