@@ -103,7 +103,7 @@ public class AntiCooldown extends JavaPlugin {
             UpdateChecker updateChecker = new UpdateChecker(51321, this, ApiMethode.YOURGAMESPACE, false);
             if(updateChecker.isOutdated()) {
                 data.setUpdateAvailable(true);
-                if(data.getBooleanSettings(SettingsType.UPDATE_NOTIFY_CONSOLE)) ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§cAn update was found! (v" + updateChecker.getLatestVersion() + " Download here: " + updateChecker.getDownloadUrl());
+                if(data.getBooleanSettings(SettingsType.UPDATE_NOTIFY_CONSOLE)) ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§cAn update was found! (v" + updateChecker.getLatestVersion() + ") Download here: " + updateChecker.getDownloadUrl());
                 return;
             }
         } catch (IOException exception) {
