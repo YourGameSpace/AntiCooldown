@@ -1,7 +1,11 @@
 name: AntiCooldown
 version: 3.6.4-PRE
 api-version: 1.13
+
 main: com.yourgamespace.anticooldown.main.AntiCooldown
+softdepend:
+  - TubeTils
+
 commands:
   anticooldown:
     usage: </command>
