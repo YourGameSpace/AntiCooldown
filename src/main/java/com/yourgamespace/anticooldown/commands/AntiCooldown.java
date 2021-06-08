@@ -29,13 +29,6 @@ public class AntiCooldown implements CommandExecutor {
             return true;
         }
 
-        //Default Plugin Message
-        if(args.length == 0) {
-            player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§3AntiCooldown §afrom §eTUBEOF §ais running on this server.");
-            player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§eDownload §anow for §efree:§6 https://www.spigotmc.org/resources/51321/");
-            return true;
-        }
-
         //Admin Area
         if(!(player.hasPermission("anticooldown.settings"))) {
             player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + messages.getTextMessage(MessageType.ERROR_NO_PERMISSIONS));
