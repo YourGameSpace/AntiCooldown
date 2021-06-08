@@ -3,9 +3,6 @@ package com.yourgamespace.anticooldown.commands;
 import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.data.Messages;
 import com.yourgamespace.anticooldown.enums.MessageType;
-import de.tr7zw.changeme.nbtapi.NBTFile;
-import de.tr7zw.changeme.nbtapi.NBTList;
-import de.tr7zw.changeme.nbtapi.NBTListCompound;
 import com.yourgamespace.anticooldown.enums.SettingsType;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -14,10 +11,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class AntiCooldown implements CommandExecutor {
 
@@ -98,37 +91,6 @@ public class AntiCooldown implements CommandExecutor {
                 }
                 return true;
             }
-            else if(arg.equalsIgnoreCase("fixPlayerData")) {
-                ArrayList<String> worlds = new ArrayList<>();
-                for(World world : Bukkit.getWorlds()) {
-                    worlds.add(world.getName());
-                }
-
-                for(String world : worlds) {
-                    File playerDataFolder = new File(world + "/playerdata");
-                    String[] uuids = playerDataFolder.list();
-                    for(String playerDataFileName : uuids) {
-                        player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§aStarting fix for Playerdata-File §e" + playerDataFileName);
-
-                        try {
-                            File playerDataFile = new File(world + "/playerdata/" + playerDataFileName);
-                            NBTFile nbtPlayerFile = new NBTFile(playerDataFile);
-                            NBTList list = nbtPlayerFile.getCompoundList("Attributes");
-                            for (int i = 0; i < list.size(); i++) {
-                                NBTListCompound lc = (NBTListCompound) list.get(i);
-                                if (lc.getString("Name").equals("generic.attackSpeed")) {
-                                    lc.setDouble("Base", 4D);
-                                }
-                            }
-                            nbtPlayerFile.save();
-                        } catch (IOException exception) {
-                            exception.printStackTrace();
-                            player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§cAn error has occurred! A detailed error report can be taken from the log!");
-                        }
-                    }
-                }
-                return true;
-            }
             else {
                 sendUsageMessage(player);
                 return true;
@@ -167,34 +129,6 @@ public class AntiCooldown implements CommandExecutor {
                 if(bukkitWorld == null) return true;
                 for(Player worldPlayer : bukkitWorld.getPlayers()) {
                     worldPlayer.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(4);
-                }
-                return true;
-            }
-            else if(arg.equalsIgnoreCase("fixPlayerData")) {
-                File playerDataFolder = new File(world + "/playerdata");
-                if(!playerDataFolder.exists()) {
-                    player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§cNo world with this name could be found!");
-                    return true;
-                }
-                String[] uuids = playerDataFolder.list();
-                for(String playerDataFileName : uuids) {
-                    player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§aStarting fix for Playerdata-File §e" + playerDataFileName);
-
-                    try {
-                        File playerDataFile = new File(world + "/playerdata/" + playerDataFileName);
-                        NBTFile nbtPlayerFile = new NBTFile(playerDataFile);
-                        NBTList list = nbtPlayerFile.getCompoundList("Attributes");
-                        for (int i = 0; i < list.size(); i++) {
-                            NBTListCompound lc = (NBTListCompound) list.get(i);
-                            if (lc.getString("Name").equals("generic.attackSpeed")) {
-                                lc.setDouble("Base", 4D);
-                            }
-                        }
-                        nbtPlayerFile.save();
-                    } catch (IOException exception) {
-                        exception.printStackTrace();
-                        player.sendMessage(messages.getTextMessage(MessageType.PREFIX) + "§cAn error has occurred! A detailed error report can be taken from the log!");
-                    }
                 }
                 return true;
             }

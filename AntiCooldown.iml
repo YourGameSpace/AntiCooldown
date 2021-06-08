@@ -14,9 +14,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.spigotmc:spigot:1.14.4-R0.1-SNAPSHOT" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: de.tr7zw:nbt-data-api:2.7.1" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: de.tr7zw:item-nbt-api:2.7.1" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: de.tr7zw:functional-annotations:0.1-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.maven.plugins:maven-assembly-plugin:3.3.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.maven:maven-plugin-api:3.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.sonatype.sisu:sisu-inject-plexus:1.4.2" level="project" />
