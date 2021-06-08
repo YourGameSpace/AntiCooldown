@@ -55,7 +55,6 @@
             <groupId>de.tubeof</groupId>
             <artifactId>TubeTils</artifactId>
             <version>SNAPSHOT-46</version>
-            <scope>provided</scope>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-assembly-plugin -->
