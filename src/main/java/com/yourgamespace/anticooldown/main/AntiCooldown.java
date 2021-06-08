@@ -1,5 +1,6 @@
 package com.yourgamespace.anticooldown.main;
 
+import com.sun.xml.internal.ws.api.pipe.Tube;
 import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.data.Messages;
 import com.yourgamespace.anticooldown.enums.MessageType;
@@ -10,6 +11,7 @@ import com.yourgamespace.anticooldown.listener.Quit;
 import com.yourgamespace.anticooldown.listener.SweepAttack;
 import com.yourgamespace.anticooldown.listener.SwitchWorld;
 import com.yourgamespace.anticooldown.utils.Metrics;
+import com.yourgamespace.anticooldown.utils.TubeTilsManager;
 import de.tubeof.tubetils.api.updatechecker.UpdateChecker;
 import de.tubeof.tubetils.api.updatechecker.enums.ApiMethode;
 import org.bukkit.Bukkit;
@@ -23,19 +25,23 @@ import java.io.IOException;
 
 public class AntiCooldown extends JavaPlugin {
 
-
-    private final static Messages messages = new Messages();
-    private final static Data data = new Data();
-    private static AntiCooldown main;
+    private final TubeTilsManager tubeTilsManager = new TubeTilsManager(this, "SNAPSHOT-46", false);
 
     private final ConsoleCommandSender ccs = Bukkit.getConsoleSender();
     private final PluginManager pluginManager = Bukkit.getPluginManager();
+
+    private final static Messages messages = new Messages();
+    private final static Data data = new Data();
+
+    private static AntiCooldown main;
+    private static Object cacheContainer;
 
     @Override
     public void onEnable() {
         ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "§aThe Plugin will be activated ...");
 
         main = this;
+        tubeTilsManager.check();
 
         ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "==================================================");
         ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "JOIN MY DISCORD OUR: §ehttps://discord.gg/73ZDfbx");
