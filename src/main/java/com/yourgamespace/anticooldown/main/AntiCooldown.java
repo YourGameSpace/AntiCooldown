@@ -10,9 +10,9 @@ import com.yourgamespace.anticooldown.listener.Quit;
 import com.yourgamespace.anticooldown.listener.SweepAttack;
 import com.yourgamespace.anticooldown.listener.SwitchWorld;
 import com.yourgamespace.anticooldown.utils.Metrics;
-import com.yourgamespace.anticooldown.utils.TubeTilsManager;
 import de.tubeof.tubetils.api.updatechecker.UpdateChecker;
 import de.tubeof.tubetils.api.updatechecker.enums.ApiMethode;
+import de.tubeof.tubetilsmanager.TubeTilsManager;
 import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.command.ConsoleCommandSender;
@@ -24,7 +24,7 @@ import java.io.IOException;
 
 public class AntiCooldown extends JavaPlugin {
 
-    private final TubeTilsManager tubeTilsManager = new TubeTilsManager(this, "SNAPSHOT-46", "1.0.2", false);
+    private final TubeTilsManager tubeTilsManager = new TubeTilsManager("§7[§3AntiCooldownLogger§7] ", this, "SNAPSHOT-46", "1.0.2", false);
 
     private final ConsoleCommandSender ccs = Bukkit.getConsoleSender();
     private final PluginManager pluginManager = Bukkit.getPluginManager();
