@@ -27,7 +27,7 @@ public class TubeTilsManager {
 
     private final ConsoleCommandSender ccs = Bukkit.getConsoleSender();
     private final PluginManager pluginManager = Bukkit.getPluginManager();
-    private final Plugin plugin = pluginManager.getPlugin("TubeTils");
+    private final Plugin tubeTils = pluginManager.getPlugin("TubeTils");
 
     @SuppressWarnings("ConstantConditions")
     public void check() {
@@ -43,12 +43,11 @@ public class TubeTilsManager {
     }
 
     public String getVersion() {
-        return plugin != null ? plugin.getDescription().getVersion() : null;
+        return tubeTils != null ? tubeTils.getDescription().getVersion() : null;
     }
 
     private boolean isInstalled() {
-        if(plugin == null) return false;
-        else return true;
+        return tubeTils != null;
     }
 
     private float downloadProgress = 0;
@@ -102,8 +101,8 @@ public class TubeTilsManager {
     private void enablePlugin() {
         try {
             File file = new File("plugins/TubeTils.jar");
-            Plugin tubetils = pluginManager.loadPlugin(file);
-            pluginManager.enablePlugin(tubetils);
+            Plugin plugin = pluginManager.loadPlugin(file);
+            pluginManager.enablePlugin(plugin);
         } catch (InvalidPluginException | InvalidDescriptionException exception) {
             ccs.sendMessage("Error while enabling TubeTils! Disabling plugin ...");
             exception.printStackTrace();
