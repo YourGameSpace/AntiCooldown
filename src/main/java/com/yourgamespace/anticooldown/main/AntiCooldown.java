@@ -38,7 +38,7 @@ public class AntiCooldown extends JavaPlugin {
         main = this;
 
         ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "==================================================");
-        ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "JOIN MY DISCORD NOW: §ehttps://discord.gg/73ZDfbx");
+        ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "JOIN MY DISCORD OUR: §ehttps://discord.gg/73ZDfbx");
         ccs.sendMessage(messages.getTextMessage(MessageType.STARTUP_PREFIX) + "==================================================");
 
         manageConfigs();
