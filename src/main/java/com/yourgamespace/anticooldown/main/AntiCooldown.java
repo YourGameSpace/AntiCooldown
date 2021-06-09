@@ -24,7 +24,7 @@ import java.io.IOException;
 
 public class AntiCooldown extends JavaPlugin {
 
-    private final TubeTilsManager tubeTilsManager = new TubeTilsManager("§7[§3AntiCooldownLogger§7] ", this, "SNAPSHOT-46", "1.0.2", true);
+    private final TubeTilsManager tubeTilsManager = new TubeTilsManager("§7[§3AntiCooldownLogger§7] ", this, "SNAPSHOT-47", "1.0.2", true);
 
     private final ConsoleCommandSender ccs = Bukkit.getConsoleSender();
     private final PluginManager pluginManager = Bukkit.getPluginManager();
