@@ -17,14 +17,13 @@ public class Join implements Listener {
     private UpdateChecker updateChecker = AntiCooldown.getUpdateChecker();
     private Data data = AntiCooldown.getData();
     private CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
-    private WorldManager worldManager = AntiCooldown.getWorldManager();
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         String world = player.getLocation().getWorld().getName();
 
-        if (worldManager.isWorldDisabled(world)) {
+        if (WorldManager.isWorldDisabled(world)) {
             if (ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_LOGIN_MESSAGES"))) player.sendMessage(cacheContainer.get(String.class, "PREFIX") + ObjectTransformer.getString(cacheContainer.get(String.class, "LOGIN_DISABLED")));
             return;
         }

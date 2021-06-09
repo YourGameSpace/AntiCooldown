@@ -17,7 +17,6 @@ public class PluginConfig {
     private final ConsoleCommandSender ccs = Bukkit.getConsoleSender();
     private final Data data = AntiCooldown.getData();
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
-    private final WorldManager worldManager = AntiCooldown.getWorldManager();
 
     public PluginConfig() {}
 
@@ -109,7 +108,7 @@ public class PluginConfig {
         data.setConfigVersion(cfg.getInt("ConfigVersion"));
 
         for (String disabledWorld : cfg.getStringList("Settings.DisabledWorlds")) {
-            worldManager.addCache(disabledWorld);
+            WorldManager.addCache(disabledWorld);
             ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aWorld §e" + disabledWorld + " §adisabled!");
         }
 
