@@ -1,8 +1,8 @@
 package com.yourgamespace.anticooldown.files;
 
 import com.yourgamespace.anticooldown.data.Data;
-import com.yourgamespace.anticooldown.enums.SettingsType;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
+import com.yourgamespace.anticooldown.utils.WorldManager;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
@@ -18,10 +18,12 @@ public class PluginConfig {
     private final Data data = AntiCooldown.getData();
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
 
+    private final WorldManager worldManager = new WorldManager();
+
     public PluginConfig() {}
 
-    private static File file = new File("plugins/AntiCooldown", "Config.yml");
-    private static FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
+    private File file = new File("plugins/AntiCooldown", "Config.yml");
+    private FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 
     public void configUpdateMessage() {
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§e######################################################################");
@@ -80,7 +82,7 @@ public class PluginConfig {
         }
     }
 
-    public void setChache() {
+    public void setCache() {
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aConfig values are loaded into the cache ...");
 
         //Messages
@@ -97,18 +99,18 @@ public class PluginConfig {
         cacheContainer.add(String.class, "ERROR_NO_PERMISSIONS", cfg.getString("Messages.Error.NoPerms"));
 
         //Settings
-        data.setBooleanSettings(SettingsType.USE_LOGIN_MESSAGES, cfg.getBoolean("Settings.Messages.UseLoginMessage"));
-        data.setBooleanSettings(SettingsType.USE_SWITCH_WORLD_MESSAGES, cfg.getBoolean("Settings.Messages.UseSwitchWorldMessage"));
-        data.setBooleanSettings(SettingsType.USE_UPDATE_CHECKER, cfg.getBoolean("Settings.Updates.UseUpdateChecker"));
-        data.setBooleanSettings(SettingsType.UPDATE_NOTIFY_CONSOLE, cfg.getBoolean("Settings.Updates.ConsoleNotify"));
-        data.setBooleanSettings(SettingsType.UPDATE_NOTIFY_INGAME, cfg.getBoolean("Settings.Updates.IngameNotify"));
-        data.setBooleanSettings(SettingsType.DISABLE_SWEEP_ATTACK, cfg.getBoolean("Settings.Features.DisableSweepAttacks"));
-        data.setIntegerSettings(SettingsType.ATTACK_SPEED_VALUE, cfg.getInt("Settings.Values.AttackSpeed"));
+        cacheContainer.add(Boolean.class, "USE_LOGIN_MESSAGES", cfg.getBoolean("Settings.Messages.UseLoginMessage"));
+        cacheContainer.add(Boolean.class, "USE_SWITCH_WORLD_MESSAGES", cfg.getBoolean("Settings.Messages.UseSwitchWorldMessage"));
+        cacheContainer.add(Boolean.class, "USE_UPDATE_CHECKER", cfg.getBoolean("Settings.Updates.UseUpdateChecker"));
+        cacheContainer.add(Boolean.class, "UPDATE_NOTIFY_CONSOLE", cfg.getBoolean("Settings.Updates.ConsoleNotify"));
+        cacheContainer.add(Boolean.class, "UPDATE_NOTIFY_INGAME", cfg.getBoolean("Settings.Updates.IngameNotify"));
+        cacheContainer.add(Boolean.class, "DISABLE_SWEEP_ATTACK", cfg.getBoolean("Settings.Features.DisableSweepAttacks"));
+        cacheContainer.add(Integer.class, "ATTACK_SPEED_VALUE", cfg.getInt("Settings.Values.AttackSpeed"));
 
         data.setConfigVersion(cfg.getInt("ConfigVersion"));
 
         for (String disabledWorld : cfg.getStringList("Settings.DisabledWorlds")) {
-            data.addDisableWorldToCache(disabledWorld);
+            worldManager.disabledWorld(disabledWorld);
             ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aWorld §e" + disabledWorld + " §adisabled!");
         }
 
@@ -126,5 +128,9 @@ public class PluginConfig {
 
         cfg.set("Settings.DisabledWorlds", disabledWorlds);
         saveCFG();
+    }
+
+    public WorldManager getWorldManager() {
+        return worldManager;
     }
 }

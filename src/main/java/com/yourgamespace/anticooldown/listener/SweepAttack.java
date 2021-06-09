@@ -1,8 +1,8 @@
 package com.yourgamespace.anticooldown.listener;
 
 import com.yourgamespace.anticooldown.data.Data;
-import com.yourgamespace.anticooldown.enums.SettingsType;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
+import com.yourgamespace.anticooldown.utils.ObjectTransformer;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
@@ -20,7 +20,7 @@ public class SweepAttack implements Listener {
 
     @EventHandler
     public void onSweep(EntityDamageByEntityEvent event) {
-        if(!data.getBooleanSettings(SettingsType.DISABLE_SWEEP_ATTACK)) return;
+        if(!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "DISABLE_SWEEP_ATTACK"))) return;
         if(!EnumUtils.isValidEnum(EntityDamageEvent.DamageCause.class, "ENTITY_SWEEP_ATTACK")) {
             ccs.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§cDisableSweepAttacks are not supported this server!");
             return;
