@@ -14,7 +14,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.spigotmc:spigot:1.14.4-R0.1-SNAPSHOT" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: de.tubeof:TubeTils:SNAPSHOT-47" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: de.tubeof:TubeTils:SNAPSHOT-48" level="project" />
     <orderEntry type="library" name="Maven: de.tubeof:TubeTilsManager:SNAPSHOT-2" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.maven.plugins:maven-assembly-plugin:3.3.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.maven:maven-plugin-api:3.0" level="project" />
