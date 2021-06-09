@@ -23,6 +23,10 @@ public class WorldManager {
         pluginConfig.setDisabledWorld(world, false);
     }
 
+    public void addCache(String world) {
+        disabledWorlds.add(world);
+    }
+
     public boolean isWorldDisabled(String world) {
         return disabledWorlds.contains(world);
     }
