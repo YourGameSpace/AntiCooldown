@@ -16,7 +16,7 @@ public class SwitchWorld implements Listener {
 
     private final Data data = AntiCooldown.getData();
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
-    private final WorldManager worldManager = AntiCooldown.getPluginConfig().getWorldManager();
+    private final WorldManager worldManager = AntiCooldown.getWorldManager();
 
     @EventHandler
     public void onWorldTeleport(PlayerTeleportEvent event) {

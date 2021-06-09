@@ -17,8 +17,7 @@ public class PluginConfig {
     private final ConsoleCommandSender ccs = Bukkit.getConsoleSender();
     private final Data data = AntiCooldown.getData();
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
-
-    private final WorldManager worldManager = new WorldManager();
+    private final WorldManager worldManager = AntiCooldown.getWorldManager();
 
     public PluginConfig() {}
 
@@ -128,9 +127,5 @@ public class PluginConfig {
 
         cfg.set("Settings.DisabledWorlds", disabledWorlds);
         saveCFG();
-    }
-
-    public WorldManager getWorldManager() {
-        return worldManager;
     }
 }

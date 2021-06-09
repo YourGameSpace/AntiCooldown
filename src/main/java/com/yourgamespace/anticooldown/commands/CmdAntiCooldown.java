@@ -17,7 +17,7 @@ public class CmdAntiCooldown implements CommandExecutor {
 
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
     private final Data data = AntiCooldown.getData();
-    private final WorldManager worldManager = AntiCooldown.getPluginConfig().getWorldManager();
+    private final WorldManager worldManager = AntiCooldown.getWorldManager();
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {

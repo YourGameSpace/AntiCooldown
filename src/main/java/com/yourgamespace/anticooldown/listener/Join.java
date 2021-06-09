@@ -17,7 +17,7 @@ public class Join implements Listener {
     private UpdateChecker updateChecker = AntiCooldown.getUpdateChecker();
     private Data data = AntiCooldown.getData();
     private CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
-    private WorldManager worldManager = AntiCooldown.getPluginConfig().getWorldManager();
+    private WorldManager worldManager = AntiCooldown.getWorldManager();
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {

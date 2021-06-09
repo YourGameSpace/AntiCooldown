@@ -9,10 +9,12 @@ import com.yourgamespace.anticooldown.listener.SweepAttack;
 import com.yourgamespace.anticooldown.listener.SwitchWorld;
 import com.yourgamespace.anticooldown.utils.Metrics;
 import com.yourgamespace.anticooldown.utils.ObjectTransformer;
+import com.yourgamespace.anticooldown.utils.WorldManager;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import de.tubeof.tubetils.api.updatechecker.UpdateChecker;
 import de.tubeof.tubetils.api.updatechecker.enums.ApiMethode;
 import de.tubeof.tubetilsmanager.TubeTilsManager;
+import net.minecraft.server.v1_14_R1.WorldChunkManager;
 import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.command.ConsoleCommandSender;
@@ -33,6 +35,7 @@ public class AntiCooldown extends JavaPlugin {
     private static UpdateChecker updateChecker;
     private static Data data;
     private static PluginConfig pluginConfig;
+    private static WorldManager worldManager;
 
     @Override
     public void onEnable() {
@@ -75,6 +78,7 @@ public class AntiCooldown extends JavaPlugin {
 
         data = new Data();
         pluginConfig = new PluginConfig();
+        worldManager = new WorldManager();
     }
 
     private void manageConfigs() {
@@ -137,7 +141,7 @@ public class AntiCooldown extends JavaPlugin {
     private void setOnlinePlayersCooldown() {
         for(Player all : Bukkit.getOnlinePlayers()) {
             String world = all.getLocation().getWorld().getName();
-            if(pluginConfig.getWorldManager().isWorldDisabled(world)) return;
+            if(worldManager.isWorldDisabled(world)) return;
 
             all.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(ObjectTransformer.getInteger(cacheContainer.get(Integer.class, "ATTACK_SPEED_VALUE")));
         }
@@ -158,6 +162,10 @@ public class AntiCooldown extends JavaPlugin {
 
     public static Data getData() {
         return data;
+    }
+
+    public static WorldManager getWorldManager() {
+        return worldManager;
     }
 
     public static UpdateChecker getUpdateChecker() {
