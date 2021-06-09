@@ -25,7 +25,7 @@ public class CmdAntiCooldown implements CommandExecutor {
             return true;
         }
         Player player = (Player) commandSender;
-        if(args.length > 2) {
+        if(args.length > 2 || args.length == 0) {
             sendUsageMessage(player);
             return true;
         }
