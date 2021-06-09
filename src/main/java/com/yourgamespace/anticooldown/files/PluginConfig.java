@@ -110,7 +110,7 @@ public class PluginConfig {
         data.setConfigVersion(cfg.getInt("ConfigVersion"));
 
         for (String disabledWorld : cfg.getStringList("Settings.DisabledWorlds")) {
-            worldManager.disabledWorld(disabledWorld);
+            worldManager.disableWorld(disabledWorld);
             ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aWorld §e" + disabledWorld + " §adisabled!");
         }
 
