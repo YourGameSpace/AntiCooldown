@@ -24,7 +24,7 @@ import java.io.IOException;
 
 public class AntiCooldown extends JavaPlugin {
 
-    private final TubeTilsManager tubeTilsManager = new TubeTilsManager("§7[§3AntiCooldownLogger§7] ", this, "SNAPSHOT-47", "1.0.2", true);
+    private final TubeTilsManager tubeTilsManager = new TubeTilsManager("§7[§3AntiCooldownLogger§7] ", this, "SNAPSHOT-47", "1.0.2", false);
 
     private final ConsoleCommandSender ccs = Bukkit.getConsoleSender();
     private final PluginManager pluginManager = Bukkit.getPluginManager();
@@ -40,7 +40,6 @@ public class AntiCooldown extends JavaPlugin {
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aThe Plugin will be activated ...");
 
         main = this;
-        tubeTilsManager.check();
 
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "==================================================");
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "JOIN MY DISCORD OUR: §ehttps://discord.gg/73ZDfbx");
