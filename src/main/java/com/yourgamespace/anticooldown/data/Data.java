@@ -4,13 +4,10 @@ public class Data {
 
     public Data() {}
 
-    private int configVersion;
+    private Integer currentConfigVersion = 5;
 
-    public void setConfigVersion(int version) {
-        configVersion = version;
-    }
 
-    public int getConfigVersion() {
-        return configVersion;
+    public int getCurrentConfigVersion() {
+        return currentConfigVersion;
     }
 }

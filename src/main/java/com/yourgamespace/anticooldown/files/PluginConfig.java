@@ -105,7 +105,7 @@ public class PluginConfig {
         cacheContainer.add(Boolean.class, "DISABLE_SWEEP_ATTACK", cfg.getBoolean("Settings.Features.DisableSweepAttacks"));
         cacheContainer.add(Integer.class, "ATTACK_SPEED_VALUE", cfg.getInt("Settings.Values.AttackSpeed"));
 
-        data.setConfigVersion(cfg.getInt("ConfigVersion"));
+        cacheContainer.add(Integer.class, "CONFIG_VERSION", cfg.getInt("ConfigVersion"));
 
         for (String disabledWorld : cfg.getStringList("Settings.DisabledWorlds")) {
             WorldManager.addCache(disabledWorld);
