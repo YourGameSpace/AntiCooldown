@@ -41,7 +41,7 @@ public class AntiCooldown extends JavaPlugin {
 
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aThe Plugin will be activated ...");
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "==================================================");
-        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "JOIN MY DISCORD OUR: §ehttps://discord.gg/73ZDfbx");
+        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "JOIN OUR DISCORD: §ehttps://discord.gg/73ZDfbx");
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "==================================================");
 
         manageConfigs();
