@@ -141,6 +141,5 @@ public class CmdAntiCooldown implements CommandExecutor {
         player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§7> §e/anticooldown listDisabledWorlds");
         player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§7> §e/anticooldown enableWorld [<World>]");
         player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§7> §e/anticooldown disableWorld [<World>]");
-        player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§7> §e/anticooldown fixPlayerData [<World>]");
     }
 }
