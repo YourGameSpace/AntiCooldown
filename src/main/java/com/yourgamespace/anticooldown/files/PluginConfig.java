@@ -1,6 +1,5 @@
 package com.yourgamespace.anticooldown.files;
 
-import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.WorldManager;
 import de.tubeof.tubetils.api.cache.CacheContainer;
@@ -15,7 +14,6 @@ import java.util.List;
 public class PluginConfig {
 
     private final ConsoleCommandSender ccs = Bukkit.getConsoleSender();
-    private final Data data = AntiCooldown.getData();
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
 
     public PluginConfig() {}

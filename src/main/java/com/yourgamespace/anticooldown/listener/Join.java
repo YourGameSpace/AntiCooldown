@@ -1,6 +1,5 @@
 package com.yourgamespace.anticooldown.listener;
 
-import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.WorldManager;
@@ -14,9 +13,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class Join implements Listener {
 
-    private UpdateChecker updateChecker = AntiCooldown.getUpdateChecker();
-    private Data data = AntiCooldown.getData();
-    private CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
+    private final UpdateChecker updateChecker = AntiCooldown.getUpdateChecker();
+    private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {

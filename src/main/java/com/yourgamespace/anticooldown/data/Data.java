@@ -4,8 +4,7 @@ public class Data {
 
     public Data() {}
 
-    private Integer currentConfigVersion = 5;
-
+    private final Integer currentConfigVersion = 5;
 
     public int getCurrentConfigVersion() {
         return currentConfigVersion;

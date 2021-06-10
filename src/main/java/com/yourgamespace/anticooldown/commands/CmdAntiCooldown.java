@@ -1,6 +1,5 @@
 package com.yourgamespace.anticooldown.commands;
 
-import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.WorldManager;
@@ -16,7 +15,6 @@ import org.bukkit.entity.Player;
 public class CmdAntiCooldown implements CommandExecutor {
 
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
-    private final Data data = AntiCooldown.getData();
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {

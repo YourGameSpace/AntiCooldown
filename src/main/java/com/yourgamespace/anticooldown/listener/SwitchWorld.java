@@ -1,6 +1,5 @@
 package com.yourgamespace.anticooldown.listener;
 
-import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.WorldManager;
@@ -14,7 +13,6 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 
 public class SwitchWorld implements Listener {
 
-    private final Data data = AntiCooldown.getData();
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
 
     @EventHandler

@@ -1,6 +1,5 @@
 package com.yourgamespace.anticooldown.listener;
 
-import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.ObjectTransformer;
 import de.tubeof.tubetils.api.cache.CacheContainer;
@@ -14,7 +13,6 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 public class SweepAttack implements Listener {
 
-    private final Data data = AntiCooldown.getData();
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
     private final ConsoleCommandSender ccs = Bukkit.getConsoleSender();
 
