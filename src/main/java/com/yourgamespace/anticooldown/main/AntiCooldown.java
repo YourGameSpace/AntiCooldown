@@ -23,6 +23,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
 
+@SuppressWarnings("ALL")
 public class AntiCooldown extends JavaPlugin {
 
     private final ConsoleCommandSender ccs = Bukkit.getConsoleSender();
@@ -101,7 +102,6 @@ public class AntiCooldown extends JavaPlugin {
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aListeners have been successfully registered!");
     }
 
-    @SuppressWarnings("ConstantConditions")
     private void registerCommands() {
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aCommands will be registered ...");
 
@@ -128,14 +128,12 @@ public class AntiCooldown extends JavaPlugin {
         }
     }
 
-    @SuppressWarnings("ConstantConditions")
     private void setDefaultCooldown() {
         for(Player all : Bukkit.getOnlinePlayers()) {
             if(all.getAttribute(Attribute.GENERIC_ATTACK_SPEED).getBaseValue() != 4) all.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(4);
         }
     }
 
-    @SuppressWarnings("ConstantConditions")
     private void setOnlinePlayersCooldown() {
         for(Player all : Bukkit.getOnlinePlayers()) {
             String world = all.getLocation().getWorld().getName();
@@ -145,7 +143,6 @@ public class AntiCooldown extends JavaPlugin {
         }
     }
 
-    @SuppressWarnings("unused")
     private void bStats() {
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aLoad and activate bStats ...");
 
