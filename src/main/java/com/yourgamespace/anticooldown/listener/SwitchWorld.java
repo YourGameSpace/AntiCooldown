@@ -11,6 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
+@SuppressWarnings("ALL")
 public class SwitchWorld implements Listener {
 
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();

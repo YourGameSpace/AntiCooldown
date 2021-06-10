@@ -11,6 +11,7 @@ import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.inventory.ItemStack;
 
+@SuppressWarnings("ALL")
 public class ItemRestriction implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)

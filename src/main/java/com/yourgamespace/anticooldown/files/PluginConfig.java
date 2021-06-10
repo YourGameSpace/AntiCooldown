@@ -11,6 +11,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.util.List;
 
+@SuppressWarnings("ResultOfMethodCallIgnored")
 public class PluginConfig {
 
     private final ConsoleCommandSender ccs = Bukkit.getConsoleSender();
@@ -18,8 +19,8 @@ public class PluginConfig {
 
     public PluginConfig() {}
 
-    private File file = new File("plugins/AntiCooldown", "Config.yml");
-    private FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
+    private final File file = new File("plugins/AntiCooldown", "Config.yml");
+    private final FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 
     public void configUpdateMessage() {
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§e######################################################################");

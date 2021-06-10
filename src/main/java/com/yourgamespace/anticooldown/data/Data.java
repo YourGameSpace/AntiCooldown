@@ -1,5 +1,6 @@
 package com.yourgamespace.anticooldown.data;
 
+@SuppressWarnings("ALL")
 public class Data {
 
     public Data() {}

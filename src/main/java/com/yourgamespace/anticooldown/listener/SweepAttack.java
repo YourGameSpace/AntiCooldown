@@ -23,7 +23,7 @@ public class SweepAttack implements Listener {
             ccs.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§cDisableSweepAttacks are not supported this server!");
             return;
         }
-        if(event.getCause() != EntityDamageEvent.DamageCause.ENTITY_SWEEP_ATTACK) return;;
+        if(event.getCause() != EntityDamageEvent.DamageCause.ENTITY_SWEEP_ATTACK) return;
         event.setCancelled(true);
     }
 }
