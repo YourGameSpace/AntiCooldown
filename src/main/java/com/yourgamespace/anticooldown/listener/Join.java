@@ -30,8 +30,10 @@ public class Join implements Listener {
         player.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(ObjectTransformer.getInteger(cacheContainer.get(Integer.class, "ATTACK_SPEED_VALUE")));
         if (ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_LOGIN_MESSAGES"))) player.sendMessage(cacheContainer.get(String.class, "PREFIX") + ObjectTransformer.getString(cacheContainer.get(String.class, "LOGIN_ENABLED")));
 
-        if(player.hasPermission("anticooldown.update") && updateChecker.isOutdated() && ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "UPDATE_NOTIFY_INGAME"))) {
-            player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§aAn update is available! Download now: §ehttps://tubeof.de/anticooldown/lastVersion");
+        if(updateChecker != null) {
+            if(player.hasPermission("anticooldown.update") && updateChecker.isOutdated() && ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "UPDATE_NOTIFY_INGAME"))) {
+                player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§aAn update is available! Download now: §ehttps://tubeof.de/anticooldown/lastVersion");
+            }
         }
     }
 }
