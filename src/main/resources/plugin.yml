@@ -1,5 +1,5 @@
 name: AntiCooldown
-version: 3.6.4
+version: 3.6.4.1
 api-version: 1.13
 
 main: com.yourgamespace.anticooldown.main.AntiCooldown
