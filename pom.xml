@@ -63,6 +63,14 @@
             <version>SNAPSHOT-2</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.12.0</version>
+        </dependency>
+
+
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-assembly-plugin -->
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
