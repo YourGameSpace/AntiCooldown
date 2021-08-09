@@ -114,7 +114,11 @@ public class AntiCooldown extends JavaPlugin {
 
     private void registerPlaceholders() {
         if(pluginManager.getPlugin("PlaceholderAPI") != null) {
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aPlaceholders for PlacerholderAPI will be registered ...");
+
             new PlaceholderHandler().register();
+        } else {
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§ePlaceholderAPI is not installed! Disabling placeholders ...");
         }
     }
 
