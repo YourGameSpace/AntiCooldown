@@ -32,7 +32,7 @@ public class Join implements Listener {
 
         if(updateChecker != null) {
             if(player.hasPermission("anticooldown.update") && updateChecker.isOutdated() && ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "UPDATE_NOTIFY_INGAME"))) {
-                player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§aAn update is available! Download now: §ehttps://tubeof.de/anticooldown/lastVersion");
+                player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§cAn update is available! (v" + updateChecker.getLatestVersion() + ") Download here: §e" + updateChecker.getDownloadUrl());
             }
         }
     }
