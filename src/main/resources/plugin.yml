@@ -5,6 +5,7 @@ api-version: 1.13
 main: com.yourgamespace.anticooldown.main.AntiCooldown
 softdepend:
   - TubeTils
+  - PlaceholderAPI
 
 commands:
   anticooldown:
