@@ -9,6 +9,7 @@ import com.yourgamespace.anticooldown.listener.SweepAttack;
 import com.yourgamespace.anticooldown.listener.SwitchWorld;
 import com.yourgamespace.anticooldown.utils.Metrics;
 import com.yourgamespace.anticooldown.utils.ObjectTransformer;
+import com.yourgamespace.anticooldown.utils.PlaceholderHandler;
 import com.yourgamespace.anticooldown.utils.WorldManager;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import de.tubeof.tubetils.api.updatechecker.UpdateChecker;
@@ -50,6 +51,7 @@ public class AntiCooldown extends JavaPlugin {
 
         registerListener();
         registerCommands();
+        registerPlaceholders();
 
         setOnlinePlayersCooldown();
         bStats();
@@ -108,6 +110,12 @@ public class AntiCooldown extends JavaPlugin {
         getCommand("anticooldown").setExecutor(new CmdAntiCooldown());
 
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aCommands have been successfully registered!");
+    }
+
+    private void registerPlaceholders() {
+        if(pluginManager.getPlugin("PlaceholderAPI") != null) {
+            new PlaceholderHandler().register();
+        }
     }
 
     private void checkUpdate() {

@@ -53,6 +53,10 @@ public class PluginConfig {
         cfg.addDefault("Messages.Error.PlayerNotOnline", "§cThe player is not online!");
         cfg.addDefault("Messages.Error.NoPerms", "§cNo permissions!");
 
+        //Placeholder
+        cfg.addDefault("Placeholder.World.CooldownEnabled", "Enabled");
+        cfg.addDefault("Placeholder.World.CooldownDisabled", "Disabled");
+
         //Settings
         cfg.addDefault("Settings.Messages.UseLoginMessage", true);
         cfg.addDefault("Settings.Messages.UseSwitchWorldMessage", true);
@@ -94,6 +98,10 @@ public class PluginConfig {
         cacheContainer.add(String.class, "ERROR_WORLD_NOT_LISTED", cfg.getString("Messages.Error.WorldAlreadyEnabled"));
         cacheContainer.add(String.class, "ERROR_PLAYER_NOT_ONLINE", cfg.getString("Messages.Error.PlayerNotOnline"));
         cacheContainer.add(String.class, "ERROR_NO_PERMISSIONS", cfg.getString("Messages.Error.NoPerms"));
+
+        //Placeholder
+        cacheContainer.add(String.class, "PLACEHOLDER_WORLD_COOLDOWN_ENABLED", cfg.getString("Placeholder.World.CooldownEnabled"));
+        cacheContainer.add(String.class, "PLACEHOLDER_WORLD_COOLDOWN_DISABLED", cfg.getString("Placeholder.World.CooldownDisabled"));
 
         //Settings
         cacheContainer.add(Boolean.class, "USE_LOGIN_MESSAGES", cfg.getBoolean("Settings.Messages.UseLoginMessage"));
