@@ -27,7 +27,7 @@ public class SwitchWorld implements Listener {
 
         // Check Bypass and Permissions
         boolean isBypassed = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_BYPASS_PERMISSION")) && player.hasPermission("anticooldown.bypass");
-        if(!isBypassed && ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMSSIONS")) && !player.hasPermission("anticooldown.cooldown")) return;
+        boolean isPermitted = !isBypassed && ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMSSIONS")) && !player.hasPermission("anticooldown.cooldown");
 
         // 2 Tick Delay to prevent bugs
         Bukkit.getScheduler().scheduleSyncDelayedTask(AntiCooldown.getInstance(), () -> {
@@ -40,9 +40,15 @@ public class SwitchWorld implements Listener {
                     if (ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_SWITCH_WORLD_MESSAGES")))  player.sendMessage(cacheContainer.get(String.class, "PREFIX") + ObjectTransformer.getString(cacheContainer.get(String.class, "SWITCH_WORLD_BYPASSED")));
                 } else {
                     cooldownHandler.enableCooldown(player);
+
+                    // Check if player is permitted
+                    if(!isPermitted) return;
                     if (ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_SWITCH_WORLD_MESSAGES")))  player.sendMessage(cacheContainer.get(String.class, "PREFIX") + ObjectTransformer.getString(cacheContainer.get(String.class, "SWITCH_WORLD_DISABLED")));
                 }
             } else {
+                // Check if player is permitted
+                if(!isPermitted) return;
+
                 cooldownHandler.disableCooldown(player);
                 if (ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_SWITCH_WORLD_MESSAGES"))) player.sendMessage(cacheContainer.get(String.class, "PREFIX") + ObjectTransformer.getString(cacheContainer.get(String.class, "SWITCH_WORLD_ENABLED")));
             }

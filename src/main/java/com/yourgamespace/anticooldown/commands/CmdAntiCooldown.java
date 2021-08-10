@@ -113,7 +113,10 @@ public class CmdAntiCooldown implements CommandExecutor {
                 World bukkitWorld = Bukkit.getWorld(world);
                 if(bukkitWorld == null) return true;
                 for(Player worldPlayer : bukkitWorld.getPlayers()) {
-                    worldPlayer.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(ObjectTransformer.getInteger(cacheContainer.get(Integer.class, "ATTACK_SPEED_VALUE")));
+                    // Check Permissions
+                    if(ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMSSIONS")) && !worldPlayer.hasPermission("anticooldown.cooldown")) continue;
+
+                    cooldownHandler.disableCooldown(worldPlayer);
                 }
                 return true;
             }
@@ -129,7 +132,10 @@ public class CmdAntiCooldown implements CommandExecutor {
                 World bukkitWorld = Bukkit.getWorld(world);
                 if(bukkitWorld == null) return true;
                 for(Player worldPlayer : bukkitWorld.getPlayers()) {
-                    worldPlayer.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(4);
+                    // Check Bypass
+                    boolean isBypassed = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_BYPASS_PERMISSION")) && worldPlayer.hasPermission("anticooldown.bypass");
+
+                    if(!isBypassed) cooldownHandler.enableCooldown(player);
                 }
                 return true;
             }
