@@ -1,5 +1,7 @@
 package com.yourgamespace.anticooldown.main;
 
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
 import com.yourgamespace.anticooldown.commands.CmdAntiCooldown;
 import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.files.PluginConfig;
@@ -32,6 +34,7 @@ public class AntiCooldown extends JavaPlugin {
 
     private static AntiCooldown main;
     private static TubeTilsManager tubeTilsManager;
+    private static ProtocolManager protocolManager;
     private static CacheContainer cacheContainer;
     private static UpdateChecker updateChecker;
     private static Data data;
@@ -80,6 +83,17 @@ public class AntiCooldown extends JavaPlugin {
 
         data = new Data();
         pluginConfig = new PluginConfig();
+
+        //ProtocolLib
+        if(Bukkit.getPluginManager().getPlugin("ProtocolLib") != null) {
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aProtocolLib is installed! Support for ProtocolLib enabled!");
+            data.setProtocollib(true);
+
+            protocolManager = ProtocolLibrary.getProtocolManager();
+        } else {
+            data.setProtocollib(false);
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cProtocolLib is NOT installed! Support for ProtocolLib disabled!");
+        }
     }
 
     private void manageConfigs() {
@@ -100,6 +114,10 @@ public class AntiCooldown extends JavaPlugin {
         pluginManager.registerEvents(new SwitchWorld(), this);
         pluginManager.registerEvents(new SweepAttack(), this);
         //pluginManager.registerEvents(new ItemRestriction(), this);
+
+        if(data.isProtocollibInstalled()) {
+            new SweepAttack.ParticleHandler();
+        }
 
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aListeners have been successfully registered!");
     }
@@ -177,6 +195,10 @@ public class AntiCooldown extends JavaPlugin {
 
     public static TubeTilsManager getTubeTilsManager() {
         return tubeTilsManager;
+    }
+
+    public static ProtocolManager getProtocolManager() {
+        return protocolManager;
     }
 
     public static CacheContainer getCacheContainer() {

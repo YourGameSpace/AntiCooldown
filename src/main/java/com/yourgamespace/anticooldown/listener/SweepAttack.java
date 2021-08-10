@@ -1,5 +1,9 @@
 package com.yourgamespace.anticooldown.listener;
 
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.events.ListenerPriority;
+import com.comphenix.protocol.events.PacketAdapter;
+import com.comphenix.protocol.events.PacketEvent;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.CooldownHandler;
 import com.yourgamespace.anticooldown.utils.ObjectTransformer;
@@ -31,5 +35,21 @@ public class SweepAttack implements Listener {
         Player player = (Player) event.getDamager();
 
         if(cooldownHandler.isCooldownDisabled(player)) event.setCancelled(true);
+    }
+
+    public static class ParticleHandler {
+
+        public ParticleHandler() {
+            onSweepParticles();
+        }
+
+        private void onSweepParticles() {
+            AntiCooldown.getProtocolManager().addPacketListener(new PacketAdapter(AntiCooldown.getInstance(), ListenerPriority.NORMAL, PacketType.Play.Server.WORLD_PARTICLES) {
+                @Override
+                public void onPacketSending(PacketEvent event) {
+                    Bukkit.broadcastMessage(event.getPacket().getStrings().read(0));
+                }
+            });
+        }
     }
 }
