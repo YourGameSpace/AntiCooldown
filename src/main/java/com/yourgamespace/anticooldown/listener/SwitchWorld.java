@@ -27,11 +27,7 @@ public class SwitchWorld implements Listener {
 
         // Check Bypass and Permissions
         boolean isBypassed = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_BYPASS_PERMISSION")) && player.hasPermission("anticooldown.bypass");
-        boolean isPermitted = !isBypassed && ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMSSIONS")) && player.hasPermission("anticooldown.cooldown");
-
-
-        player.sendMessage("Bypass: " + isBypassed);
-        player.sendMessage("Permitted: " + isPermitted);
+        boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMSSIONS")) && player.hasPermission("anticooldown.cooldown");
 
         // 2 Tick Delay to prevent bugs
         Bukkit.getScheduler().scheduleSyncDelayedTask(AntiCooldown.getInstance(), () -> {
