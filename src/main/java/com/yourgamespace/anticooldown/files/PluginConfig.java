@@ -44,8 +44,10 @@ public class PluginConfig {
 
         //Messages
         cfg.addDefault("Messages.Prefix", "§7[§c§3AntiCooldown§7] ");
+        cfg.addDefault("Messages.Switch.WorldBypassed", "§ePvP Cooldown is §c§lnot disabled §ein this world, but you have §2Bypass-Permissions§a! §aCooldown is disable for you.");
         cfg.addDefault("Messages.Switch.WorldEnabled", "§ePvP Cooldown is §a§ldisabled §ein this world!");
         cfg.addDefault("Messages.Switch.WorldDisabled", "§ePvP Cooldown is §c§lnot disabled §ein this world!");
+        cfg.addDefault("Messages.Login.Bypassed", "§aHey, welcome to the server! §ePvP Cooldown is §c§lnot disabled §ein this world, but you have §2Bypass-Permissions§a! §aCooldown is disable for you.");
         cfg.addDefault("Messages.Login.Enabled", "§aHey, welcome to the server! §ePvP Cooldown is §a§ldisabled §ein this world!");
         cfg.addDefault("Messages.Login.Disabled", "§aHey, welcome to the server! §ePvP Cooldown is §c§lnot disabled §ein this world!");
         cfg.addDefault("Messages.Setting.AddDisabledWorld", "§aOK! In the world §e%world% §athe cooldown is now activated.");
@@ -58,8 +60,12 @@ public class PluginConfig {
         //Placeholder
         cfg.addDefault("Placeholder.World.CooldownEnabled", "Enabled");
         cfg.addDefault("Placeholder.World.CooldownDisabled", "Disabled");
+        cfg.addDefault("Placeholder.Player.CooldownEnabled", "Enabled");
+        cfg.addDefault("Placeholder.Player.CooldownDisabled", "Disabled");
 
         //Settings
+        cfg.addDefault("Settings.Permissions.UsePermissions", false);
+        cfg.addDefault("Settings.Permissions.UseBypassPermission", false);
         cfg.addDefault("Settings.Messages.UseLoginMessage", true);
         cfg.addDefault("Settings.Messages.UseSwitchWorldMessage", true);
         cfg.addDefault("Settings.Values.AttackSpeed", 100);
@@ -90,8 +96,10 @@ public class PluginConfig {
 
         //Messages
         cacheContainer.add(String.class, "PREFIX", cfg.getString("Messages.Prefix"));
+        cacheContainer.add(String.class, "SWITCH_WORLD_BYPASSED", cfg.getString("Messages.Switch.WorldBypassed"));
         cacheContainer.add(String.class, "SWITCH_WORLD_ENABLED", cfg.getString("Messages.Switch.WorldEnabled"));
         cacheContainer.add(String.class, "SWITCH_WORLD_DISABLED", cfg.getString("Messages.Switch.WorldDisabled"));
+        cacheContainer.add(String.class, "LOGIN_BYPASSED", cfg.getString("Messages.Login.Bypassed"));
         cacheContainer.add(String.class, "LOGIN_ENABLED", cfg.getString("Messages.Login.Enabled"));
         cacheContainer.add(String.class, "LOGIN_DISABLED", cfg.getString("Messages.Login.Disabled"));
         cacheContainer.add(String.class, "SETTING_ADD_DISABLED_WORLD", cfg.getString("Messages.Setting.AddDisabledWorld"));
@@ -104,8 +112,12 @@ public class PluginConfig {
         //Placeholder
         cacheContainer.add(String.class, "PLACEHOLDER_WORLD_COOLDOWN_ENABLED", cfg.getString("Placeholder.World.CooldownEnabled"));
         cacheContainer.add(String.class, "PLACEHOLDER_WORLD_COOLDOWN_DISABLED", cfg.getString("Placeholder.World.CooldownDisabled"));
+        cacheContainer.add(String.class, "PLACEHOLDER_PLAYER_COOLDOWN_ENABLED", cfg.getString("Placeholder.Player.CooldownEnabled"));
+        cacheContainer.add(String.class, "PLACEHOLDER_PLAYER_COOLDOWN_DISABLED", cfg.getString("Placeholder.Player.CooldownDisabled"));
 
         //Settings
+        cacheContainer.add(Boolean.class, "USE_PERMSSIONS", cfg.getBoolean("Settings.Permissions.UsePermissions"));
+        cacheContainer.add(Boolean.class, "USE_BYPASS_PERMISSION", cfg.getBoolean("Settings.Permissions.UseBypassPermission"));
         cacheContainer.add(Boolean.class, "USE_LOGIN_MESSAGES", cfg.getBoolean("Settings.Messages.UseLoginMessage"));
         cacheContainer.add(Boolean.class, "USE_SWITCH_WORLD_MESSAGES", cfg.getBoolean("Settings.Messages.UseSwitchWorldMessage"));
         cacheContainer.add(Boolean.class, "USE_UPDATE_CHECKER", cfg.getBoolean("Settings.Updates.UseUpdateChecker"));

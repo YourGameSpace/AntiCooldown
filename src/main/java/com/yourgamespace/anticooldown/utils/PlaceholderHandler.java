@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 public class PlaceholderHandler extends PlaceholderExpansion {
 
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
+    private final CooldownHandler cooldownHandler = new CooldownHandler();
 
     @Override
     public @NotNull String getIdentifier() {
@@ -39,6 +40,14 @@ public class PlaceholderHandler extends PlaceholderExpansion {
             }
             // World enabled = Cooldown disabled: Return disabled;
             return ObjectTransformer.getString(cacheContainer.get(String.class, "PLACEHOLDER_WORLD_COOLDOWN_DISABLED"));
+        }
+        if(placeholder.equalsIgnoreCase("playercooldown")) {
+            if(cooldownHandler.isCooldownDisabled(player)) {
+                // Cooldown disabled
+                return ObjectTransformer.getString(cacheContainer.get(String.class, "PLACEHOLDER_PLAYER_COOLDOWN_DISABLED"));
+            }
+            // Cooldown enabled
+            return ObjectTransformer.getString(cacheContainer.get(String.class, "PLACEHOLDER_PLAYER_COOLDOWN_ENABLED"));
         }
 
 
