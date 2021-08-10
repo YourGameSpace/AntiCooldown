@@ -44,7 +44,7 @@ public class SweepAttack implements Listener {
         }
 
         private void onSweepParticles() {
-            AntiCooldown.getProtocolManager().addPacketListener(new PacketAdapter(AntiCooldown.getInstance(), ListenerPriority.NORMAL, PacketType.Play.Server.WORLD_PARTICLES) {
+            AntiCooldown.getProtocolManager().addPacketListener(new PacketAdapter(AntiCooldown.getInstance(), ListenerPriority.NORMAL) {
                 @Override
                 public void onPacketSending(PacketEvent event) {
                     Bukkit.broadcastMessage(event.getPacket().toString());
