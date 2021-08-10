@@ -66,7 +66,7 @@ public class CmdAntiCooldown implements CommandExecutor {
                 if(bukkitWorld == null) return true;
                 for(Player worldPlayer : bukkitWorld.getPlayers()) {
                     // Check Permissions
-                    boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMSSIONS")) && player.hasPermission("anticooldown.cooldown");
+                    boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMSSIONS")) && player.hasPermission("anticooldown.cooldown") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMSSIONS"));
 
                     // Check if player is permitted
                     if(!isPermitted) continue;
@@ -89,7 +89,7 @@ public class CmdAntiCooldown implements CommandExecutor {
                 for(Player worldPlayer : bukkitWorld.getPlayers()) {
                     // Check Bypass and Permissions
                     boolean isBypassed = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_BYPASS_PERMISSION")) && player.hasPermission("anticooldown.bypass");
-                    boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMSSIONS")) && player.hasPermission("anticooldown.cooldown");
+                    boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMSSIONS")) && player.hasPermission("anticooldown.cooldown") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMSSIONS"));
 
                     if(!isPermitted) continue;
                     if(!isBypassed) cooldownHandler.enableCooldown(player);
@@ -118,7 +118,7 @@ public class CmdAntiCooldown implements CommandExecutor {
                 if(bukkitWorld == null) return true;
                 for(Player worldPlayer : bukkitWorld.getPlayers()) {
                     // Check Permissions
-                    boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMSSIONS")) && player.hasPermission("anticooldown.cooldown");
+                    boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMSSIONS")) && player.hasPermission("anticooldown.cooldown") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMSSIONS"));
 
                     // Check if player is permitted
                     if(!isPermitted) continue;
@@ -140,7 +140,7 @@ public class CmdAntiCooldown implements CommandExecutor {
                 for(Player worldPlayer : bukkitWorld.getPlayers()) {
                     // Check Bypass and Permissions
                     boolean isBypassed = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_BYPASS_PERMISSION")) && player.hasPermission("anticooldown.bypass");
-                    boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMSSIONS")) && player.hasPermission("anticooldown.cooldown");
+                    boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMSSIONS")) && player.hasPermission("anticooldown.cooldown") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMSSIONS"));
 
                     if(!isPermitted) continue;
                     if(!isBypassed) cooldownHandler.enableCooldown(player);
