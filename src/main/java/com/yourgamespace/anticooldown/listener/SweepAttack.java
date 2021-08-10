@@ -1,11 +1,13 @@
 package com.yourgamespace.anticooldown.listener;
 
 import com.yourgamespace.anticooldown.main.AntiCooldown;
+import com.yourgamespace.anticooldown.utils.CooldownHandler;
 import com.yourgamespace.anticooldown.utils.ObjectTransformer;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import org.apache.commons.lang3.EnumUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -15,6 +17,7 @@ public class SweepAttack implements Listener {
 
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
     private final ConsoleCommandSender ccs = Bukkit.getConsoleSender();
+    private final CooldownHandler cooldownHandler = new CooldownHandler();
 
     @EventHandler
     public void onSweep(EntityDamageByEntityEvent event) {
@@ -24,6 +27,9 @@ public class SweepAttack implements Listener {
             return;
         }
         if(event.getCause() != EntityDamageEvent.DamageCause.ENTITY_SWEEP_ATTACK) return;
-        event.setCancelled(true);
+        if(!(event.getDamager() instanceof Player)) return;
+        Player player = (Player) event.getDamager();
+
+        if(cooldownHandler.isCooldownDisabled(player)) event.setCancelled(true);
     }
 }

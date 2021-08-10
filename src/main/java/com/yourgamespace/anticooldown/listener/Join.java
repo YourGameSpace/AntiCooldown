@@ -29,7 +29,7 @@ public class Join implements Listener {
         }
 
         // Check Bypass and Permissions
-        boolean isBypassed = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_BYPASS_PERMISSION")) && !player.hasPermission("anticooldown.bypass");
+        boolean isBypassed = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_BYPASS_PERMISSION")) && player.hasPermission("anticooldown.bypass");
         if(!isBypassed && ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMSSIONS")) && !player.hasPermission("anticooldown.cooldown")) return;
 
         // Check if world is disabled

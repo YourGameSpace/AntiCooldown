@@ -26,7 +26,7 @@ public class SwitchWorld implements Listener {
         String world = event.getTo().getWorld().getName();
 
         // Check Bypass and Permissions
-        boolean isBypassed = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_BYPASS_PERMISSION")) && !player.hasPermission("anticooldown.bypass");
+        boolean isBypassed = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_BYPASS_PERMISSION")) && player.hasPermission("anticooldown.bypass");
         if(!isBypassed && ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMSSIONS")) && !player.hasPermission("anticooldown.cooldown")) return;
 
         // 2 Tick Delay to prevent bugs
