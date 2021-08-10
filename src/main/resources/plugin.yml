@@ -6,6 +6,7 @@ main: com.yourgamespace.anticooldown.main.AntiCooldown
 softdepend:
   - TubeTils
   - PlaceholderAPI
+  - ProtocolLib
 
 commands:
   anticooldown:
