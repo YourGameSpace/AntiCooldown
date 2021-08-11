@@ -29,7 +29,7 @@ public class SweepAttack implements Listener {
     public void onSweep(EntityDamageByEntityEvent event) {
         if(!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "DISABLE_SWEEP_ATTACK"))) return;
         if(!EnumUtils.isValidEnum(EntityDamageEvent.DamageCause.class, "ENTITY_SWEEP_ATTACK")) {
-            ccs.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§cDisableSweepAttacks are not supported this server!");
+            ccs.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§4WARNING: §cDisableSweepAttacks is not supported by §e" + Bukkit.getBukkitVersion() + "§c!");
             return;
         }
         if(event.getCause() != EntityDamageEvent.DamageCause.ENTITY_SWEEP_ATTACK) return;
