@@ -4,13 +4,16 @@ import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
+import com.comphenix.protocol.reflect.StructureModifier;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.CooldownHandler;
 import com.yourgamespace.anticooldown.utils.ObjectTransformer;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import org.apache.commons.lang3.EnumUtils;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.bukkit.Bukkit;
+import org.bukkit.Particle;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -48,16 +51,8 @@ public class SweepAttack implements Listener {
             AntiCooldown.getProtocolManager().addPacketListener(new PacketAdapter(AntiCooldown.getInstance(), ListenerPriority.NORMAL, PacketType.Play.Server.WORLD_PARTICLES) {
                 @Override
                 public void onPacketSending(PacketEvent event) {
-                    for(EnumWrappers.Particle particle : event.getPacket().getParticles().getValues()) {
-                        Bukkit.broadcastMessage(particle.toString());
-
-                        if(particle.getId() == 51) {
-                            Bukkit.broadcastMessage("SWEEP!");
-                            event.setCancelled(true);
-                        }
-                    }
-                    
-                    event.setCancelled(true);
+                    Particle particle = event.getPacket().getNewParticles().read(0).getParticle();
+                    if(particle.equals(Particle.SWEEP_ATTACK)) event.setCancelled(true);
                 }
             });
         }
