@@ -12,7 +12,6 @@ import de.tubeof.tubetils.api.updatechecker.UpdateChecker;
 import de.tubeof.tubetils.api.updatechecker.enums.ApiMethode;
 import de.tubeof.tubetilsmanager.TubeTilsManager;
 import org.bukkit.Bukkit;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
@@ -114,7 +113,7 @@ public class AntiCooldown extends JavaPlugin {
 
         if(data.isProtocollibInstalled()) {
             new SweepAttack.PacketHandler();
-            new CombatSound.PacketHandler();
+            new CombatSounds.PacketHandler();
         }
 
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aListeners have been successfully registered!");
