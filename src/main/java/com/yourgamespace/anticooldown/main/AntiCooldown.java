@@ -42,6 +42,8 @@ public class AntiCooldown extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        long startTimestamp = System.currentTimeMillis();
+
         initialisation();
 
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aThe Plugin will be activated ...");
@@ -59,7 +61,8 @@ public class AntiCooldown extends JavaPlugin {
         setOnlinePlayersCooldown();
         bStats();
 
-        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aThe plugin was successfully activated!");
+        long startTime = System.currentTimeMillis() - startTimestamp;
+        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aThe plugin was successfully activated in §e" + startTime + "ms§a!");
     }
 
     @Override
