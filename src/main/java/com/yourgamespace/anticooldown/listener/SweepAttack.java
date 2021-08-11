@@ -46,7 +46,7 @@ public class SweepAttack implements Listener {
 
         private void onSweepParticles() {
             if(!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "DISABLE_SWEEP_ATTACK"))) return;
-            
+
             AntiCooldown.getProtocolManager().addPacketListener(new PacketAdapter(AntiCooldown.getInstance(), ListenerPriority.NORMAL, PacketType.Play.Server.WORLD_PARTICLES) {
                 @Override
                 public void onPacketSending(PacketEvent event) {

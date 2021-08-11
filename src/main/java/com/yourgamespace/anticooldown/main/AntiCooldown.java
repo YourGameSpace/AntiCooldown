@@ -9,10 +9,7 @@ import com.yourgamespace.anticooldown.listener.Join;
 import com.yourgamespace.anticooldown.listener.Quit;
 import com.yourgamespace.anticooldown.listener.SweepAttack;
 import com.yourgamespace.anticooldown.listener.SwitchWorld;
-import com.yourgamespace.anticooldown.utils.Metrics;
-import com.yourgamespace.anticooldown.utils.ObjectTransformer;
-import com.yourgamespace.anticooldown.utils.PlaceholderHandler;
-import com.yourgamespace.anticooldown.utils.WorldManager;
+import com.yourgamespace.anticooldown.utils.*;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import de.tubeof.tubetils.api.updatechecker.UpdateChecker;
 import de.tubeof.tubetils.api.updatechecker.enums.ApiMethode;
@@ -162,17 +159,34 @@ public class AntiCooldown extends JavaPlugin {
     }
 
     private void setDefaultCooldown() {
-        for(Player all : Bukkit.getOnlinePlayers()) {
-            if(all.getAttribute(Attribute.GENERIC_ATTACK_SPEED).getBaseValue() != 4) all.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(4);
+        CooldownHandler cooldownHandler = new CooldownHandler();
+
+        for(Player player : Bukkit.getOnlinePlayers()) {
+            if(cooldownHandler.isCooldownDisabled(player)) cooldownHandler.enableCooldown(player);
         }
     }
 
     private void setOnlinePlayersCooldown() {
-        for(Player all : Bukkit.getOnlinePlayers()) {
-            String world = all.getLocation().getWorld().getName();
-            if(WorldManager.isWorldDisabled(world)) return;
+        CooldownHandler cooldownHandler = new CooldownHandler();
 
-            all.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(ObjectTransformer.getInteger(cacheContainer.get(Integer.class, "ATTACK_SPEED_VALUE")));
+        for(Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+            String world = onlinePlayer.getLocation().getWorld().getName();
+
+            // Check Bypass and Permissions
+            boolean isBypassed = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_BYPASS_PERMISSION")) && onlinePlayer.hasPermission("anticooldown.bypass");
+            boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMSSIONS")) && onlinePlayer.hasPermission("anticooldown.cooldown") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMSSIONS"));
+
+            // If not permitted: Return;
+            if(!isPermitted) return;
+
+            if(WorldManager.isWorldDisabled(world)) {
+                // If disabled and is bypassed, disable cooldown;
+                // If disabled and is not bypassed, do nothing;
+                if(isBypassed) cooldownHandler.disableCooldown(onlinePlayer);
+                else cooldownHandler.enableCooldown(onlinePlayer);
+            } else {
+                cooldownHandler.disableCooldown(onlinePlayer);
+            }
         }
     }
 
