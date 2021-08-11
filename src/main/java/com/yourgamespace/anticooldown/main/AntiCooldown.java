@@ -116,7 +116,7 @@ public class AntiCooldown extends JavaPlugin {
         //pluginManager.registerEvents(new ItemRestriction(), this);
 
         if(data.isProtocollibInstalled()) {
-            new SweepAttack.ParticleHandler();
+            new SweepAttack.PacketHandler();
         }
 
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aListeners have been successfully registered!");

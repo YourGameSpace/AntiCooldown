@@ -11,6 +11,7 @@ import de.tubeof.tubetils.api.cache.CacheContainer;
 import org.apache.commons.lang3.EnumUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -38,13 +39,14 @@ public class SweepAttack implements Listener {
         if(cooldownHandler.isCooldownDisabled(player)) event.setCancelled(true);
     }
 
-    public static class ParticleHandler {
+    public static class PacketHandler {
 
-        public ParticleHandler() {
-            onSweepParticles();
+        public PacketHandler() {
+            onSweepAttackParticles();
+            onSweepAttackSound();
         }
 
-        private void onSweepParticles() {
+        private void onSweepAttackParticles() {
             if(!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "DISABLE_SWEEP_ATTACK"))) return;
 
             AntiCooldown.getProtocolManager().addPacketListener(new PacketAdapter(AntiCooldown.getInstance(), ListenerPriority.NORMAL, PacketType.Play.Server.WORLD_PARTICLES) {
@@ -53,6 +55,22 @@ public class SweepAttack implements Listener {
                     Particle particle = event.getPacket().getNewParticles().read(0).getParticle();
                     if(particle.equals(Particle.SWEEP_ATTACK)) event.setCancelled(true);
                     if(particle.equals(Particle.DAMAGE_INDICATOR)) event.setCancelled(true);
+                }
+            });
+        }
+
+        private void onSweepAttackSound() {
+            if(!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "DISABLE_SWEEP_ATTACK"))) return;
+
+            AntiCooldown.getProtocolManager().addPacketListener(new PacketAdapter(AntiCooldown.getInstance(), ListenerPriority.NORMAL, PacketType.Play.Server.NAMED_SOUND_EFFECT) {
+                @Override
+                public void onPacketSending(PacketEvent event) {
+                    Sound sound = event.getPacket().getSoundEffects().read(0);
+                    if(sound.equals(Sound.ENTITY_PLAYER_ATTACK_SWEEP)) event.setCancelled(true);
+                    if(sound.equals(Sound.ENTITY_PLAYER_ATTACK_CRIT)) event.setCancelled(true);
+                    if(sound.equals(Sound.ENTITY_PLAYER_ATTACK_KNOCKBACK)) event.setCancelled(true);
+                    if(sound.equals(Sound.ENTITY_PLAYER_ATTACK_STRONG)) event.setCancelled(true);
+                    if(sound.equals(Sound.ENTITY_PLAYER_ATTACK_NODAMAGE)) event.setCancelled(true);
                 }
             });
         }
