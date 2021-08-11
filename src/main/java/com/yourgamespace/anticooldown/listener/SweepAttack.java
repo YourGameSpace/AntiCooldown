@@ -53,6 +53,7 @@ public class SweepAttack implements Listener {
                 public void onPacketSending(PacketEvent event) {
                     Particle particle = event.getPacket().getNewParticles().read(0).getParticle();
                     if(particle.equals(Particle.SWEEP_ATTACK)) event.setCancelled(true);
+                    if(particle.equals(Particle.DAMAGE_INDICATOR)) event.setCancelled(true);
                 }
             });
         }
