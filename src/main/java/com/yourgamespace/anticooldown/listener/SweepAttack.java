@@ -51,11 +51,13 @@ public class SweepAttack implements Listener {
                     for(EnumWrappers.Particle particle : event.getPacket().getParticles().getValues()) {
                         Bukkit.broadcastMessage(particle.toString());
 
-                        if(particle.equals(EnumWrappers.Particle.SWEEP_ATTACK)) {
+                        if(particle.getId() == 51) {
                             Bukkit.broadcastMessage("SWEEP!");
                             event.setCancelled(true);
                         }
                     }
+                    
+                    event.setCancelled(true);
                 }
             });
         }
