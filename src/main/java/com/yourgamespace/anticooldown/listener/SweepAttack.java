@@ -1,5 +1,7 @@
 package com.yourgamespace.anticooldown.listener;
 
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
@@ -42,7 +44,7 @@ public class SweepAttack implements Listener {
         }
 
         private void onSweepParticles() {
-            AntiCooldown.getProtocolManager().addPacketListener(new PacketAdapter(AntiCooldown.getInstance()) {
+            AntiCooldown.getProtocolManager().addPacketListener(new PacketAdapter(AntiCooldown.getInstance(), ListenerPriority.NORMAL, PacketType.values()) {
                 @Override
                 public void onPacketSending(PacketEvent event) {
                     Bukkit.broadcastMessage(event.getPacket().toString());
