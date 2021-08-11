@@ -4,24 +4,31 @@ import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
+import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.WorldManager;
 import de.tubeof.tubetils.api.cache.CacheContainer;
+import org.bukkit.Bukkit;
 import org.bukkit.Sound;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 public class CombatSounds {
 
+    private static final Data data = AntiCooldown.getData();
     private static final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
+    private static final ConsoleCommandSender ccs = Bukkit.getConsoleSender();
 
     public static class PacketHandler {
 
         public PacketHandler() {
-            onSweepAttackSound();
+            if(data.isProtocollibInstalled()) {
+                onNewAttackSounds();
+            } else ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§4WARNING: §cDisableNewCombatSounds is disabled: §cProtocolLib is missing!");
         }
 
-        private void onSweepAttackSound() {
+        private void onNewAttackSounds() {
             if(!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "DISABLE_NEW_COMBAT_SOUNDS"))) return;
 
             AntiCooldown.getProtocolManager().addPacketListener(new PacketAdapter(AntiCooldown.getInstance(), ListenerPriority.NORMAL, PacketType.Play.Server.NAMED_SOUND_EFFECT) {
@@ -50,9 +57,9 @@ public class CombatSounds {
                     if(!isPermitted) return;
 
                     // Check if world is disabled
-                    if (WorldManager.isWorldDisabled(world) && isBypassed) {
+                    if (WorldManager.isWorldDisabled(world)) {
                         // If disabled and is bypassed: disable sounds;
-                        event.setCancelled(true);
+                        if (isBypassed) event.setCancelled(true);
                     } else {
                         // If permitted and not bypassed: disable sounds;
                         event.setCancelled(true);
