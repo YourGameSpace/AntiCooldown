@@ -47,7 +47,7 @@ public class SweepAttack implements Listener {
             AntiCooldown.getProtocolManager().addPacketListener(new PacketAdapter(AntiCooldown.getInstance(), ListenerPriority.NORMAL, PacketType.values()) {
                 @Override
                 public void onPacketSending(PacketEvent event) {
-                    Bukkit.broadcastMessage(event.getPacket().toString());
+                    if(event.getPacketType().toString().contains("World")) Bukkit.broadcastMessage(event.getPacket().toString());
                 }
             });
         }
