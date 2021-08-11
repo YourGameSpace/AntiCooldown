@@ -70,6 +70,7 @@ public class PluginConfig {
         cfg.addDefault("Settings.Messages.UseSwitchWorldMessage", true);
         cfg.addDefault("Settings.Values.AttackSpeed", 100);
         cfg.addDefault("Settings.Features.DisableSweepAttacks", true);
+        cfg.addDefault("Settings.Features.DisableNewCombatSounds", true);
         cfg.addDefault("Settings.Updates.UseUpdateChecker", true);
         cfg.addDefault("Settings.Updates.ConsoleNotify", true);
         cfg.addDefault("Settings.Updates.IngameNotify", true);
@@ -124,6 +125,7 @@ public class PluginConfig {
         cacheContainer.add(Boolean.class, "UPDATE_NOTIFY_CONSOLE", cfg.getBoolean("Settings.Updates.ConsoleNotify"));
         cacheContainer.add(Boolean.class, "UPDATE_NOTIFY_INGAME", cfg.getBoolean("Settings.Updates.IngameNotify"));
         cacheContainer.add(Boolean.class, "DISABLE_SWEEP_ATTACK", cfg.getBoolean("Settings.Features.DisableSweepAttacks"));
+        cacheContainer.add(Boolean.class, "DISABLE_NEW_COMBAT_SOUNDS", cfg.getBoolean("Settings.Features.DisableNewCombatSounds"));
         cacheContainer.add(Integer.class, "ATTACK_SPEED_VALUE", cfg.getInt("Settings.Values.AttackSpeed"));
 
         cacheContainer.add(Integer.class, "CONFIG_VERSION", cfg.getInt("ConfigVersion"));

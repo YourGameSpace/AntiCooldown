@@ -43,7 +43,6 @@ public class SweepAttack implements Listener {
 
         public PacketHandler() {
             onSweepAttackParticles();
-            onSweepAttackSound();
         }
 
         private void onSweepAttackParticles() {
@@ -55,22 +54,6 @@ public class SweepAttack implements Listener {
                     Particle particle = event.getPacket().getNewParticles().read(0).getParticle();
                     if(particle.equals(Particle.SWEEP_ATTACK)) event.setCancelled(true);
                     if(particle.equals(Particle.DAMAGE_INDICATOR)) event.setCancelled(true);
-                }
-            });
-        }
-
-        private void onSweepAttackSound() {
-            if(!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "DISABLE_SWEEP_ATTACK"))) return;
-
-            AntiCooldown.getProtocolManager().addPacketListener(new PacketAdapter(AntiCooldown.getInstance(), ListenerPriority.NORMAL, PacketType.Play.Server.NAMED_SOUND_EFFECT) {
-                @Override
-                public void onPacketSending(PacketEvent event) {
-                    Sound sound = event.getPacket().getSoundEffects().read(0);
-                    if(sound.equals(Sound.ENTITY_PLAYER_ATTACK_SWEEP)) event.setCancelled(true);
-                    if(sound.equals(Sound.ENTITY_PLAYER_ATTACK_CRIT)) event.setCancelled(true);
-                    if(sound.equals(Sound.ENTITY_PLAYER_ATTACK_KNOCKBACK)) event.setCancelled(true);
-                    if(sound.equals(Sound.ENTITY_PLAYER_ATTACK_STRONG)) event.setCancelled(true);
-                    if(sound.equals(Sound.ENTITY_PLAYER_ATTACK_NODAMAGE)) event.setCancelled(true);
                 }
             });
         }

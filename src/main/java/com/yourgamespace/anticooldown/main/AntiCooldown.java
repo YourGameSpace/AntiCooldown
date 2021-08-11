@@ -5,10 +5,7 @@ import com.comphenix.protocol.ProtocolManager;
 import com.yourgamespace.anticooldown.commands.CmdAntiCooldown;
 import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.files.PluginConfig;
-import com.yourgamespace.anticooldown.listener.Join;
-import com.yourgamespace.anticooldown.listener.Quit;
-import com.yourgamespace.anticooldown.listener.SweepAttack;
-import com.yourgamespace.anticooldown.listener.SwitchWorld;
+import com.yourgamespace.anticooldown.listener.*;
 import com.yourgamespace.anticooldown.utils.*;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import de.tubeof.tubetils.api.updatechecker.UpdateChecker;
@@ -117,6 +114,7 @@ public class AntiCooldown extends JavaPlugin {
 
         if(data.isProtocollibInstalled()) {
             new SweepAttack.PacketHandler();
+            new CombatSound.PacketHandler();
         }
 
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aListeners have been successfully registered!");
