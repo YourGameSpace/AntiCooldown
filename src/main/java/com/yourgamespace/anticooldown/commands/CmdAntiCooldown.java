@@ -44,6 +44,11 @@ public class CmdAntiCooldown implements CommandExecutor {
                 sendUsageMessage(player);
                 return true;
             }
+            else if(arg.equalsIgnoreCase("reloadConfig")) {
+                AntiCooldown.getPluginConfig().setCache();
+                player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§aConfig was successfully reloaded.");
+                return true;
+            }
             else if(arg.equalsIgnoreCase("listDisabledWorlds")) {
                 player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§aDisabled Worlds:");
                 for(String world : WorldManager.getDisabledWorlds()) {
@@ -159,6 +164,7 @@ public class CmdAntiCooldown implements CommandExecutor {
         player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§cWrong usage!");
         player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§7> §e/anticooldown");
         player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§7> §e/anticooldown help");
+        player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§7> §e/anticooldown reloadConfig");
         player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§7> §e/anticooldown listDisabledWorlds");
         player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§7> §e/anticooldown enableWorld [<World>]");
         player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§7> §e/anticooldown disableWorld [<World>]");
