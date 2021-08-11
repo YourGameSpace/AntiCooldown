@@ -43,7 +43,7 @@ public class PluginConfig {
         cfg.options().copyDefaults(true);
 
         //Messages
-        cfg.addDefault("Messages.Prefix", "§7[§c§3AntiCooldown§7] ");
+        cfg.addDefault("Messages.Prefix", "§7[§3AntiCooldown§7] ");
         cfg.addDefault("Messages.Switch.WorldBypassed", "§ePvP Cooldown is §c§lnot disabled §ein this world, but you have §2Bypass-Permissions§a! §aCooldown is disable for you.");
         cfg.addDefault("Messages.Switch.WorldEnabled", "§ePvP Cooldown is §a§ldisabled §ein this world!");
         cfg.addDefault("Messages.Switch.WorldDisabled", "§ePvP Cooldown is §c§lnot disabled §ein this world!");
