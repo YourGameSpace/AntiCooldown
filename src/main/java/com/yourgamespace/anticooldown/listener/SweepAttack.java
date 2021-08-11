@@ -49,7 +49,10 @@ public class SweepAttack implements Listener {
                 @Override
                 public void onPacketSending(PacketEvent event) {
                     for(EnumWrappers.Particle particle : event.getPacket().getParticles().getValues()) {
-                        if(particle.equals(EnumWrappers.Particle.SWEEP_ATTACK)) event.setCancelled(true);
+                        if(particle.equals(EnumWrappers.Particle.SWEEP_ATTACK)) {
+                            Bukkit.broadcastMessage("SWEEP!");
+                            event.setCancelled(true);
+                        }
                     }
                 }
             });
