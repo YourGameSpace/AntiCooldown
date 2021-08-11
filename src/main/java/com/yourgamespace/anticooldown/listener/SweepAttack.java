@@ -4,6 +4,7 @@ import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
+import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.CooldownHandler;
 import com.yourgamespace.anticooldown.utils.ObjectTransformer;
@@ -44,10 +45,12 @@ public class SweepAttack implements Listener {
         }
 
         private void onSweepParticles() {
-            AntiCooldown.getProtocolManager().addPacketListener(new PacketAdapter(AntiCooldown.getInstance(), ListenerPriority.NORMAL, PacketType.values()) {
+            AntiCooldown.getProtocolManager().addPacketListener(new PacketAdapter(AntiCooldown.getInstance(), ListenerPriority.NORMAL, PacketType.Play.Server.WORLD_PARTICLES) {
                 @Override
                 public void onPacketSending(PacketEvent event) {
-                    if(event.getPacketType().toString().contains("World")) Bukkit.broadcastMessage(event.getPacket().toString());
+                    for(EnumWrappers.Particle particle : event.getPacket().getParticles().getValues()) {
+                        if(particle.equals(EnumWrappers.Particle.SWEEP_ATTACK)) event.setCancelled(true);
+                    }
                 }
             });
         }
