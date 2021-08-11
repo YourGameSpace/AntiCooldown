@@ -59,7 +59,7 @@ public class SweepAttack implements Listener {
         public PacketHandler() {
             if(data.isProtocollibInstalled()) {
                 onSweepAttackParticles();
-            } else ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§4WARNING: §cDisableNewCombatSounds is disabled: §cProtocolLib is missing!");
+            } else ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§4WARNING: §cDisableSweepAttacks is disabled: §cProtocolLib is missing!");
         }
 
         private void onSweepAttackParticles() {
