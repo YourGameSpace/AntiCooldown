@@ -7,7 +7,6 @@ import com.yourgamespace.anticooldown.utils.WorldManager;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -42,11 +41,6 @@ public class CmdAntiCooldown implements CommandExecutor {
         if(args.length == 1) {
             if(arg.equalsIgnoreCase("help")) {
                 sendUsageMessage(player);
-                return true;
-            }
-            else if(arg.equalsIgnoreCase("reloadConfig")) {
-                AntiCooldown.getPluginConfig().setCache();
-                player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§aConfig was successfully reloaded.");
                 return true;
             }
             else if(arg.equalsIgnoreCase("listDisabledWorlds")) {
@@ -164,7 +158,6 @@ public class CmdAntiCooldown implements CommandExecutor {
         player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§cWrong usage!");
         player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§7> §e/anticooldown");
         player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§7> §e/anticooldown help");
-        player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§7> §e/anticooldown reloadConfig");
         player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§7> §e/anticooldown listDisabledWorlds");
         player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§7> §e/anticooldown enableWorld [<World>]");
         player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§7> §e/anticooldown disableWorld [<World>]");
