@@ -110,7 +110,7 @@ public class AntiCooldown extends JavaPlugin {
         pluginManager.registerEvents(new Quit(), this);
         pluginManager.registerEvents(new SwitchWorld(), this);
         pluginManager.registerEvents(new SweepAttack(), this);
-        //pluginManager.registerEvents(new ItemRestriction(), this);
+        pluginManager.registerEvents(new ItemRestriction(), this);
 
         // Packet Handler
         new SweepAttack.PacketHandler();

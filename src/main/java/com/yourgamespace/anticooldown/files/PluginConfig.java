@@ -2,6 +2,7 @@ package com.yourgamespace.anticooldown.files;
 
 import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
+import com.yourgamespace.anticooldown.utils.ItemRestrictionManager;
 import com.yourgamespace.anticooldown.utils.WorldManager;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import org.bukkit.Bukkit;
@@ -63,6 +64,20 @@ public class PluginConfig {
         cfg.addDefault("Placeholder.Player.CooldownEnabled", "Enabled");
         cfg.addDefault("Placeholder.Player.CooldownDisabled", "Disabled");
 
+        // Config List Options
+        //List: Restricted Items
+        List<String> restrictedItems = cfg.getStringList("Settings.Features.RestrictedItems");
+        restrictedItems.add("DIAMOND_AXE");
+        restrictedItems.add("GOLDEN_AXE");
+        restrictedItems.add("IRON_AXE");
+        restrictedItems.add("STONE_AXE");
+        restrictedItems.add("NETHERITE_AXE");
+        restrictedItems.add("WOODEN_AXE");
+
+        //List: Disabled Worlds
+        List<String> disabledWorlds = cfg.getStringList("Settings.DisabledWorlds");
+        disabledWorlds.add("YourWorldName");
+
         //Settings
         cfg.addDefault("Settings.Permissions.UsePermissions", false);
         cfg.addDefault("Settings.Permissions.UseBypassPermission", false);
@@ -71,13 +86,12 @@ public class PluginConfig {
         cfg.addDefault("Settings.Values.AttackSpeed", 100);
         cfg.addDefault("Settings.Features.DisableSweepAttacks", true);
         cfg.addDefault("Settings.Features.DisableNewCombatSounds", true);
+        cfg.addDefault("Settings.Features.ItemRestriction.EnableItemRestriction", false);
+        cfg.addDefault("Settings.Features.ItemRestriction.UseAsWhitelist", false);
+        cfg.addDefault("Settings.Features.RestrictedItems", restrictedItems);
         cfg.addDefault("Settings.Updates.UseUpdateChecker", true);
         cfg.addDefault("Settings.Updates.ConsoleNotify", true);
         cfg.addDefault("Settings.Updates.IngameNotify", true);
-
-        //Disabled Worlds
-        List<String> disabledWorlds = cfg.getStringList("Settings.DisabledWorlds");
-        disabledWorlds.add("YourWorldName");
         cfg.addDefault("Settings.DisabledWorlds", disabledWorlds);
 
         cfg.addDefault("ConfigVersion", data.getCurrentConfigVersion());
@@ -121,14 +135,20 @@ public class PluginConfig {
         cacheContainer.add(Boolean.class, "USE_BYPASS_PERMISSION", cfg.getBoolean("Settings.Permissions.UseBypassPermission"));
         cacheContainer.add(Boolean.class, "USE_LOGIN_MESSAGES", cfg.getBoolean("Settings.Messages.UseLoginMessage"));
         cacheContainer.add(Boolean.class, "USE_SWITCH_WORLD_MESSAGES", cfg.getBoolean("Settings.Messages.UseSwitchWorldMessage"));
+        cacheContainer.add(Integer.class, "ATTACK_SPEED_VALUE", cfg.getInt("Settings.Values.AttackSpeed"));
+        cacheContainer.add(Boolean.class, "DISABLE_SWEEP_ATTACK", cfg.getBoolean("Settings.Features.DisableSweepAttacks"));
+        cacheContainer.add(Boolean.class, "DISABLE_NEW_COMBAT_SOUNDS", cfg.getBoolean("Settings.Features.DisableNewCombatSounds"));
+        cacheContainer.add(Boolean.class, "ITEM_RESTRICTION", cfg.getBoolean("Settings.Features.ItemRestriction.EnableItemRestriction"));
+        cacheContainer.add(Boolean.class, "ITEM_RESTRICTION_AS_WHITELIST", cfg.getBoolean("Settings.Features.ItemRestriction.UseAsWhitelist"));
         cacheContainer.add(Boolean.class, "USE_UPDATE_CHECKER", cfg.getBoolean("Settings.Updates.UseUpdateChecker"));
         cacheContainer.add(Boolean.class, "UPDATE_NOTIFY_CONSOLE", cfg.getBoolean("Settings.Updates.ConsoleNotify"));
         cacheContainer.add(Boolean.class, "UPDATE_NOTIFY_INGAME", cfg.getBoolean("Settings.Updates.IngameNotify"));
-        cacheContainer.add(Boolean.class, "DISABLE_SWEEP_ATTACK", cfg.getBoolean("Settings.Features.DisableSweepAttacks"));
-        cacheContainer.add(Boolean.class, "DISABLE_NEW_COMBAT_SOUNDS", cfg.getBoolean("Settings.Features.DisableNewCombatSounds"));
-        cacheContainer.add(Integer.class, "ATTACK_SPEED_VALUE", cfg.getInt("Settings.Values.AttackSpeed"));
 
         cacheContainer.add(Integer.class, "CONFIG_VERSION", cfg.getInt("ConfigVersion"));
+
+        for (String restrictedItems : cfg.getStringList("Settings.Features.RestrictedItems")) {
+            ItemRestrictionManager.addCache(restrictedItems);
+        }
 
         for (String disabledWorld : cfg.getStringList("Settings.DisabledWorlds")) {
             WorldManager.addCache(disabledWorld);
