@@ -5,8 +5,8 @@ public class Data {
 
     public Data() {}
 
-    private final Integer currentConfigVersion = 8;
-    private boolean protocollib = true;
+    private final Integer currentConfigVersion = 9;
+    private boolean protocollib = false;
 
     public int getCurrentConfigVersion() {
         return currentConfigVersion;

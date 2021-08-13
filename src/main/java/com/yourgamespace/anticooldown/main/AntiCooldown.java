@@ -112,6 +112,8 @@ public class AntiCooldown extends JavaPlugin {
         pluginManager.registerEvents(new SweepAttack(), this);
         pluginManager.registerEvents(new ItemRestriction(), this);
 
+        pluginManager.registerEvents(new CustomItemDamage(), this);
+
         // Packet Handler
         new SweepAttack.PacketHandler();
         new CombatSounds.PacketHandler();
@@ -171,7 +173,7 @@ public class AntiCooldown extends JavaPlugin {
 
             // Check Bypass and Permissions
             boolean isBypassed = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_BYPASS_PERMISSION")) && onlinePlayer.hasPermission("anticooldown.bypass");
-            boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMSSIONS")) && onlinePlayer.hasPermission("anticooldown.cooldown") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMSSIONS"));
+            boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && onlinePlayer.hasPermission("anticooldown.cooldown") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
 
             // If not permitted: Return;
             if(!isPermitted) return;

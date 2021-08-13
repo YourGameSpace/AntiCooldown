@@ -2,6 +2,7 @@ package com.yourgamespace.anticooldown.files;
 
 import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
+import com.yourgamespace.anticooldown.utils.ItemDamageManager;
 import com.yourgamespace.anticooldown.utils.ItemRestrictionManager;
 import com.yourgamespace.anticooldown.utils.WorldManager;
 import de.tubeof.tubetils.api.cache.CacheContainer;
@@ -42,15 +43,19 @@ public class PluginConfig {
 
     public void cfgConfig() {
         cfg.options().copyDefaults(true);
+        cfg.options().header("");
+
 
         //Messages
         cfg.addDefault("Messages.Prefix", "§7[§3AntiCooldown§7] ");
-        cfg.addDefault("Messages.Switch.WorldBypassed", "§ePvP Cooldown is §c§lnot disabled §ein this world, but you have §2Bypass-Permissions§a! §aCooldown is disable for you.");
-        cfg.addDefault("Messages.Switch.WorldEnabled", "§ePvP Cooldown is §a§ldisabled §ein this world!");
-        cfg.addDefault("Messages.Switch.WorldDisabled", "§ePvP Cooldown is §c§lnot disabled §ein this world!");
+        cfg.addDefault("Messages.ActionBarPrefix", "§3AntiCooldown§7 »");
+        cfg.addDefault("Messages.SwitchWorld.Bypassed", "§ePvP Cooldown is §c§lnot disabled §ein this world, but you have §2Bypass-Permissions§a! §aCooldown is disable for you.");
+        cfg.addDefault("Messages.SwitchWorld.Enabled", "§ePvP Cooldown is §a§ldisabled §ein this world!");
+        cfg.addDefault("Messages.SwitchWorld.Disabled", "§ePvP Cooldown is §c§lnot disabled §ein this world!");
         cfg.addDefault("Messages.Login.Bypassed", "§aHey, welcome to the server! §ePvP Cooldown is §c§lnot disabled §ein this world, but you have §2Bypass-Permissions§a! §aCooldown is disable for you.");
         cfg.addDefault("Messages.Login.Enabled", "§aHey, welcome to the server! §ePvP Cooldown is §a§ldisabled §ein this world!");
         cfg.addDefault("Messages.Login.Disabled", "§aHey, welcome to the server! §ePvP Cooldown is §c§lnot disabled §ein this world!");
+        cfg.addDefault("Messages.CustomItemDamage.ActionBarMessage", "%actionbar_prefix% §aCustom-Damage applied: §7%finaldamage%§c❤ §7Damage");
         cfg.addDefault("Messages.Setting.AddDisabledWorld", "§aOK! In the world §e%world% §athe cooldown is now activated.");
         cfg.addDefault("Messages.Setting.RemoveDisabledWorld", "§aOK! In the world §e%world% §athe cooldown is now deactivated.");
         cfg.addDefault("Messages.Error.WorldAlreadyDisabled", "§cThis world is already §c§ldeactivated§c!");
@@ -66,7 +71,7 @@ public class PluginConfig {
 
         // Config List Options
         //List: Restricted Items
-        List<String> restrictedItems = cfg.getStringList("Settings.Features.RestrictedItems");
+        List<String> restrictedItems = cfg.getStringList("Settings.Values.RestrictedItems");
         restrictedItems.add("DIAMOND_AXE");
         restrictedItems.add("GOLDEN_AXE");
         restrictedItems.add("IRON_AXE");
@@ -75,24 +80,53 @@ public class PluginConfig {
         restrictedItems.add("WOODEN_AXE");
 
         //List: Disabled Worlds
-        List<String> disabledWorlds = cfg.getStringList("Settings.DisabledWorlds");
+        List<String> disabledWorlds = cfg.getStringList("Settings.Values.DisabledWorlds");
         disabledWorlds.add("YourWorldName");
 
+        //List: Item Damage Values
+        List<String> customItemDamage = cfg.getStringList("Settings.Values.CustomItemDamage");
+        customItemDamage.add("WOOD_AXE:3.0D");
+        customItemDamage.add("WOODEN_AXE:3.0D");
+        customItemDamage.add("GOLD_AXE:3.0D");
+        customItemDamage.add("GOLDEN_AXE:3.0D");
+        customItemDamage.add("STONE_AXE:4.0D");
+        customItemDamage.add("IRON_AXE:5.0D");
+        customItemDamage.add("DIAMOND_AXE:6.0D");
+        customItemDamage.add("WOOD_PICKAXE:2.0D");
+        customItemDamage.add("WOODEN_PICKAXE:2.0D");
+        customItemDamage.add("GOLD_PICKAXE:2.0D");
+        customItemDamage.add("GOLDEN_PICKAXE:2.0D");
+        customItemDamage.add("STONE_PICKAXE:3.0D");
+        customItemDamage.add("IRON_PICKAXE:4.0D");
+        customItemDamage.add("DIAMOND_PICKAXE:5.0D");
+        customItemDamage.add("WOODEN_SHOVEL:1.0D");
+        customItemDamage.add("GOLDEN_SHOVEL:1.0D");
+        customItemDamage.add("STONE_SHOVEL:2.0D");
+        customItemDamage.add("IRON_SHOVEL:3.0D");
+        customItemDamage.add("DIAMOND_SHOVEL:4.0D");
+
         //Settings
+        //Settings: Permissions
         cfg.addDefault("Settings.Permissions.UsePermissions", false);
         cfg.addDefault("Settings.Permissions.UseBypassPermission", false);
+        //Settings: Messages
         cfg.addDefault("Settings.Messages.UseLoginMessage", true);
         cfg.addDefault("Settings.Messages.UseSwitchWorldMessage", true);
+        //Settings: Values
         cfg.addDefault("Settings.Values.AttackSpeed", 100);
+        cfg.addDefault("Settings.Values.DisabledWorlds", disabledWorlds);
+        cfg.addDefault("Settings.Values.RestrictedItems", restrictedItems);
+        cfg.addDefault("Settings.Values.CustomItemDamage", customItemDamage);
+        //Settings: Features
         cfg.addDefault("Settings.Features.DisableSweepAttacks", true);
         cfg.addDefault("Settings.Features.DisableNewCombatSounds", true);
+        cfg.addDefault("Settings.Features.CustomItemDamage.EnableCustomItemDamage", false);
+        cfg.addDefault("Settings.Features.CustomItemDamage.SendActionBar", true);
         cfg.addDefault("Settings.Features.ItemRestriction.EnableItemRestriction", false);
         cfg.addDefault("Settings.Features.ItemRestriction.UseAsWhitelist", false);
-        cfg.addDefault("Settings.Features.RestrictedItems", restrictedItems);
         cfg.addDefault("Settings.Updates.UseUpdateChecker", true);
         cfg.addDefault("Settings.Updates.ConsoleNotify", true);
         cfg.addDefault("Settings.Updates.IngameNotify", true);
-        cfg.addDefault("Settings.DisabledWorlds", disabledWorlds);
 
         cfg.addDefault("ConfigVersion", data.getCurrentConfigVersion());
 
@@ -111,12 +145,14 @@ public class PluginConfig {
 
         //Messages
         cacheContainer.add(String.class, "PREFIX", cfg.getString("Messages.Prefix"));
-        cacheContainer.add(String.class, "SWITCH_WORLD_BYPASSED", cfg.getString("Messages.Switch.WorldBypassed"));
-        cacheContainer.add(String.class, "SWITCH_WORLD_ENABLED", cfg.getString("Messages.Switch.WorldEnabled"));
-        cacheContainer.add(String.class, "SWITCH_WORLD_DISABLED", cfg.getString("Messages.Switch.WorldDisabled"));
+        cacheContainer.add(String.class, "ACTIONBAR_PREFIX", cfg.getString("Messages.ActionBarPrefix"));
+        cacheContainer.add(String.class, "SWITCH_WORLD_BYPASSED", cfg.getString("Messages.SwitchWorld.Bypassed"));
+        cacheContainer.add(String.class, "SWITCH_WORLD_ENABLED", cfg.getString("Messages.SwitchWorld.Enabled"));
+        cacheContainer.add(String.class, "SWITCH_WORLD_DISABLED", cfg.getString("Messages.SwitchWorld.Disabled"));
         cacheContainer.add(String.class, "LOGIN_BYPASSED", cfg.getString("Messages.Login.Bypassed"));
         cacheContainer.add(String.class, "LOGIN_ENABLED", cfg.getString("Messages.Login.Enabled"));
         cacheContainer.add(String.class, "LOGIN_DISABLED", cfg.getString("Messages.Login.Disabled"));
+        cacheContainer.add(String.class, "CUSTOM_ITEM_DAMAGE_ACTIONBAR_MESSAGE", cfg.getString("Messages.CustomItemDamage.ActionBarMessage"));
         cacheContainer.add(String.class, "SETTING_ADD_DISABLED_WORLD", cfg.getString("Messages.Setting.AddDisabledWorld"));
         cacheContainer.add(String.class, "SETTING_REMOVE_DISABLED_WORLD", cfg.getString("Messages.Setting.RemoveDisabledWorld"));
         cacheContainer.add(String.class, "ERROR_WORLD_ALRADY_LISTED", cfg.getString("Messages.Error.WorldAlreadyDisabled"));
@@ -131,28 +167,45 @@ public class PluginConfig {
         cacheContainer.add(String.class, "PLACEHOLDER_PLAYER_COOLDOWN_DISABLED", cfg.getString("Placeholder.Player.CooldownDisabled"));
 
         //Settings
-        cacheContainer.add(Boolean.class, "USE_PERMSSIONS", cfg.getBoolean("Settings.Permissions.UsePermissions"));
+        //Settings: Permissions
+        cacheContainer.add(Boolean.class, "USE_PERMISSIONS", cfg.getBoolean("Settings.Permissions.UsePermissions"));
         cacheContainer.add(Boolean.class, "USE_BYPASS_PERMISSION", cfg.getBoolean("Settings.Permissions.UseBypassPermission"));
+        //Settings: Messages
         cacheContainer.add(Boolean.class, "USE_LOGIN_MESSAGES", cfg.getBoolean("Settings.Messages.UseLoginMessage"));
         cacheContainer.add(Boolean.class, "USE_SWITCH_WORLD_MESSAGES", cfg.getBoolean("Settings.Messages.UseSwitchWorldMessage"));
+        //Settings: Values
         cacheContainer.add(Integer.class, "ATTACK_SPEED_VALUE", cfg.getInt("Settings.Values.AttackSpeed"));
+        //Settings: Features
         cacheContainer.add(Boolean.class, "DISABLE_SWEEP_ATTACK", cfg.getBoolean("Settings.Features.DisableSweepAttacks"));
         cacheContainer.add(Boolean.class, "DISABLE_NEW_COMBAT_SOUNDS", cfg.getBoolean("Settings.Features.DisableNewCombatSounds"));
+        cacheContainer.add(Boolean.class, "ENABLE_CUSTOM_ITEM_DAMAGE", cfg.getBoolean("Settings.Features.CustomItemDamage.EnableCustomItemDamage"));
+        cacheContainer.add(Boolean.class, "ENABLE_CUSTOM_ITEM_DAMAGE_ACTIONBAR", cfg.getBoolean("Settings.Features.CustomItemDamage.SendActionBar"));
         cacheContainer.add(Boolean.class, "ITEM_RESTRICTION", cfg.getBoolean("Settings.Features.ItemRestriction.EnableItemRestriction"));
         cacheContainer.add(Boolean.class, "ITEM_RESTRICTION_AS_WHITELIST", cfg.getBoolean("Settings.Features.ItemRestriction.UseAsWhitelist"));
+        //Settings: UpdateChecker
         cacheContainer.add(Boolean.class, "USE_UPDATE_CHECKER", cfg.getBoolean("Settings.Updates.UseUpdateChecker"));
         cacheContainer.add(Boolean.class, "UPDATE_NOTIFY_CONSOLE", cfg.getBoolean("Settings.Updates.ConsoleNotify"));
         cacheContainer.add(Boolean.class, "UPDATE_NOTIFY_INGAME", cfg.getBoolean("Settings.Updates.IngameNotify"));
 
+        //Config Version
         cacheContainer.add(Integer.class, "CONFIG_VERSION", cfg.getInt("ConfigVersion"));
 
-        for (String restrictedItems : cfg.getStringList("Settings.Features.RestrictedItems")) {
+        //Values: RestrictedItems
+        for (String restrictedItems : cfg.getStringList("Settings.Values.RestrictedItems")) {
             ItemRestrictionManager.addCache(restrictedItems);
         }
 
-        for (String disabledWorld : cfg.getStringList("Settings.DisabledWorlds")) {
+        //Values: DisabledWorlds
+        for (String disabledWorld : cfg.getStringList("Settings.Values.DisabledWorlds")) {
             WorldManager.addCache(disabledWorld);
             ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aWorld §e" + disabledWorld + " §adisabled!");
+        }
+
+        //Values: CustomItemDamage
+        for (String customItemDamage : cfg.getStringList("Settings.Values.CustomItemDamage")) {
+            String[] itemParams = customItemDamage.split(":");
+
+            ItemDamageManager.addCache(itemParams[0], itemParams[1]);
         }
 
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aConfig values were successfully cached!");

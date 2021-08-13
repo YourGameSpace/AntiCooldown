@@ -19,6 +19,8 @@ permissions:
     description: The new combat sounds are deactivated for the player.
   anticooldown.sweepattack:
     description: The SweepAttack particles are deactivated for the player.
+  anticooldown.customitemdamage:
+    description: The attack damage of the player is set to the set value for the item used for the attack.
 
 commands:
   anticooldown:

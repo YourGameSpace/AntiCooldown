@@ -8,9 +8,10 @@ import org.bukkit.command.ConsoleCommandSender;
 
 import java.util.ArrayList;
 
+@SuppressWarnings("unused")
 public class ItemRestrictionManager {
 
-    private static CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
+    private static final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
     private static final ConsoleCommandSender ccs = Bukkit.getConsoleSender();
 
     private static final ArrayList<Material> restrictedItems = new ArrayList<>();
@@ -18,7 +19,7 @@ public class ItemRestrictionManager {
     public static void addCache(String paramMaterial) {
         Material material = null;
         try { material = Material.valueOf(paramMaterial); } catch (IllegalArgumentException exception) {
-            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§4WARNING: §cMaterial §e" + paramMaterial + " §c for ItemRestriction cannot be found or is not supported by §e" + Bukkit.getBukkitVersion() + "§c!");
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§4WARNING: §cMaterial §e" + paramMaterial + " §cfor ItemRestriction cannot be found or is not supported by §e" + Bukkit.getBukkitVersion() + "§c!");
         }
 
         restrictedItems.add(material);
