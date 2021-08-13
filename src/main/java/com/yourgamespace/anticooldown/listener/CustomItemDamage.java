@@ -56,8 +56,6 @@ public class CustomItemDamage implements Listener {
             event.setDamage(itemDamageHandler.getFinalDamage());
         }
 
-
-        // %actionbar_prefix% §aCustom-Damage applied: §2%finaldamage% §7(%criticalhitdamage%, %potiondamage%, %enchantmentdamage%)
         if(ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "ENABLE_CUSTOM_ITEM_DAMAGE_ACTIONBAR"))) {
             String message = ObjectTransformer.getString(cacheContainer.get(String.class, "CUSTOM_ITEM_DAMAGE_ACTIONBAR_MESSAGE"));
             message = message.replace("%actionbar_prefix%", ObjectTransformer.getString(cacheContainer.get(String.class, "ACTIONBAR_PREFIX")));

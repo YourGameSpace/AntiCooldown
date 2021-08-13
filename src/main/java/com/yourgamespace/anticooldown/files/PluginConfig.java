@@ -56,6 +56,8 @@ public class PluginConfig {
         cfg.addDefault("Messages.Login.Enabled", "§aHey, welcome to the server! §ePvP Cooldown is §a§ldisabled §ein this world!");
         cfg.addDefault("Messages.Login.Disabled", "§aHey, welcome to the server! §ePvP Cooldown is §c§lnot disabled §ein this world!");
         cfg.addDefault("Messages.CustomItemDamage.ActionBarMessage", "%actionbar_prefix% §aCustom-Damage applied: §7%finaldamage%§c❤ §7Damage");
+        cfg.addDefault("Messages.ItemRestriction.ActionBarMessage.Enabled", "%actionbar_prefix% §aItem is no longer restricted! PvP Cooldown is §a§ldisabled §aagain");
+        cfg.addDefault("Messages.ItemRestriction.ActionBarMessage.Disabled", "%actionbar_prefix% §cItem is restricted! PvP Cooldown is temporarily §c§lactivated");
         cfg.addDefault("Messages.Setting.AddDisabledWorld", "§aOK! In the world §e%world% §athe cooldown is now activated.");
         cfg.addDefault("Messages.Setting.RemoveDisabledWorld", "§aOK! In the world §e%world% §athe cooldown is now deactivated.");
         cfg.addDefault("Messages.Error.WorldAlreadyDisabled", "§cThis world is already §c§ldeactivated§c!");
@@ -123,6 +125,7 @@ public class PluginConfig {
         cfg.addDefault("Settings.Features.CustomItemDamage.EnableCustomItemDamage", false);
         cfg.addDefault("Settings.Features.CustomItemDamage.SendActionBar", true);
         cfg.addDefault("Settings.Features.ItemRestriction.EnableItemRestriction", false);
+        cfg.addDefault("Settings.Features.ItemRestriction.SendActionBar", true);
         cfg.addDefault("Settings.Features.ItemRestriction.UseAsWhitelist", false);
         cfg.addDefault("Settings.Updates.UseUpdateChecker", true);
         cfg.addDefault("Settings.Updates.ConsoleNotify", true);
@@ -152,6 +155,8 @@ public class PluginConfig {
         cacheContainer.add(String.class, "LOGIN_BYPASSED", cfg.getString("Messages.Login.Bypassed"));
         cacheContainer.add(String.class, "LOGIN_ENABLED", cfg.getString("Messages.Login.Enabled"));
         cacheContainer.add(String.class, "LOGIN_DISABLED", cfg.getString("Messages.Login.Disabled"));
+        cacheContainer.add(String.class, "ITEM_RESTRICTION_ACTIONBAR_MESSAGE_ENABLED", cfg.getString("Messages.ItemRestriction.ActionBarMessage.Enabled"));
+        cacheContainer.add(String.class, "ITEM_RESTRICTION_ACTIONBAR_MESSAGE_DISABLED", cfg.getString("Messages.ItemRestriction.ActionBarMessage.Disabled"));
         cacheContainer.add(String.class, "CUSTOM_ITEM_DAMAGE_ACTIONBAR_MESSAGE", cfg.getString("Messages.CustomItemDamage.ActionBarMessage"));
         cacheContainer.add(String.class, "SETTING_ADD_DISABLED_WORLD", cfg.getString("Messages.Setting.AddDisabledWorld"));
         cacheContainer.add(String.class, "SETTING_REMOVE_DISABLED_WORLD", cfg.getString("Messages.Setting.RemoveDisabledWorld"));
@@ -181,6 +186,7 @@ public class PluginConfig {
         cacheContainer.add(Boolean.class, "ENABLE_CUSTOM_ITEM_DAMAGE", cfg.getBoolean("Settings.Features.CustomItemDamage.EnableCustomItemDamage"));
         cacheContainer.add(Boolean.class, "ENABLE_CUSTOM_ITEM_DAMAGE_ACTIONBAR", cfg.getBoolean("Settings.Features.CustomItemDamage.SendActionBar"));
         cacheContainer.add(Boolean.class, "ITEM_RESTRICTION", cfg.getBoolean("Settings.Features.ItemRestriction.EnableItemRestriction"));
+        cacheContainer.add(Boolean.class, "ENABLE_ITEM_RESTRICTION_ACTIONBAR", cfg.getBoolean("Settings.Features.ItemRestriction.SendActionBar"));
         cacheContainer.add(Boolean.class, "ITEM_RESTRICTION_AS_WHITELIST", cfg.getBoolean("Settings.Features.ItemRestriction.UseAsWhitelist"));
         //Settings: UpdateChecker
         cacheContainer.add(Boolean.class, "USE_UPDATE_CHECKER", cfg.getBoolean("Settings.Updates.UseUpdateChecker"));
@@ -212,7 +218,7 @@ public class PluginConfig {
     }
 
     public void setDisabledWorld(String world, boolean bol) {
-        List<String> disabledWorlds = cfg.getStringList("Settings.DisabledWorlds");
+        List<String> disabledWorlds = cfg.getStringList("Settings.Values.DisabledWorlds");
 
         if(bol) {
             disabledWorlds.add(world);

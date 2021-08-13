@@ -6,6 +6,8 @@ import com.yourgamespace.anticooldown.utils.ItemRestrictionManager;
 import com.yourgamespace.anticooldown.utils.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.WorldManager;
 import de.tubeof.tubetils.api.cache.CacheContainer;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -161,13 +163,30 @@ public class ItemRestriction implements Listener {
         if(item == null) {
             if(!cooldownHandler.isCooldownDisabled(player)) {
                 cooldownHandler.disableCooldown(player);
+                sendActionBar(player);
             }
         }
         else if(ItemRestrictionManager.isItemRestricted(item.getType())) {
             cooldownHandler.enableCooldown(player);
+            sendActionBar(player);
         }
         else if(!cooldownHandler.isCooldownDisabled(player)) {
             cooldownHandler.disableCooldown(player);
+            sendActionBar(player);
+        }
+    }
+
+    private void sendActionBar(Player player) {
+        if(ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "ENABLE_ITEM_RESTRICTION_ACTIONBAR"))) {
+            String message;
+            if(cooldownHandler.isCooldownDisabled(player)) {
+                message = ObjectTransformer.getString(cacheContainer.get(String.class, "ITEM_RESTRICTION_ACTIONBAR_MESSAGE_ENABLED"));
+            } else {
+                message = ObjectTransformer.getString(cacheContainer.get(String.class, "ITEM_RESTRICTION_ACTIONBAR_MESSAGE_DISABLED"));
+            }
+            message = message.replace("%actionbar_prefix%", ObjectTransformer.getString(cacheContainer.get(String.class, "ACTIONBAR_PREFIX")));
+
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(message));
         }
     }
 }
