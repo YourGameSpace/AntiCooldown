@@ -148,7 +148,7 @@ public class CmdAntiCooldown implements CommandExecutor {
                 return true;
             }
             else {
-                sendUsageMessage(player);
+                sendHelpMessage(player);
                 return true;
             }
         }
