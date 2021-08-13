@@ -26,7 +26,8 @@ public class CmdAntiCooldown implements CommandExecutor {
         }
         Player player = (Player) commandSender;
         if(args.length > 2 || args.length == 0) {
-            sendUsageMessage(player);
+            player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§cWrong usage!");
+            sendHelpMessage(player);
             return true;
         }
 
@@ -40,7 +41,7 @@ public class CmdAntiCooldown implements CommandExecutor {
 
         if(args.length == 1) {
             if(arg.equalsIgnoreCase("help")) {
-                sendUsageMessage(player);
+                sendHelpMessage(player);
                 return true;
             }
             else if(arg.equalsIgnoreCase("listDisabledWorlds")) {
@@ -96,7 +97,7 @@ public class CmdAntiCooldown implements CommandExecutor {
                 return true;
             }
             else {
-                sendUsageMessage(player);
+                sendHelpMessage(player);
                 return true;
             }
         }
@@ -154,8 +155,7 @@ public class CmdAntiCooldown implements CommandExecutor {
         return true;
     }
     
-    private void sendUsageMessage(Player player) {
-        player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§cWrong usage!");
+    private void sendHelpMessage(Player player) {
         player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§7> §e/anticooldown");
         player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§7> §e/anticooldown help");
         player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§7> §e/anticooldown listDisabledWorlds");
