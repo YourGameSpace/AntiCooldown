@@ -167,8 +167,10 @@ public class ItemRestriction implements Listener {
             }
         }
         else if(ItemRestrictionManager.isItemRestricted(item.getType())) {
-            cooldownHandler.enableCooldown(player);
-            sendActionBar(player);
+            if(cooldownHandler.isCooldownDisabled(player)) {
+                cooldownHandler.enableCooldown(player);
+                sendActionBar(player);
+            }
         }
         else if(!cooldownHandler.isCooldownDisabled(player)) {
             cooldownHandler.disableCooldown(player);
