@@ -15,6 +15,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.ItemStack;
 
 @SuppressWarnings("ALL")
@@ -99,6 +100,34 @@ public class ItemRestriction implements Listener {
         }
     }
 
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onItemPickup(PlayerSwapHandItemsEvent event) {
+        if(!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "ITEM_RESTRICTION"))) return;
+        if(event.isCancelled()) return;
+
+        Bukkit.getScheduler().runTaskLater(AntiCooldown.getInstance(), () -> {
+            Player player = event.getPlayer();
+            String world = player.getWorld().getName();
+            ItemStack item = player.getInventory().getItemInMainHand();
+
+            // Check Bypass and Permissions
+            boolean isBypassed = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_BYPASS_PERMISSION")) && player.hasPermission("anticooldown.bypass");
+            boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && player.hasPermission("anticooldown.cooldown") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
+
+            // If not permitted: Return;
+            if(!isPermitted) return;
+
+            // Check if world is disabled
+            if (WorldManager.isWorldDisabled(world)) {
+                // If disabled and is bypassed: apply cooldown;
+                if(isBypassed) applyCooldown(player, item);
+            } else {
+                // If world enabled, player permitted and not bypassed: apply cooldown;
+                applyCooldown(player, item);
+            }
+        }, 1);
+    }
+
     @SuppressWarnings("deprecation")
     @EventHandler(priority = EventPriority.LOWEST)
     public void onItemPickup(PlayerPickupItemEvent event) {
@@ -129,8 +158,16 @@ public class ItemRestriction implements Listener {
     }
 
     private void applyCooldown(Player player, ItemStack item) {
-        if(item == null) cooldownHandler.disableCooldown(player);
-        else if(ItemRestrictionManager.isItemRestricted(item.getType())) cooldownHandler.enableCooldown(player);
-        else if(!cooldownHandler.isCooldownDisabled(player)) cooldownHandler.disableCooldown(player);
+        if(item == null) {
+            if(!cooldownHandler.isCooldownDisabled(player)) {
+                cooldownHandler.disableCooldown(player);
+            }
+        }
+        else if(ItemRestrictionManager.isItemRestricted(item.getType())) {
+            cooldownHandler.enableCooldown(player);
+        }
+        else if(!cooldownHandler.isCooldownDisabled(player)) {
+            cooldownHandler.disableCooldown(player);
+        }
     }
 }
