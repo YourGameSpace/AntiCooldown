@@ -226,7 +226,7 @@ public class PluginConfig {
             disabledWorlds.remove(world);
         }
 
-        cfg.set("Settings.DisabledWorlds", disabledWorlds);
+        cfg.set("Settings.Values.DisabledWorlds", disabledWorlds);
         saveCFG();
     }
 }
