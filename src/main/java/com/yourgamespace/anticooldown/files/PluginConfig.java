@@ -43,7 +43,7 @@ public class PluginConfig {
 
     public void cfgConfig() {
         cfg.options().copyDefaults(true);
-        cfg.options().header("");
+        cfg.options().header("Looking for config documentation? https://hub.yourgamespace.com/docs/anticooldown/config/#configyml");
 
 
         //Messages
