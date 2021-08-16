@@ -19,7 +19,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
 
-@SuppressWarnings("ALL")
+//@SuppressWarnings("ALL")
 public class AntiCooldown extends JavaPlugin {
 
     private final ConsoleCommandSender ccs = Bukkit.getConsoleSender();
@@ -147,12 +147,28 @@ public class AntiCooldown extends JavaPlugin {
 
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aChecking for updates ...");
         try {
-            updateChecker = new UpdateChecker(51321, this, ApiMethode.YOURGAMESPACE, false, true);
+            updateChecker = new UpdateChecker("AntiCooldown-UpdateChecker", 51321, this, ApiMethode.YOURGAMESPACE, false, true);
+
+            // Check errors
+            if(!updateChecker.isOnline()) {
+                ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cUpdate-Check failed: No connection to the internet could be established.");
+                return;
+            }
+            if(updateChecker.isRateLimited()) {
+                ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cUpdate-Check failed: Request got blocked by rate limit!");
+                return;
+            }
+            if(!updateChecker.wasSuccessful()) {
+                ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cUpdate-Check failed: An unknown error has occurred!");
+            }
+
+            // Final outdated check
             if(updateChecker.isOutdated()) {
                 if(ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "UPDATE_NOTIFY_CONSOLE"))) ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cAn update was found! (v" + updateChecker.getLatestVersion() + ") Download here: " + updateChecker.getDownloadUrl());
             }
         } catch (IOException exception) {
             ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cAn error occurred while checking for updates!");
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cPlease check the status page (https://yourgamespace.statuspage.io/) or contact our support (https://yourgamespace.com/support/).");
             exception.printStackTrace();
         }
     }
