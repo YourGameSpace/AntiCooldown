@@ -19,7 +19,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
 
-//@SuppressWarnings("ALL")
+@SuppressWarnings("ALL")
 public class AntiCooldown extends JavaPlugin {
 
     private final ConsoleCommandSender ccs = Bukkit.getConsoleSender();
@@ -119,7 +119,7 @@ public class AntiCooldown extends JavaPlugin {
             new SweepAttack.PacketHandler();
             new CombatSounds.PacketHandler();
         } else {
-            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§4WARNING: §cDisableSweepAttacks is disabled: §cProtocolLib is missing!");
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§4WARNING: §cDisableSweepAttackParticle is disabled: §cProtocolLib is missing!");
             ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§4WARNING: §cDisableNewCombatSounds is disabled: §cProtocolLib is missing!");
         }
 
