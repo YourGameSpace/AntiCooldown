@@ -4,28 +4,21 @@ import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
-import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.WorldManager;
 import de.tubeof.tubetils.api.cache.CacheContainer;
-import org.bukkit.Bukkit;
 import org.bukkit.Sound;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 public class CombatSounds {
 
-    private static final Data data = AntiCooldown.getData();
     private static final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
-    private static final ConsoleCommandSender ccs = Bukkit.getConsoleSender();
 
     public static class PacketHandler {
 
         public PacketHandler() {
-            if(data.isProtocollibInstalled()) {
-                onNewAttackSounds();
-            } else ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§4WARNING: §cDisableNewCombatSounds is disabled: §cProtocolLib is missing!");
+            onNewAttackSounds();
         }
 
         private void onNewAttackSounds() {

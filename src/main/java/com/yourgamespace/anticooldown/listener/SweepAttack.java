@@ -4,7 +4,6 @@ import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
-import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.WorldManager;
@@ -21,7 +20,6 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 public class SweepAttack implements Listener {
 
-    private static final Data data = AntiCooldown.getData();
     private static final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
     private static final ConsoleCommandSender ccs = Bukkit.getConsoleSender();
 
@@ -57,9 +55,7 @@ public class SweepAttack implements Listener {
     public static class PacketHandler {
 
         public PacketHandler() {
-            if(data.isProtocollibInstalled()) {
-                onSweepAttackParticles();
-            } else ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§4WARNING: §cDisableSweepAttacks is disabled: §cProtocolLib is missing!");
+            onSweepAttackParticles();
         }
 
         private void onSweepAttackParticles() {

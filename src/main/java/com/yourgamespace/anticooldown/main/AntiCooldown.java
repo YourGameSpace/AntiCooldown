@@ -115,8 +115,13 @@ public class AntiCooldown extends JavaPlugin {
         pluginManager.registerEvents(new CustomItemDamage(), this);
 
         // Packet Handler
-        new SweepAttack.PacketHandler();
-        new CombatSounds.PacketHandler();
+        if(data.isProtocollibInstalled()) {
+            new SweepAttack.PacketHandler();
+            new CombatSounds.PacketHandler();
+        } else {
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§4WARNING: §cDisableSweepAttacks is disabled: §cProtocolLib is missing!");
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§4WARNING: §cDisableNewCombatSounds is disabled: §cProtocolLib is missing!");
+        }
 
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aListeners have been successfully registered!");
     }
