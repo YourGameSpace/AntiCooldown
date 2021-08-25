@@ -1,21 +1,17 @@
 package com.yourgamespace.anticooldown.main;
 
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
 import com.yourgamespace.anticooldown.commands.CmdAntiCooldown;
 import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.files.PluginConfig;
-import com.yourgamespace.anticooldown.listener.Join;
-import com.yourgamespace.anticooldown.listener.Quit;
-import com.yourgamespace.anticooldown.listener.SweepAttack;
-import com.yourgamespace.anticooldown.listener.SwitchWorld;
-import com.yourgamespace.anticooldown.utils.Metrics;
-import com.yourgamespace.anticooldown.utils.ObjectTransformer;
-import com.yourgamespace.anticooldown.utils.WorldManager;
+import com.yourgamespace.anticooldown.listener.*;
+import com.yourgamespace.anticooldown.utils.*;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import de.tubeof.tubetils.api.updatechecker.UpdateChecker;
 import de.tubeof.tubetils.api.updatechecker.enums.ApiMethode;
 import de.tubeof.tubetilsmanager.TubeTilsManager;
 import org.bukkit.Bukkit;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
@@ -31,6 +27,7 @@ public class AntiCooldown extends JavaPlugin {
 
     private static AntiCooldown main;
     private static TubeTilsManager tubeTilsManager;
+    private static ProtocolManager protocolManager;
     private static CacheContainer cacheContainer;
     private static UpdateChecker updateChecker;
     private static Data data;
@@ -38,6 +35,8 @@ public class AntiCooldown extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        long startTimestamp = System.currentTimeMillis();
+
         initialisation();
 
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aThe Plugin will be activated ...");
@@ -50,11 +49,13 @@ public class AntiCooldown extends JavaPlugin {
 
         registerListener();
         registerCommands();
+        registerPlaceholders();
 
         setOnlinePlayersCooldown();
         bStats();
 
-        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aThe plugin was successfully activated!");
+        long startTime = System.currentTimeMillis() - startTimestamp;
+        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aThe plugin was successfully activated in §e" + startTime + "ms§a!");
     }
 
     @Override
@@ -69,7 +70,7 @@ public class AntiCooldown extends JavaPlugin {
     private void initialisation() {
         main = this;
 
-        tubeTilsManager = new TubeTilsManager("§7[§3AntiCooldownLogger§7] ", this, "SNAPSHOT-48", "1.0.2", true);
+        tubeTilsManager = new TubeTilsManager("§7[§3AntiCooldownLogger§7] ", this, 54, "1.0.4", true);
         cacheContainer = new CacheContainer("AntiCooldown");
         cacheContainer.registerCacheType(String.class);
         cacheContainer.registerCacheType(Boolean.class);
@@ -78,6 +79,17 @@ public class AntiCooldown extends JavaPlugin {
 
         data = new Data();
         pluginConfig = new PluginConfig();
+
+        //ProtocolLib
+        if(Bukkit.getPluginManager().getPlugin("ProtocolLib") != null) {
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aProtocolLib is installed! Support for ProtocolLib enabled!");
+            data.setProtocollib(true);
+
+            protocolManager = ProtocolLibrary.getProtocolManager();
+        } else {
+            data.setProtocollib(false);
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cProtocolLib is NOT installed! Support for ProtocolLib disabled!");
+        }
     }
 
     private void manageConfigs() {
@@ -93,11 +105,23 @@ public class AntiCooldown extends JavaPlugin {
     private void registerListener() {
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aListeners will be registered ...");
 
+        // Bukkit Events
         pluginManager.registerEvents(new Join(), this);
         pluginManager.registerEvents(new Quit(), this);
         pluginManager.registerEvents(new SwitchWorld(), this);
         pluginManager.registerEvents(new SweepAttack(), this);
-        //pluginManager.registerEvents(new ItemRestriction(), this);
+        pluginManager.registerEvents(new ItemRestriction(), this);
+
+        pluginManager.registerEvents(new CustomItemDamage(), this);
+
+        // Packet Handler
+        if(data.isProtocollibInstalled()) {
+            new SweepAttack.PacketHandler();
+            new CombatSounds.PacketHandler();
+        } else {
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§4WARNING: §cDisableSweepAttackParticle is disabled: §cProtocolLib is missing!");
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§4WARNING: §cDisableNewCombatSounds is disabled: §cProtocolLib is missing!");
+        }
 
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aListeners have been successfully registered!");
     }
@@ -110,6 +134,16 @@ public class AntiCooldown extends JavaPlugin {
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aCommands have been successfully registered!");
     }
 
+    private void registerPlaceholders() {
+        if(pluginManager.getPlugin("PlaceholderAPI") != null) {
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aPlaceholders for PlacerholderAPI will be registered ...");
+
+            new PlaceholderHandler().register();
+        } else {
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§ePlaceholderAPI is not installed! Disabling placeholders ...");
+        }
+    }
+
     private void checkUpdate() {
         if(!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_UPDATE_CHECKER"))) {
             ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cCheck for updates disabled. The check will be skipped!");
@@ -118,28 +152,61 @@ public class AntiCooldown extends JavaPlugin {
 
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aChecking for updates ...");
         try {
-            updateChecker = new UpdateChecker(51321, this, ApiMethode.YOURGAMESPACE, false, true);
+            updateChecker = new UpdateChecker("AntiCooldown-UpdateChecker", 51321, this, ApiMethode.YOURGAMESPACE, false, true);
+
+            // Check errors
+            if(!updateChecker.isOnline()) {
+                ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cUpdate-Check failed: No connection to the internet could be established.");
+                return;
+            }
+            if(updateChecker.isRateLimited()) {
+                ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cUpdate-Check failed: Request got blocked by rate limit!");
+                return;
+            }
+            if(!updateChecker.wasSuccessful()) {
+                ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cUpdate-Check failed: An unknown error has occurred!");
+            }
+
+            // Final outdated check
             if(updateChecker.isOutdated()) {
                 if(ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "UPDATE_NOTIFY_CONSOLE"))) ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cAn update was found! (v" + updateChecker.getLatestVersion() + ") Download here: " + updateChecker.getDownloadUrl());
             }
         } catch (IOException exception) {
             ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cAn error occurred while checking for updates!");
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cPlease check the status page (https://yourgamespace.statuspage.io/) or contact our support (https://yourgamespace.com/support/).");
             exception.printStackTrace();
         }
     }
 
     private void setDefaultCooldown() {
-        for(Player all : Bukkit.getOnlinePlayers()) {
-            if(all.getAttribute(Attribute.GENERIC_ATTACK_SPEED).getBaseValue() != 4) all.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(4);
+        CooldownHandler cooldownHandler = new CooldownHandler();
+
+        for(Player player : Bukkit.getOnlinePlayers()) {
+            if(cooldownHandler.isCooldownDisabled(player)) cooldownHandler.enableCooldown(player);
         }
     }
 
     private void setOnlinePlayersCooldown() {
-        for(Player all : Bukkit.getOnlinePlayers()) {
-            String world = all.getLocation().getWorld().getName();
-            if(WorldManager.isWorldDisabled(world)) return;
+        CooldownHandler cooldownHandler = new CooldownHandler();
 
-            all.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(ObjectTransformer.getInteger(cacheContainer.get(Integer.class, "ATTACK_SPEED_VALUE")));
+        for(Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+            String world = onlinePlayer.getLocation().getWorld().getName();
+
+            // Check Bypass and Permissions
+            boolean isBypassed = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_BYPASS_PERMISSION")) && onlinePlayer.hasPermission("anticooldown.bypass");
+            boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && onlinePlayer.hasPermission("anticooldown.cooldown") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
+
+            // If not permitted: Return;
+            if(!isPermitted) return;
+
+            if(WorldManager.isWorldDisabled(world)) {
+                // If disabled and is bypassed, disable cooldown;
+                // If disabled and is not bypassed, do nothing;
+                if(isBypassed) cooldownHandler.disableCooldown(onlinePlayer);
+                else cooldownHandler.enableCooldown(onlinePlayer);
+            } else {
+                cooldownHandler.disableCooldown(onlinePlayer);
+            }
         }
     }
 
@@ -165,6 +232,10 @@ public class AntiCooldown extends JavaPlugin {
 
     public static TubeTilsManager getTubeTilsManager() {
         return tubeTilsManager;
+    }
+
+    public static ProtocolManager getProtocolManager() {
+        return protocolManager;
     }
 
     public static CacheContainer getCacheContainer() {

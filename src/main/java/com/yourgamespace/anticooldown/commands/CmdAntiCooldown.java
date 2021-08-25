@@ -1,12 +1,12 @@
 package com.yourgamespace.anticooldown.commands;
 
 import com.yourgamespace.anticooldown.main.AntiCooldown;
+import com.yourgamespace.anticooldown.utils.CooldownHandler;
 import com.yourgamespace.anticooldown.utils.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.WorldManager;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -16,6 +16,7 @@ import org.bukkit.entity.Player;
 public class CmdAntiCooldown implements CommandExecutor {
 
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
+    private final CooldownHandler cooldownHandler = new CooldownHandler();
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
@@ -25,7 +26,8 @@ public class CmdAntiCooldown implements CommandExecutor {
         }
         Player player = (Player) commandSender;
         if(args.length > 2 || args.length == 0) {
-            sendUsageMessage(player);
+            player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§cWrong usage!");
+            sendHelpMessage(player);
             return true;
         }
 
@@ -39,7 +41,7 @@ public class CmdAntiCooldown implements CommandExecutor {
 
         if(args.length == 1) {
             if(arg.equalsIgnoreCase("help")) {
-                sendUsageMessage(player);
+                sendHelpMessage(player);
                 return true;
             }
             else if(arg.equalsIgnoreCase("listDisabledWorlds")) {
@@ -63,7 +65,12 @@ public class CmdAntiCooldown implements CommandExecutor {
                 World bukkitWorld = Bukkit.getWorld(world);
                 if(bukkitWorld == null) return true;
                 for(Player worldPlayer : bukkitWorld.getPlayers()) {
-                    worldPlayer.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(ObjectTransformer.getInteger(cacheContainer.get(Integer.class, "ATTACK_SPEED_VALUE")));
+                    // Check Permissions
+                    boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && player.hasPermission("anticooldown.cooldown") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
+
+                    // Check if player is permitted
+                    if(!isPermitted) continue;
+                    cooldownHandler.disableCooldown(worldPlayer);
                 }
                 return true;
             }
@@ -80,12 +87,17 @@ public class CmdAntiCooldown implements CommandExecutor {
                 World bukkitWorld = Bukkit.getWorld(world);
                 if(bukkitWorld == null) return true;
                 for(Player worldPlayer : bukkitWorld.getPlayers()) {
-                    worldPlayer.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(4);
+                    // Check Bypass and Permissions
+                    boolean isBypassed = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_BYPASS_PERMISSION")) && player.hasPermission("anticooldown.bypass");
+                    boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && player.hasPermission("anticooldown.cooldown") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
+
+                    if(!isPermitted) continue;
+                    if(!isBypassed) cooldownHandler.enableCooldown(player);
                 }
                 return true;
             }
             else {
-                sendUsageMessage(player);
+                sendHelpMessage(player);
                 return true;
             }
         }
@@ -105,7 +117,12 @@ public class CmdAntiCooldown implements CommandExecutor {
                 World bukkitWorld = Bukkit.getWorld(world);
                 if(bukkitWorld == null) return true;
                 for(Player worldPlayer : bukkitWorld.getPlayers()) {
-                    worldPlayer.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(ObjectTransformer.getInteger(cacheContainer.get(Integer.class, "ATTACK_SPEED_VALUE")));
+                    // Check Permissions
+                    boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && player.hasPermission("anticooldown.cooldown") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
+
+                    // Check if player is permitted
+                    if(!isPermitted) continue;
+                    cooldownHandler.disableCooldown(worldPlayer);
                 }
                 return true;
             }
@@ -121,20 +138,24 @@ public class CmdAntiCooldown implements CommandExecutor {
                 World bukkitWorld = Bukkit.getWorld(world);
                 if(bukkitWorld == null) return true;
                 for(Player worldPlayer : bukkitWorld.getPlayers()) {
-                    worldPlayer.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(4);
+                    // Check Bypass and Permissions
+                    boolean isBypassed = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_BYPASS_PERMISSION")) && player.hasPermission("anticooldown.bypass");
+                    boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && player.hasPermission("anticooldown.cooldown") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
+
+                    if(!isPermitted) continue;
+                    if(!isBypassed) cooldownHandler.enableCooldown(player);
                 }
                 return true;
             }
             else {
-                sendUsageMessage(player);
+                sendHelpMessage(player);
                 return true;
             }
         }
         return true;
     }
     
-    private void sendUsageMessage(Player player) {
-        player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§cWrong usage!");
+    private void sendHelpMessage(Player player) {
         player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§7> §e/anticooldown");
         player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§7> §e/anticooldown help");
         player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§7> §e/anticooldown listDisabledWorlds");

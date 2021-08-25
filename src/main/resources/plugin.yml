@@ -1,10 +1,26 @@
 name: AntiCooldown
-version: 3.6.4.2-DEV
+author: YourGameSpace
+website: yourgamespace.com
+version: 4.0.1-DEV
 api-version: 1.13
 
 main: com.yourgamespace.anticooldown.main.AntiCooldown
 softdepend:
   - TubeTils
+  - PlaceholderAPI
+  - ProtocolLib
+
+permissions:
+  anticooldown.settings:
+    description: Allows the player to execute commands of the plugin to change settings.
+  anticooldown.cooldown:
+    description: The player will be affected by cooldown changes.
+  anticooldown.combatsounds:
+    description: The new combat sounds are deactivated for the player.
+  anticooldown.sweepattack:
+    description: The SweepAttack particles are deactivated for the player.
+  anticooldown.customitemdamage:
+    description: The attack damage of the player is set to the set value for the item used for the attack.
 
 commands:
   anticooldown:
