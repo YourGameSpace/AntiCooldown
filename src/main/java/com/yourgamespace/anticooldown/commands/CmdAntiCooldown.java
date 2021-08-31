@@ -12,7 +12,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-@SuppressWarnings("ALL")
+@SuppressWarnings({"NullableProblems", "ConstantConditions"})
 public class CmdAntiCooldown implements CommandExecutor {
 
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
@@ -92,7 +92,7 @@ public class CmdAntiCooldown implements CommandExecutor {
                     boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && player.hasPermission("anticooldown.cooldown") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
 
                     if(!isPermitted) continue;
-                    if(!isBypassed) cooldownHandler.enableCooldown(player);
+                    if(!isBypassed) cooldownHandler.enableCooldown(worldPlayer);
                 }
                 return true;
             }
@@ -143,7 +143,7 @@ public class CmdAntiCooldown implements CommandExecutor {
                     boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && player.hasPermission("anticooldown.cooldown") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
 
                     if(!isPermitted) continue;
-                    if(!isBypassed) cooldownHandler.enableCooldown(player);
+                    if(!isBypassed) cooldownHandler.enableCooldown(worldPlayer);
                 }
                 return true;
             }
