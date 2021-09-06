@@ -68,7 +68,7 @@
         <dependency>
             <groupId>de.tubeof</groupId>
             <artifactId>TubeTilsManager</artifactId>
-            <version>SNAPSHOT-17</version>
+            <version>SNAPSHOT-21</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
