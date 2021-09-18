@@ -62,13 +62,13 @@
         <dependency>
             <groupId>de.tubeof</groupId>
             <artifactId>TubeTils</artifactId>
-            <version>SNAPSHOT-60</version>
+            <version>SNAPSHOT-70</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>de.tubeof</groupId>
             <artifactId>TubeTilsManager</artifactId>
-            <version>SNAPSHOT-24</version>
+            <version>SNAPSHOT-25</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
