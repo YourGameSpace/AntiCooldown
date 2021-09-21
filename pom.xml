@@ -62,7 +62,7 @@
         <dependency>
             <groupId>de.tubeof</groupId>
             <artifactId>TubeTils</artifactId>
-            <version>SNAPSHOT-70</version>
+            <version>SNAPSHOT-71</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

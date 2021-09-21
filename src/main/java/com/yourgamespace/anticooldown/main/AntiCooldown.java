@@ -70,7 +70,7 @@ public class AntiCooldown extends JavaPlugin {
     private void initialisation() {
         main = this;
 
-        tubeTilsManager = new TubeTilsManager("§7[§3AntiCooldownLogger§7] ", this, 54, true);
+        tubeTilsManager = new TubeTilsManager("§7[§3AntiCooldownLogger§7] ", this, 71, true);
         cacheContainer = new CacheContainer("AntiCooldown");
         cacheContainer.registerCacheType(String.class);
         cacheContainer.registerCacheType(Boolean.class);
