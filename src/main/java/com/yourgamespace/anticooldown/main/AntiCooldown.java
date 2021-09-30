@@ -86,12 +86,21 @@ public class AntiCooldown extends JavaPlugin {
         //ProtocolLib
         if(Bukkit.getPluginManager().getPlugin("ProtocolLib") != null) {
             ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aProtocolLib is installed! Support for ProtocolLib enabled!");
-            data.setProtocollib(true);
+            data.setProtocolLib(true);
 
             protocolManager = ProtocolLibrary.getProtocolManager();
         } else {
-            data.setProtocollib(false);
+            data.setProtocolLib(false);
             ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cProtocolLib is NOT installed! Support for ProtocolLib disabled!");
+        }
+
+        //PlaceholderAPI
+        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aPlaceholderAPI is installed! Support for PlaceholderAPI enabled!");
+            data.setPlaceholderApi(true);
+        } else {
+            data.setPlaceholderApi(false);
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cPlaceholderAPI is NOT installed! Support for PlaceholderAPI disabled!");
         }
     }
 
@@ -118,7 +127,7 @@ public class AntiCooldown extends JavaPlugin {
         pluginManager.registerEvents(new CustomItemDamage(), this);
 
         // Packet Handler
-        if(data.isProtocollibInstalled()) {
+        if(data.isProtocolLibInstalled()) {
             new SweepAttack.PacketHandler();
             new CombatSounds.PacketHandler();
         } else {
@@ -138,12 +147,12 @@ public class AntiCooldown extends JavaPlugin {
     }
 
     private void registerPlaceholders() {
-        if(pluginManager.getPlugin("PlaceholderAPI") != null) {
+        if(data.isPlaceholderApiInstalled()) {
             ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aPlaceholders for PlacerholderAPI will be registered ...");
 
             new PlaceholderHandler().register();
-        } else {
-            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§ePlaceholderAPI is not installed! Disabling placeholders ...");
+
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aPlaceholders have been successfully registered!");
         }
     }
 
