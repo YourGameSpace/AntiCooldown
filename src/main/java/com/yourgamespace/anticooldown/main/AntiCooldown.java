@@ -38,6 +38,7 @@ public class AntiCooldown extends JavaPlugin {
         long startTimestamp = System.currentTimeMillis();
 
         initialisation();
+        if(!tubeTilsManager.wasSuccessful()) return;
 
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aThe Plugin will be activated ...");
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "==================================================");
@@ -60,6 +61,8 @@ public class AntiCooldown extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        if(!tubeTilsManager.wasSuccessful()) return;
+
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aThe Plugin will be deactivated ...");
 
         setDefaultCooldown();
