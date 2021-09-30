@@ -38,6 +38,7 @@ public class AntiCooldown extends JavaPlugin {
         long startTimestamp = System.currentTimeMillis();
 
         initialisation();
+        if(!tubeTilsManager.wasSuccessful()) return;
 
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aThe Plugin will be activated ...");
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "==================================================");
@@ -60,6 +61,8 @@ public class AntiCooldown extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        if(!tubeTilsManager.wasSuccessful()) return;
+
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aThe Plugin will be deactivated ...");
 
         setDefaultCooldown();
@@ -70,7 +73,7 @@ public class AntiCooldown extends JavaPlugin {
     private void initialisation() {
         main = this;
 
-        tubeTilsManager = new TubeTilsManager("§7[§3AntiCooldownLogger§7] ", this, 54, "1.0.4", true);
+        tubeTilsManager = new TubeTilsManager("§7[§3AntiCooldownLogger§7] ", this, 71, true);
         cacheContainer = new CacheContainer("AntiCooldown");
         cacheContainer.registerCacheType(String.class);
         cacheContainer.registerCacheType(Boolean.class);
@@ -83,12 +86,21 @@ public class AntiCooldown extends JavaPlugin {
         //ProtocolLib
         if(Bukkit.getPluginManager().getPlugin("ProtocolLib") != null) {
             ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aProtocolLib is installed! Support for ProtocolLib enabled!");
-            data.setProtocollib(true);
+            data.setProtocolLib(true);
 
             protocolManager = ProtocolLibrary.getProtocolManager();
         } else {
-            data.setProtocollib(false);
+            data.setProtocolLib(false);
             ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cProtocolLib is NOT installed! Support for ProtocolLib disabled!");
+        }
+
+        //PlaceholderAPI
+        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aPlaceholderAPI is installed! Support for PlaceholderAPI enabled!");
+            data.setPlaceholderApi(true);
+        } else {
+            data.setPlaceholderApi(false);
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cPlaceholderAPI is NOT installed! Support for PlaceholderAPI disabled!");
         }
     }
 
@@ -97,7 +109,7 @@ public class AntiCooldown extends JavaPlugin {
 
         pluginConfig.cfgConfig();
         pluginConfig.setCache();
-        if(ObjectTransformer.getInteger(cacheContainer.get(Integer.class, "CONFIG_VERSION")) != data.getCurrentConfigVersion()) pluginConfig.configUpdateMessage();
+        if(!ObjectTransformer.getInteger(cacheContainer.get(Integer.class, "CONFIG_VERSION")).equals(data.getCurrentConfigVersion())) pluginConfig.configUpdateMessage();
 
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aConfig Files was successfully loaded!");
     }
@@ -115,7 +127,7 @@ public class AntiCooldown extends JavaPlugin {
         pluginManager.registerEvents(new CustomItemDamage(), this);
 
         // Packet Handler
-        if(data.isProtocollibInstalled()) {
+        if(data.isProtocolLibInstalled()) {
             new SweepAttack.PacketHandler();
             new CombatSounds.PacketHandler();
         } else {
@@ -135,12 +147,12 @@ public class AntiCooldown extends JavaPlugin {
     }
 
     private void registerPlaceholders() {
-        if(pluginManager.getPlugin("PlaceholderAPI") != null) {
+        if(data.isPlaceholderApiInstalled()) {
             ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aPlaceholders for PlacerholderAPI will be registered ...");
 
             new PlaceholderHandler().register();
-        } else {
-            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§ePlaceholderAPI is not installed! Disabling placeholders ...");
+
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aPlaceholders have been successfully registered!");
         }
     }
 
