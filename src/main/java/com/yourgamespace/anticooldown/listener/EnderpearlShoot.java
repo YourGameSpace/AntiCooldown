@@ -3,6 +3,7 @@ package com.yourgamespace.anticooldown.listener;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.CooldownHandler;
 import de.tubeof.tubetils.api.cache.CacheContainer;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.EnderPearl;
 import org.bukkit.entity.Player;
@@ -27,6 +28,6 @@ public class EnderpearlShoot implements Listener {
         if(!(projectileSource instanceof Player)) return;
         Player player = (Player) projectileSource;
 
-        player.setCooldown(Material.ENDER_PEARL, 0);
+        Bukkit.getScheduler().runTaskLater(AntiCooldown.getInstance(), () -> player.setCooldown(Material.ENDER_PEARL, 0), 0);
     }
 }
