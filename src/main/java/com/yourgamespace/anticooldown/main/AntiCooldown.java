@@ -123,8 +123,8 @@ public class AntiCooldown extends JavaPlugin {
         pluginManager.registerEvents(new SwitchWorld(), this);
         pluginManager.registerEvents(new SweepAttack(), this);
         pluginManager.registerEvents(new ItemRestriction(), this);
-
         pluginManager.registerEvents(new CustomItemDamage(), this);
+        pluginManager.registerEvents(new EnderpearlShoot(), this);
 
         // Packet Handler
         if(data.isProtocolLibInstalled()) {
