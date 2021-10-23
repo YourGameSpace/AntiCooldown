@@ -30,6 +30,6 @@ public class EnderpearlShoot implements Listener {
 
         Bukkit.getScheduler().runTaskLater(AntiCooldown.getInstance(), () -> player.setCooldown(Material.ENDER_PEARL, 0), 0);
 
-        player.sendMessage("Version ID: " + Bukkit.getVersion());
+        player.sendMessage("Version ID: " + Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3]);
     }
 }
