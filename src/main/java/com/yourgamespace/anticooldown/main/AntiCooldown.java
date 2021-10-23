@@ -14,6 +14,7 @@ import de.tubeof.tubetilsmanager.TubeTilsManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -26,6 +27,7 @@ public class AntiCooldown extends JavaPlugin {
     private final PluginManager pluginManager = Bukkit.getPluginManager();
 
     private static AntiCooldown main;
+    private static VersionHandler versionHandler;
     private static TubeTilsManager tubeTilsManager;
     private static ProtocolManager protocolManager;
     private static CacheContainer cacheContainer;
@@ -48,6 +50,7 @@ public class AntiCooldown extends JavaPlugin {
         manageConfigs();
         checkUpdate();
 
+        compatibilityTest();
         registerListener();
         registerCommands();
         registerPlaceholders();
@@ -82,6 +85,7 @@ public class AntiCooldown extends JavaPlugin {
 
         data = new Data();
         pluginConfig = new PluginConfig();
+        versionHandler = new VersionHandler();
 
         //ProtocolLib
         if(Bukkit.getPluginManager().getPlugin("ProtocolLib") != null) {
@@ -102,6 +106,23 @@ public class AntiCooldown extends JavaPlugin {
             data.setPlaceholderApi(false);
             ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cPlaceholderAPI is NOT installed! Support for PlaceholderAPI disabled!");
         }
+    }
+
+    private void compatibilityTest() {
+        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aRunning Compatibility-Check ...");
+
+        /**
+         * START
+         * @see SweepAttack#onSweepAttackDamage(EntityDamageByEntityEvent) 
+         */
+        if(AntiCooldown.getVersionHandler().getVersionId() <= 7) {
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§4WARNING: §cDisableSweepAttacks is not supported by §e" + Bukkit.getBukkitVersion() + "§c!");
+        }
+        /**
+         * END
+         */
+
+        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aCompatibility-Check done!");
     }
 
     private void manageConfigs() {
@@ -252,6 +273,10 @@ public class AntiCooldown extends JavaPlugin {
 
     public static CacheContainer getCacheContainer() {
         return cacheContainer;
+    }
+
+    public static VersionHandler getVersionHandler() {
+        return versionHandler;
     }
 
     public static AntiCooldown getInstance() {
