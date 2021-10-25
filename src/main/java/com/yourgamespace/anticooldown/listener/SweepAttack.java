@@ -27,7 +27,7 @@ public class SweepAttack implements Listener {
         // Check if feature is disabled
         if(!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "DISABLE_SWEEP_ATTACK"))) return;
         // Check if feature is supported by minecraft version
-        if(AntiCooldown.getVersionHandler().getVersionId() <= 7) return;
+        if(AntiCooldown.getVersionHandler().getVersionId() < 8) return;
         // START TEMP DISABLED
         // Just to make sure not causing errors
         //if(!EnumUtils.isValidEnum(EntityDamageEvent.DamageCause.class, "ENTITY_SWEEP_ATTACK")) {
