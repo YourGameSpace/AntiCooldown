@@ -148,6 +148,7 @@ public class AntiCooldown extends JavaPlugin {
         pluginManager.registerEvents(new ItemRestriction(), this);
         pluginManager.registerEvents(new CustomItemDamage(), this);
         pluginManager.registerEvents(new EnderpearlCooldown(), this);
+        pluginManager.registerEvents(new PlayerCollision(), this);
 
         // Packet Handler
         if(data.isProtocolLibInstalled()) {
