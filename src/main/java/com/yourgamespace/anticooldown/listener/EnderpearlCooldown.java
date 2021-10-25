@@ -21,7 +21,7 @@ import org.bukkit.projectiles.ProjectileSource;
 
 import java.lang.reflect.InvocationTargetException;
 
-public class EnderpearlShoot implements Listener {
+public class EnderpearlCooldown implements Listener {
 
     private final Data data = AntiCooldown.getData();
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
