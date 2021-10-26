@@ -2,6 +2,7 @@ package com.yourgamespace.anticooldown.utils;
 
 import org.bukkit.Bukkit;
 
+@SuppressWarnings("unused")
 public class VersionHandler {
 
     private final String minecraftVersion;
