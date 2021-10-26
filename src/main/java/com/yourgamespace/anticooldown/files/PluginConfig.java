@@ -127,6 +127,7 @@ public class PluginConfig {
         cfg.addDefault("Settings.Features.ItemRestriction.EnableItemRestriction", false);
         cfg.addDefault("Settings.Features.ItemRestriction.SendActionBar", true);
         cfg.addDefault("Settings.Features.ItemRestriction.UseAsWhitelist", false);
+        //Settings: UpdateChecker
         cfg.addDefault("Settings.Updates.UseUpdateChecker", true);
         cfg.addDefault("Settings.Updates.ConsoleNotify", true);
         cfg.addDefault("Settings.Updates.IngameNotify", true);
