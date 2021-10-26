@@ -10,6 +10,7 @@ import org.bukkit.ChatColor;
 import java.util.Collection;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class WrapperPlayServerScoreboardTeam extends AbstractPacket {
 
     public static final PacketType TYPE =
