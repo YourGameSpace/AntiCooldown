@@ -115,9 +115,7 @@ public class AntiCooldown extends JavaPlugin {
          * START
          * @see SweepAttack#onSweepAttackDamage(EntityDamageByEntityEvent) 
          */
-        if(AntiCooldown.getVersionHandler().getVersionId() == -1) {
-            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§4WARNING: §cDisableSweepAttacks is not supported by §e" + Bukkit.getBukkitVersion() + "§c!");
-        } else if (AntiCooldown.getVersionHandler().getVersionId() <= 7) {
+        if(AntiCooldown.getVersionHandler().getVersionId() < 8) {
             ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§4WARNING: §cDisableSweepAttacks is not supported by §e" + Bukkit.getBukkitVersion() + "§c!");
         }
         /**
