@@ -122,6 +122,8 @@ public class PluginConfig {
         //Settings: Features
         cfg.addDefault("Settings.Features.DisableSweepAttacks", true);
         cfg.addDefault("Settings.Features.DisableNewCombatSounds", true);
+        cfg.addDefault("Settings.Features.DisablePlayerCollision", true);
+        cfg.addDefault("Settings.Features.DisableEnderpearlCooldown", true);
         cfg.addDefault("Settings.Features.CustomItemDamage.EnableCustomItemDamage", false);
         cfg.addDefault("Settings.Features.CustomItemDamage.SendActionBar", true);
         cfg.addDefault("Settings.Features.ItemRestriction.EnableItemRestriction", false);
@@ -184,6 +186,8 @@ public class PluginConfig {
         //Settings: Features
         cacheContainer.add(Boolean.class, "DISABLE_SWEEP_ATTACK", cfg.getBoolean("Settings.Features.DisableSweepAttacks"));
         cacheContainer.add(Boolean.class, "DISABLE_NEW_COMBAT_SOUNDS", cfg.getBoolean("Settings.Features.DisableNewCombatSounds"));
+        cacheContainer.add(Boolean.class, "DISABLE_PLAYER_COLLISION", cfg.getBoolean("Settings.Features.DisablePlayerCollision"));
+        cacheContainer.add(Boolean.class, "DISABLE_ENDERPEARL_COOLDOWN", cfg.getBoolean("Settings.Features.DisableEnderpearlCooldown"));
         cacheContainer.add(Boolean.class, "ENABLE_CUSTOM_ITEM_DAMAGE", cfg.getBoolean("Settings.Features.CustomItemDamage.EnableCustomItemDamage"));
         cacheContainer.add(Boolean.class, "ENABLE_CUSTOM_ITEM_DAMAGE_ACTIONBAR", cfg.getBoolean("Settings.Features.CustomItemDamage.SendActionBar"));
         cacheContainer.add(Boolean.class, "ITEM_RESTRICTION", cfg.getBoolean("Settings.Features.ItemRestriction.EnableItemRestriction"));

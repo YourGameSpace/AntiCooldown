@@ -2,6 +2,7 @@ package com.yourgamespace.anticooldown.listener;
 
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.CooldownHandler;
+import com.yourgamespace.anticooldown.utils.ObjectTransformer;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -21,11 +22,11 @@ public class EnderpearlCooldown implements Listener {
     @EventHandler
     public void onEnderpearlShoot(ProjectileLaunchEvent event) {
         // Check if feature is disabled
-        // START TEMP DISABLED
-        //if(!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "DISABLE_ENDERPEARL_COOLDOWN"))) return;
-        // END TEMP DISABLED
+        if(!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "DISABLE_ENDERPEARL_COOLDOWN"))) return;
         // Check if feature is supported by minecraft version
         if(AntiCooldown.getVersionHandler().getVersionId() < 8) return;
+
+        // For compatibility with other plugins
         if(event.isCancelled()) return;
 
         Projectile projectile = event.getEntity();
@@ -34,6 +35,8 @@ public class EnderpearlCooldown implements Listener {
         if(!(projectileSource instanceof Player)) return;
         Player player = (Player) projectileSource;
 
+        // Set enderpearl cooldown to 0 (ticks)
+        // Will also disable cooldown animation at client
         Bukkit.getScheduler().runTaskLater(AntiCooldown.getInstance(), () -> player.setCooldown(Material.ENDER_PEARL, 0), 0);
     }
 }
