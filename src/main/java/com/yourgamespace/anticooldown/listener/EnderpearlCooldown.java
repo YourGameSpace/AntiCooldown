@@ -21,10 +21,10 @@ public class EnderpearlCooldown implements Listener {
 
     @EventHandler
     public void onEnderpearlShoot(ProjectileLaunchEvent event) {
-        // Check if feature is disabled
-        if(!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "DISABLE_ENDERPEARL_COOLDOWN"))) return;
         // Check if feature is supported by minecraft version
         if(AntiCooldown.getVersionHandler().getVersionId() < 8) return;
+        // Check if feature is disabled
+        if(!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "DISABLE_ENDERPEARL_COOLDOWN"))) return;
 
         // For compatibility with other plugins
         if(event.isCancelled()) return;
