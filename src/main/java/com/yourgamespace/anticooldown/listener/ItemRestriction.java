@@ -20,7 +20,6 @@ import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.ItemStack;
 
-@SuppressWarnings("ALL")
 public class ItemRestriction implements Listener {
 
     private static final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
@@ -81,7 +80,7 @@ public class ItemRestriction implements Listener {
     public void onItemDrop(PlayerDropItemEvent event) {
         if(!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "ITEM_RESTRICTION"))) return;
 
-        Player player = (Player) event.getPlayer();
+        Player player = event.getPlayer();
         String world = player.getWorld().getName();
         ItemStack item = player.getInventory().getItemInMainHand();
 
