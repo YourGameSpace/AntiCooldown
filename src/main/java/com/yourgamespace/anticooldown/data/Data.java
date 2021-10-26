@@ -1,6 +1,6 @@
 package com.yourgamespace.anticooldown.data;
 
-@SuppressWarnings("ALL")
+@SuppressWarnings("FieldCanBeLocal")
 public class Data {
 
     public Data() {}
