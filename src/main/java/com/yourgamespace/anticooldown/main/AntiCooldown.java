@@ -14,13 +14,12 @@ import de.tubeof.tubetilsmanager.TubeTilsManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
 
-@SuppressWarnings("ALL")
+@SuppressWarnings("ConstantConditions")
 public class AntiCooldown extends JavaPlugin {
 
     private final ConsoleCommandSender ccs = Bukkit.getConsoleSender();
@@ -111,15 +110,15 @@ public class AntiCooldown extends JavaPlugin {
     private void compatibilityTest() {
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aRunning Compatibility-Check ...");
 
-        /**
-         * START
-         * @see SweepAttack#onSweepAttackDamage(EntityDamageByEntityEvent) 
+        /*
+          START
+          @see SweepAttack#onSweepAttackDamage(EntityDamageByEntityEvent)
          */
         if(AntiCooldown.getVersionHandler().getVersionId() < 8) {
             ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§4WARNING: §cDisableSweepAttacks is not supported by §e" + Bukkit.getBukkitVersion() + "§c!");
         }
-        /**
-         * END
+        /*
+          END
          */
 
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aCompatibility-Check done!");
@@ -244,6 +243,7 @@ public class AntiCooldown extends JavaPlugin {
         }
     }
 
+    @SuppressWarnings("unused")
     private void bStats() {
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aLoad and activate bStats ...");
 
@@ -262,10 +262,6 @@ public class AntiCooldown extends JavaPlugin {
 
     public static UpdateChecker getUpdateChecker() {
         return updateChecker;
-    }
-
-    public static TubeTilsManager getTubeTilsManager() {
-        return tubeTilsManager;
     }
 
     public static ProtocolManager getProtocolManager() {
