@@ -15,7 +15,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
-@SuppressWarnings({"ConstantConditions", "ResultOfMethodCallIgnored"})
+@SuppressWarnings("ConstantConditions")
 public class CustomItemDamage implements Listener {
 
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
