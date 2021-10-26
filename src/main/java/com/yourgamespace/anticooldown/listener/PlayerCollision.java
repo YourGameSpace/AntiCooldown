@@ -17,7 +17,7 @@ public class PlayerCollision implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        // Check if Proto is supported by minecraft version
+        // Check if ProtocolLib is supported by minecraft version
         if (!data.isProtocolLibInstalled()) return;
         Player player = event.getPlayer();
 
