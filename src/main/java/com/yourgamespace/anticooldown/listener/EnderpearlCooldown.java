@@ -1,7 +1,6 @@
 package com.yourgamespace.anticooldown.listener;
 
 import com.yourgamespace.anticooldown.main.AntiCooldown;
-import com.yourgamespace.anticooldown.utils.CooldownHandler;
 import com.yourgamespace.anticooldown.utils.ObjectTransformer;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import org.bukkit.Bukkit;
@@ -17,7 +16,6 @@ import org.bukkit.projectiles.ProjectileSource;
 public class EnderpearlCooldown implements Listener {
 
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
-    private final CooldownHandler cooldownHandler = new CooldownHandler();
 
     @EventHandler
     public void onEnderpearlShoot(ProjectileLaunchEvent event) {
