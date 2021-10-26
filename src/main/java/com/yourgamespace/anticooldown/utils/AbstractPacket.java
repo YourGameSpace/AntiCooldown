@@ -9,6 +9,7 @@ import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketContainer;
 import com.google.common.base.Objects;
 
+@SuppressWarnings("unused")
 public class AbstractPacket {
 
     // The packet we will be modifying
