@@ -11,7 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-@SuppressWarnings("ALL")
+@SuppressWarnings("ConstantConditions")
 public class Join implements Listener {
 
     private final UpdateChecker updateChecker = AntiCooldown.getUpdateChecker();
