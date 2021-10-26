@@ -9,7 +9,6 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 
-@SuppressWarnings("ConstantConditions")
 public class ItemDamageManager {
 
     private static final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
