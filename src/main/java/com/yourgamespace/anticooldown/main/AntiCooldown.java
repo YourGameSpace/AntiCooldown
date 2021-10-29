@@ -18,6 +18,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
+import java.lang.management.ManagementFactory;
 
 @SuppressWarnings("ConstantConditions")
 public class AntiCooldown extends JavaPlugin {
@@ -54,11 +55,13 @@ public class AntiCooldown extends JavaPlugin {
         registerCommands();
         registerPlaceholders();
 
-        setOnlinePlayersCooldown();
         bStats();
 
         long startTime = System.currentTimeMillis() - startTimestamp;
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aThe plugin was successfully activated in §e" + startTime + "ms§a!");
+
+        // Code to run after plugin was enabled
+        new CooldownHandler().setOnlinePlayersCooldown();
     }
 
     @Override
@@ -67,7 +70,7 @@ public class AntiCooldown extends JavaPlugin {
 
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aThe Plugin will be deactivated ...");
 
-        setDefaultCooldown();
+        new CooldownHandler().setDefaultCooldown();
 
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aThe plugin was successfully deactivated!");
     }
@@ -115,11 +118,18 @@ public class AntiCooldown extends JavaPlugin {
           @see SweepAttack#onSweepAttackDamage(EntityDamageByEntityEvent)
          */
         if(AntiCooldown.getVersionHandler().getVersionId() < 8) {
-            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§4WARNING: §cDisableSweepAttacks is not supported by §e" + Bukkit.getBukkitVersion() + "§c!");
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§4WARNING: §cDisableSweepAttacks is not supported by §e" + versionHandler.getMinecraftVersion() + " (" + Bukkit.getBukkitVersion() + "§c!");
         }
         /*
           END
          */
+
+        if(!data.isProtocolLibInstalled()) {
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§4WARNING: §cProtocolLib is not installed. The following features are disabled:");
+
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§c- DisableSweepAttackParticle");
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§c- DisableNewCombatSounds");
+        }
 
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aCompatibility-Check done!");
     }
@@ -149,9 +159,6 @@ public class AntiCooldown extends JavaPlugin {
         if(data.isProtocolLibInstalled()) {
             new SweepAttack.PacketHandler();
             new CombatSounds.PacketHandler();
-        } else {
-            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§4WARNING: §cDisableSweepAttackParticle is disabled: §cProtocolLib is missing!");
-            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§4WARNING: §cDisableNewCombatSounds is disabled: §cProtocolLib is missing!");
         }
 
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aListeners have been successfully registered!");
@@ -206,38 +213,6 @@ public class AntiCooldown extends JavaPlugin {
             ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cAn error occurred while checking for updates!");
             ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cPlease check the status page (https://yourgamespace.statuspage.io/) or contact our support (https://yourgamespace.com/support/).");
             exception.printStackTrace();
-        }
-    }
-
-    private void setDefaultCooldown() {
-        CooldownHandler cooldownHandler = new CooldownHandler();
-
-        for(Player player : Bukkit.getOnlinePlayers()) {
-            if(cooldownHandler.isCooldownDisabled(player)) cooldownHandler.enableCooldown(player);
-        }
-    }
-
-    private void setOnlinePlayersCooldown() {
-        CooldownHandler cooldownHandler = new CooldownHandler();
-
-        for(Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-            String world = onlinePlayer.getLocation().getWorld().getName();
-
-            // Check Bypass and Permissions
-            boolean isBypassed = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_BYPASS_PERMISSION")) && onlinePlayer.hasPermission("anticooldown.bypass");
-            boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && onlinePlayer.hasPermission("anticooldown.cooldown") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
-
-            // If not permitted: Return;
-            if(!isPermitted) return;
-
-            if(WorldManager.isWorldDisabled(world)) {
-                // If disabled and is bypassed, disable cooldown;
-                // If disabled and is not bypassed, do nothing;
-                if(isBypassed) cooldownHandler.disableCooldown(onlinePlayer);
-                else cooldownHandler.enableCooldown(onlinePlayer);
-            } else {
-                cooldownHandler.disableCooldown(onlinePlayer);
-            }
         }
     }
 
