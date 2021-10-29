@@ -3,6 +3,7 @@ package com.yourgamespace.anticooldown.listener;
 import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.ObjectTransformer;
+import com.yourgamespace.anticooldown.utils.PlayerCollisionHandler;
 import com.yourgamespace.anticooldown.utils.WorldManager;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import org.bukkit.entity.Player;
@@ -34,6 +35,7 @@ public class PlayerCollision implements Listener {
         // If world is disable and not bypassed: Return;
         if(WorldManager.isWorldDisabled(world) && !isBypassed) return;
 
-
+        // Disable collisions
+        PlayerCollisionHandler.disableCollision(player);
     }
 }
