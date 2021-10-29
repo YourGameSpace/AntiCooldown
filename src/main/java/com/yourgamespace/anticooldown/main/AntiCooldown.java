@@ -129,6 +129,7 @@ public class AntiCooldown extends JavaPlugin {
 
             ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§c- DisableSweepAttackParticle");
             ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§c- DisableNewCombatSounds");
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§c- DisablePlayerCollisions");
         }
 
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aCompatibility-Check done!");
