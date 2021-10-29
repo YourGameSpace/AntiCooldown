@@ -15,7 +15,10 @@ public class PlayerCollisionHandler {
         return collisionPlayers.contains(player.getUniqueId());
     }
 
-    public static void enableCollision(Player player) {
+    public static void enableCollisions(Player player) {
+        // If collisions is not disabled: Return;
+        if(!collisionPlayers.contains(player.getUniqueId())) return;
+
         // Create no-collision team delete packet
         WrapperPlayServerScoreboardTeam disableCollisionTeam = new WrapperPlayServerScoreboardTeam();
         disableCollisionTeam.setMode(WrapperPlayServerScoreboardTeam.Mode.TEAM_REMOVED);
@@ -28,7 +31,10 @@ public class PlayerCollisionHandler {
         collisionPlayers.remove(player.getUniqueId());
     }
 
-    public static void disableCollision(Player player) {
+    public static void disableCollisions(Player player) {
+        // If collisions already disabled: Return;
+        if(collisionPlayers.contains(player.getUniqueId())) return;
+
         // Create no-collision team packet
         WrapperPlayServerScoreboardTeam disableCollisionTeam = new WrapperPlayServerScoreboardTeam();
         disableCollisionTeam.setMode(WrapperPlayServerScoreboardTeam.Mode.TEAM_CREATED);

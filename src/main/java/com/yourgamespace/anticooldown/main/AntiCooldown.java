@@ -138,9 +138,7 @@ public class AntiCooldown extends JavaPlugin {
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aListeners will be registered ...");
 
         // Bukkit Events
-        pluginManager.registerEvents(new Join(), this);
-        pluginManager.registerEvents(new Quit(), this);
-        pluginManager.registerEvents(new SwitchWorld(), this);
+        pluginManager.registerEvents(new PvPCooldown(), this);
         pluginManager.registerEvents(new SweepAttack(), this);
         pluginManager.registerEvents(new ItemRestriction(), this);
         pluginManager.registerEvents(new CustomItemDamage(), this);

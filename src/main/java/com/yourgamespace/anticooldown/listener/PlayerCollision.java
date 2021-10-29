@@ -6,10 +6,12 @@ import com.yourgamespace.anticooldown.utils.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.PlayerCollisionHandler;
 import com.yourgamespace.anticooldown.utils.WorldManager;
 import de.tubeof.tubetils.api.cache.CacheContainer;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 
 public class PlayerCollision implements Listener {
 
@@ -32,10 +34,51 @@ public class PlayerCollision implements Listener {
 
         // If not permitted: Return;
         if(!isPermitted) return;
-        // If world is disable and not bypassed: Return;
-        if(WorldManager.isWorldDisabled(world) && !isBypassed) return;
 
-        // Disable collisions
-        PlayerCollisionHandler.disableCollision(player);
+        // Check if world is disabled
+        if(WorldManager.isWorldDisabled(world)) {
+            // If disabled and is bypassed, disable collisions;
+            // If disabled and is not bypassed, enable collisions;
+            if(isBypassed) {
+                PlayerCollisionHandler.disableCollisions(player);
+            } else {
+                PlayerCollisionHandler.enableCollisions(player);
+            }
+        } else {
+            PlayerCollisionHandler.disableCollisions(player);
+        }
+    }
+
+    @EventHandler
+    public void onWorldTeleport(PlayerTeleportEvent event) {
+        // Check if world was changed; If not: Return
+        if(event.getFrom().getWorld() == event.getTo().getWorld()) return;
+
+        Player player = event.getPlayer();
+        String world = event.getTo().getWorld().getName();
+
+        // Check Bypass and Permissions
+        boolean isBypassed = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_BYPASS_PERMISSION")) && player.hasPermission("anticooldown.bypass");
+        boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && player.hasPermission("anticooldown.collisions") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
+
+        // If not permitted: Return;
+        if(!isPermitted) return;
+
+        // 2 Tick Delay to prevent bugs
+        Bukkit.getScheduler().scheduleSyncDelayedTask(AntiCooldown.getInstance(), () -> {
+            // Check if world is disabled
+            if(WorldManager.isWorldDisabled(world)) {
+                // If disabled and is bypassed, disable collisions;
+                // If disabled and is not bypassed, enable collisions;
+                if(isBypassed) {
+                    PlayerCollisionHandler.disableCollisions(player);
+                } else {
+                    PlayerCollisionHandler.enableCollisions(player);
+                }
+            } else {
+                PlayerCollisionHandler.disableCollisions(player);
+            }
+
+        }, 2);
     }
 }
