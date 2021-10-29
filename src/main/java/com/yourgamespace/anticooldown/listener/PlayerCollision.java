@@ -3,15 +3,11 @@ package com.yourgamespace.anticooldown.listener;
 import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.ObjectTransformer;
-import com.yourgamespace.anticooldown.utils.WrapperPlayServerScoreboardTeam;
 import de.tubeof.tubetils.api.cache.CacheContainer;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-
-import java.util.ArrayList;
 
 public class PlayerCollision implements Listener {
 
@@ -27,17 +23,7 @@ public class PlayerCollision implements Listener {
 
         Player player = event.getPlayer();
 
-        // Create no-collision team packet
-        WrapperPlayServerScoreboardTeam disableCollisionTeam = new WrapperPlayServerScoreboardTeam();
-        disableCollisionTeam.setMode(WrapperPlayServerScoreboardTeam.Mode.TEAM_CREATED);
-        disableCollisionTeam.setName("dis-coll");
-        disableCollisionTeam.setColor(ChatColor.RESET);
-        disableCollisionTeam.setCollisionRule("never");
-        disableCollisionTeam.setPlayers(new ArrayList<String>() {{
-            add(player.getName());
-        }});
 
-        // Send packet
-        disableCollisionTeam.sendPacket(player);
+
     }
 }

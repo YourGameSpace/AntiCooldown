@@ -21,6 +21,8 @@ permissions:
     description: The SweepAttack particles are deactivated for the player.
   anticooldown.customitemdamage:
     description: The attack damage of the player is set to the set value for the item used for the attack.
+  anticooldown.enderpearlcooldown:
+    description: Allows the player to shoot enderpearls without ccooldown.
 
 commands:
   anticooldown:

@@ -2,6 +2,7 @@ package com.yourgamespace.anticooldown.listener;
 
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.ObjectTransformer;
+import com.yourgamespace.anticooldown.utils.WorldManager;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -32,6 +33,23 @@ public class EnderpearlCooldown implements Listener {
         ProjectileSource projectileSource = projectile.getShooter();
         if(!(projectileSource instanceof Player)) return;
         Player player = (Player) projectileSource;
+        String world = player.getWorld().getName();
+
+        // Check Bypass and Permissions
+        boolean isBypassed = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_BYPASS_PERMISSION")) && player.hasPermission("anticooldown.bypass");
+        boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && player.hasPermission("anticooldown.enderpearlcooldown") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
+
+        // If not permitted: Return;
+        if(!isPermitted) return;
+
+        // Check if world is disabled
+        if (WorldManager.isWorldDisabled(world)) {
+            // If disabled and is bypassed: disable particles;
+            if(isBypassed) event.setCancelled(true);
+        } else {
+            // If world enabled, player permitted and not bypassed: disable particles;
+            event.setCancelled(true);
+        }
 
         // Set enderpearl cooldown to 0 (ticks)
         // Will also disable cooldown animation at client
