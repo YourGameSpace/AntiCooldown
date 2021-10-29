@@ -41,15 +41,8 @@ public class EnderpearlCooldown implements Listener {
 
         // If not permitted: Return;
         if(!isPermitted) return;
-
-        // Check if world is disabled
-        if (WorldManager.isWorldDisabled(world)) {
-            // If disabled and is bypassed: disable particles;
-            if(isBypassed) event.setCancelled(true);
-        } else {
-            // If world enabled, player permitted and not bypassed: disable particles;
-            event.setCancelled(true);
-        }
+        // If world is disable and not bypassed: Return;
+        if(WorldManager.isWorldDisabled(world) && !isBypassed) return;
 
         // Set enderpearl cooldown to 0 (ticks)
         // Will also disable cooldown animation at client
