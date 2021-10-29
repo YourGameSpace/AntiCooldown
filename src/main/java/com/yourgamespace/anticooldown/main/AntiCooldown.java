@@ -13,12 +13,10 @@ import de.tubeof.tubetils.api.updatechecker.enums.ApiMethode;
 import de.tubeof.tubetilsmanager.TubeTilsManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
-import java.lang.management.ManagementFactory;
 
 @SuppressWarnings("ConstantConditions")
 public class AntiCooldown extends JavaPlugin {
@@ -113,23 +111,16 @@ public class AntiCooldown extends JavaPlugin {
     private void compatibilityTest() {
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aRunning Compatibility-Check ...");
 
-        /*
-          START
-          @see SweepAttack#onSweepAttackDamage(EntityDamageByEntityEvent)
-         */
         if(AntiCooldown.getVersionHandler().getVersionId() < 8) {
-            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§4WARNING: §cDisableSweepAttacks is not supported by §e" + versionHandler.getMinecraftVersion() + " (" + Bukkit.getBukkitVersion() + "§c!");
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§4WARNING: §cDisableSweepAttacks is not supported by §e" + versionHandler.getMinecraftVersion() + " (" + Bukkit.getBukkitVersion() + "§c!"); /* @see SweepAttack#onSweepAttackDamage */
         }
-        /*
-          END
-         */
 
         if(!data.isProtocolLibInstalled()) {
             ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§4WARNING: §cProtocolLib is not installed. The following features are disabled:");
 
-            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§c- DisableSweepAttackParticle");
-            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§c- DisableNewCombatSounds");
-            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§c- DisablePlayerCollisions");
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§c- DisableSweepAttackParticle"); /* @see SweepAttack */
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§c- DisableNewCombatSounds"); /* @see CombatSounds */
+            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§c- DisablePlayerCollisions"); /* @see PlayerCollision */
         }
 
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aCompatibility-Check done!");
