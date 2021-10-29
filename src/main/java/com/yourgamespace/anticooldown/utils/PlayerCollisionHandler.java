@@ -9,15 +9,13 @@ import java.util.UUID;
 @SuppressWarnings("unused")
 public class PlayerCollisionHandler {
 
-    private final ArrayList<UUID> collisionPlayers = new ArrayList<>();
+    private static final ArrayList<UUID> collisionPlayers = new ArrayList<>();
 
-    public PlayerCollisionHandler() {}
-
-    public boolean isCollisionDisabled(Player player) {
+    public static boolean isCollisionDisabled(Player player) {
         return collisionPlayers.contains(player.getUniqueId());
     }
 
-    public void enableCollision(Player player) {
+    public static void enableCollision(Player player) {
         // Create no-collision team delete packet
         WrapperPlayServerScoreboardTeam disableCollisionTeam = new WrapperPlayServerScoreboardTeam();
         disableCollisionTeam.setMode(WrapperPlayServerScoreboardTeam.Mode.TEAM_REMOVED);
@@ -30,7 +28,7 @@ public class PlayerCollisionHandler {
         collisionPlayers.remove(player.getUniqueId());
     }
 
-    public void disableCollision(Player player) {
+    public static void disableCollision(Player player) {
         // Create no-collision team packet
         WrapperPlayServerScoreboardTeam disableCollisionTeam = new WrapperPlayServerScoreboardTeam();
         disableCollisionTeam.setMode(WrapperPlayServerScoreboardTeam.Mode.TEAM_CREATED);
