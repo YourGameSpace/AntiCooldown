@@ -20,7 +20,7 @@ public class LoggingHandler {
         Bukkit.getLogger().warning(cacheContainer.get(String.class, "STARTUP_PREFIX") + message);
     }
 
-    public void debug(String message) {
-        Bukkit.getLogger().fine(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§7[§6DEBUG§7] " +  message);
+    public void debug(Class paramClass, String message) {
+        Bukkit.getLogger().fine(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§7[§6DEBUG§7] §7[§e" + paramClass.getName() + "§7]§f" +  message);
     }
 }

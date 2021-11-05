@@ -21,9 +21,10 @@ public class CombatSounds extends AntiCooldownModule {
     private static final Data data = AntiCooldown.getData();
 
     @Override
-    public void onEnable() {
+    public boolean compatibilityTest() {
         if(data.isProtocolLibInstalled()) {
             new PacketHandler();
+            return true;
         }
     }
 
