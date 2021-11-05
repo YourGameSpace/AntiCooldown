@@ -76,7 +76,7 @@ public class AntiCooldown extends JavaPlugin {
     private void initialisation() {
         main = this;
 
-        tubeTilsManager = new TubeTilsManager("§7[§3AntiCooldownLogger§7] ", this, 71, true);
+        tubeTilsManager = new TubeTilsManager("§7[§3AntiCooldownLogger§7] ", getInstance(), 71, true);
         cacheContainer = new CacheContainer("AntiCooldown");
         cacheContainer.registerCacheType(String.class);
         cacheContainer.registerCacheType(Boolean.class);
@@ -111,7 +111,7 @@ public class AntiCooldown extends JavaPlugin {
     private void compatibilityTest() {
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aRunning Compatibility-Check ...");
 
-        if(AntiCooldown.getVersionHandler().getVersionId() < 8) {
+        if(getVersionHandler().getVersionId() < 8) {
             ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§4WARNING: §cDisableSweepAttacks is not supported by §e" + versionHandler.getMinecraftVersion() + " (" + Bukkit.getBukkitVersion() + "§c!"); /* @see SweepAttack#onSweepAttackDamage */
         }
 
@@ -140,13 +140,13 @@ public class AntiCooldown extends JavaPlugin {
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aListeners will be registered ...");
 
         // Bukkit Events
-        pluginManager.registerEvents(new UpdateNotifyOnJoin(), this);
-        pluginManager.registerEvents(new PvPCooldown(), this);
-        pluginManager.registerEvents(new SweepAttack(), this);
-        pluginManager.registerEvents(new ItemRestriction(), this);
-        pluginManager.registerEvents(new CustomItemDamage(), this);
-        pluginManager.registerEvents(new EnderpearlCooldown(), this);
-        pluginManager.registerEvents(new PlayerCollision(), this);
+        pluginManager.registerEvents(new UpdateNotifyOnJoin(), getInstance());
+        pluginManager.registerEvents(new PvPCooldown(), getInstance());
+        pluginManager.registerEvents(new SweepAttack(), getInstance());
+        pluginManager.registerEvents(new ItemRestriction(), getInstance());
+        pluginManager.registerEvents(new CustomItemDamage(), getInstance());
+        pluginManager.registerEvents(new EnderpearlCooldown(), getInstance());
+        pluginManager.registerEvents(new PlayerCollision(), getInstance());
 
         // Packet Handler
         if(data.isProtocolLibInstalled()) {
@@ -183,7 +183,7 @@ public class AntiCooldown extends JavaPlugin {
 
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aChecking for updates ...");
         try {
-            updateChecker = new UpdateChecker("AntiCooldown-UpdateChecker", 51321, this, ApiMethode.YOURGAMESPACE, false, true);
+            updateChecker = new UpdateChecker("AntiCooldown-UpdateChecker", 51321, getInstance(), ApiMethode.YOURGAMESPACE, false, true);
 
             // Check errors
             if(!updateChecker.isOnline()) {
@@ -213,7 +213,7 @@ public class AntiCooldown extends JavaPlugin {
     private void bStats() {
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aLoad and activate bStats ...");
 
-        Metrics metrics = new Metrics(this, 3440);
+        Metrics metrics = new Metrics(getInstance(), 3440);
 
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§abStats was successfully loaded and activated!");
     }
