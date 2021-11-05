@@ -9,7 +9,7 @@ import org.bukkit.plugin.PluginManager;
 @SuppressWarnings("unused")
 public abstract class AntiCooldownModule implements Listener {
 
-    private final Logger logger = AntiCooldown.logger();
+    private final LoggingHandler logger = AntiCooldown.getLoggingHandler();
     private final PluginManager pluginManager = Bukkit.getPluginManager();
     private final String moduleName = getClass().getSimpleName();
 
@@ -50,7 +50,7 @@ public abstract class AntiCooldownModule implements Listener {
         onEnable();
 
         setEnabled(true);
-        logger.print("§aModule §e" + moduleName + " §asuccessfully enabled!");
+        logger.info("§aModule §e" + moduleName + " §asuccessfully enabled!");
     }
 
     /**
@@ -62,7 +62,7 @@ public abstract class AntiCooldownModule implements Listener {
         onDisable();
         HandlerList.unregisterAll(this);
 
-        logger.print("§aModule §e" + moduleName + " §asuccessfully disabled!");
+        logger.info("§aModule §e" + moduleName + " §asuccessfully disabled!");
     }
 
     /**

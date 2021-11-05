@@ -17,7 +17,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 public class SweepAttack extends AntiCooldownModule {
 
-    private static final Logger logger = AntiCooldown.logger();
+    private static final LoggingHandler loggingHandler = AntiCooldown.getLoggingHandler();
     private static final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
     private static final Data data = AntiCooldown.getData();
     private static final VersionHandler versionHandler = AntiCooldown.getVersionHandler();
@@ -25,7 +25,7 @@ public class SweepAttack extends AntiCooldownModule {
     @Override
     public boolean compatibilityTest() {
         if(versionHandler.getVersionId() < 8) {
-            logger.print("§4WARNING: §cDisableSweepAttacks is not supported by §e" + versionHandler.getMinecraftVersion() + " (" + Bukkit.getBukkitVersion() + "§c!");
+            loggingHandler.warn("§4WARNING: §cDisableSweepAttacks is not supported by §e" + versionHandler.getMinecraftVersion() + " (" + Bukkit.getBukkitVersion() + "§c!");
             return false;
         }
         return true;

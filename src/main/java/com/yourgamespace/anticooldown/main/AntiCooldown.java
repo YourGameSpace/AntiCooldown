@@ -25,7 +25,7 @@ public class AntiCooldown extends JavaPlugin {
     private final PluginManager pluginManager = Bukkit.getPluginManager();
 
     private static AntiCooldown main;
-    private static Logger logger;
+    private static LoggingHandler loggingHandler;
     private static ModuleHandler moduleHandler;
     private static VersionHandler versionHandler;
     private static TubeTilsManager tubeTilsManager;
@@ -85,7 +85,7 @@ public class AntiCooldown extends JavaPlugin {
         cacheContainer.registerCacheType(Integer.class);
         cacheContainer.add(String.class, "STARTUP_PREFIX", "§7[§3AntiCooldownLogger§7] ");
 
-        logger = new Logger();
+        loggingHandler = new LoggingHandler();
         data = new Data();
         pluginConfig = new PluginConfig();
         versionHandler = new VersionHandler();
@@ -244,7 +244,7 @@ public class AntiCooldown extends JavaPlugin {
         return versionHandler;
     }
 
-    public static Logger logger() {
-        return logger;
+    public static LoggingHandler getLoggingHandler() {
+        return loggingHandler;
     }
 }

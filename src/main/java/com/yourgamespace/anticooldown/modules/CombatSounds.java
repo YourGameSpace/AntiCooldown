@@ -7,6 +7,7 @@ import com.comphenix.protocol.events.PacketEvent;
 import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.AntiCooldownModule;
+import com.yourgamespace.anticooldown.utils.LoggingHandler;
 import com.yourgamespace.anticooldown.utils.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.WorldManager;
 import de.tubeof.tubetils.api.cache.CacheContainer;
@@ -15,6 +16,7 @@ import org.bukkit.entity.Player;
 
 public class CombatSounds extends AntiCooldownModule {
 
+    private static final LoggingHandler loggingHandler = AntiCooldown.getLoggingHandler();
     private static final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
     private static final Data data = AntiCooldown.getData();
 
