@@ -124,7 +124,7 @@ public class PluginConfig {
         cfg.addDefault("Settings.Features.DisableNewCombatSounds", true);
         cfg.addDefault("Settings.Features.DisablePlayerCollision", true);
         cfg.addDefault("Settings.Features.DisableEnderpearlCooldown", true);
-        cfg.addDefault("Settings.Features.CustomItemDamage.EnableCustomItemDamage", false);
+        cfg.addDefault("Settings.Features.CustomItemDamage.EnableCustomItemDamage", true);
         cfg.addDefault("Settings.Features.CustomItemDamage.SendActionBar", true);
         cfg.addDefault("Settings.Features.ItemRestriction.EnableItemRestriction", false);
         cfg.addDefault("Settings.Features.ItemRestriction.SendActionBar", true);
