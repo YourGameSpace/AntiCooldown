@@ -143,14 +143,14 @@ public class AntiCooldown extends JavaPlugin {
     private void registerModules() {
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aModules will be registered ...");
 
-        moduleHandler.registerModule(new UpdateNotifyOnJoin());
-        moduleHandler.registerModule(new PvPCooldown());
-        moduleHandler.registerModule(new SweepAttack());
-        moduleHandler.registerModule(new CombatSounds());
-        moduleHandler.registerModule(new EnderpearlCooldown());
-        moduleHandler.registerModule(new PlayerCollision());
-        moduleHandler.registerModule(new CustomItemDamage());
-        moduleHandler.registerModule(new ItemRestriction());
+        moduleHandler.registerModule(new UpdateNotifyOnJoin(false, true));
+        moduleHandler.registerModule(new PvPCooldown(false, true));
+        moduleHandler.registerModule(new SweepAttack(true, true));
+        moduleHandler.registerModule(new CombatSounds(true, false));
+        moduleHandler.registerModule(new EnderpearlCooldown(false, true));
+        moduleHandler.registerModule(new PlayerCollision(true, true));
+        moduleHandler.registerModule(new CustomItemDamage(false, true));
+        moduleHandler.registerModule(new ItemRestriction(false, true));
 
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aModules have been successfully registered!");
     }

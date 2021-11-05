@@ -1,5 +1,6 @@
 package com.yourgamespace.anticooldown.utils;
 
+import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
@@ -10,18 +11,17 @@ import org.bukkit.plugin.PluginManager;
 public abstract class AntiCooldownModule implements Listener {
 
     private final LoggingHandler logger = AntiCooldown.getLoggingHandler();
+    private final Data data = AntiCooldown.getData();
     private final PluginManager pluginManager = Bukkit.getPluginManager();
     private final String moduleName = getClass().getSimpleName();
 
+    private final boolean isProtocolLibRequired;
+    private final boolean registerBukkitListeners;
     private boolean isEnabled;
 
-    /**
-     * Set the status of this module. Status can be set to enabled and disabled using this methode.
-     * WARNING: This will NOT disable/enable the module.
-     * @param enabled true for enabled and false for disabled.
-     */
-    private void setEnabled(boolean enabled) {
-        isEnabled = enabled;
+    public AntiCooldownModule(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
+        this.isProtocolLibRequired = isProtocolLibRequired;
+        this.registerBukkitListeners = registerBukkitListeners;
     }
 
     /**
@@ -43,10 +43,23 @@ public abstract class AntiCooldownModule implements Listener {
     }
 
     /**
+     * Set the status of this module. Status can be set to enabled and disabled using this methode.
+     * WARNING: This will NOT disable/enable the module.
+     * @param enabled true for enabled and false for disabled.
+     */
+    private void setEnabled(boolean enabled) {
+        isEnabled = enabled;
+    }
+
+    /**
      * Will enable this module.
      */
     public void enableModule() {
-        pluginManager.registerEvents(this, AntiCooldown.getInstance());
+        if(isProtocolLibRequired && !data.isProtocolLibInstalled()) {
+            logger.warn("");
+        }
+
+        if(registerBukkitListeners) pluginManager.registerEvents(this, AntiCooldown.getInstance());
         onEnable();
 
         setEnabled(true);
@@ -66,11 +79,40 @@ public abstract class AntiCooldownModule implements Listener {
     }
 
     /**
+     * Will disable the module with the given reason.
+     * @param reason The reason, why the module was disabled.
+     */
+    public void disableModule(String reason) {
+        setEnabled(false);
+
+        onDisable();
+        HandlerList.unregisterAll(this);
+
+        logger.info("§aModule §e" + moduleName + " §asuccessfully disabled! §eReason: " + reason);
+    }
+
+    /**
      * If necessary, possibility for a self-test.
      * @return Returns true, if self-test passed or false if failed.
      */
     public boolean compatibilityTest() {
         return true;
+    }
+
+    /**
+     * Getter for module name.
+     * @return Returns the name of the module.
+     */
+    public String getModuleName() {
+        return moduleName;
+    }
+
+    /**
+     * Getter for isProtocolLibRequired
+     * @return Returns if ProtocolLib is required for the module.
+     */
+    public boolean isProtocolLibRequired() {
+        return isProtocolLibRequired;
     }
 
 }

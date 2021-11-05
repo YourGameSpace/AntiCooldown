@@ -20,12 +20,13 @@ public class CombatSounds extends AntiCooldownModule {
     private static final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
     private static final Data data = AntiCooldown.getData();
 
+    public CombatSounds(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
+        super(isProtocolLibRequired, registerBukkitListeners);
+    }
+
     @Override
-    public boolean compatibilityTest() {
-        if(data.isProtocolLibInstalled()) {
-            new PacketHandler();
-            return true;
-        }
+    public void onEnable() {
+        new PacketHandler();
     }
 
     public static class PacketHandler {

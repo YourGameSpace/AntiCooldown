@@ -21,6 +21,10 @@ public class ItemRestriction extends AntiCooldownModule {
     private static final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
     private static final CooldownHandler cooldownHandler = new CooldownHandler();
 
+    public ItemRestriction(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
+        super(isProtocolLibRequired, registerBukkitListeners);
+    }
+
     @EventHandler(priority = EventPriority.LOWEST)
     public void onItemHold(PlayerItemHeldEvent event) {
         if(!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "ITEM_RESTRICTION"))) return;

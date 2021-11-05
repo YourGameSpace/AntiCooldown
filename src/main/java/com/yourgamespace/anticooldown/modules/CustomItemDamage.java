@@ -16,6 +16,10 @@ public class CustomItemDamage extends AntiCooldownModule {
 
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
 
+    public CustomItemDamage(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
+        super(isProtocolLibRequired, registerBukkitListeners);
+    }
+
     @EventHandler
     public void onDamage(EntityDamageByEntityEvent event) {
         if(!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "ENABLE_CUSTOM_ITEM_DAMAGE"))) return;

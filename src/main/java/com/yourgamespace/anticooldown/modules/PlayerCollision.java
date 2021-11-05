@@ -18,11 +18,8 @@ public class PlayerCollision extends AntiCooldownModule {
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
     private final Data data = AntiCooldown.getData();
 
-    @Override
-    public boolean compatibilityTest() {
-        if(!data.isProtocolLibInstalled()) return false;
-
-        return true;
+    public PlayerCollision(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
+        super(isProtocolLibRequired, registerBukkitListeners);
     }
 
     @EventHandler

@@ -14,6 +14,10 @@ public class UpdateNotifyOnJoin extends AntiCooldownModule {
     private final UpdateChecker updateChecker = AntiCooldown.getUpdateChecker();
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
 
+    public UpdateNotifyOnJoin(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
+        super(isProtocolLibRequired, registerBukkitListeners);
+    }
+
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();

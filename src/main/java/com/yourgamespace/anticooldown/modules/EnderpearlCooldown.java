@@ -18,6 +18,10 @@ public class EnderpearlCooldown extends AntiCooldownModule {
 
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
 
+    public EnderpearlCooldown(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
+        super(isProtocolLibRequired, registerBukkitListeners);
+    }
+
     @EventHandler
     public void onEnderpearlShoot(ProjectileLaunchEvent event) {
         // Check if feature is supported by minecraft version

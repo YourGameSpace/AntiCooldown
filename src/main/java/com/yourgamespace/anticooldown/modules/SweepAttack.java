@@ -22,6 +22,10 @@ public class SweepAttack extends AntiCooldownModule {
     private static final Data data = AntiCooldown.getData();
     private static final VersionHandler versionHandler = AntiCooldown.getVersionHandler();
 
+    public SweepAttack(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
+        super(isProtocolLibRequired, registerBukkitListeners);
+    }
+
     @Override
     public boolean compatibilityTest() {
         if(versionHandler.getVersionId() < 8) {

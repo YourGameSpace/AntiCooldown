@@ -19,6 +19,10 @@ public class PvPCooldown extends AntiCooldownModule {
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
     private final CooldownHandler cooldownHandler = new CooldownHandler();
 
+    public PvPCooldown(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
+        super(isProtocolLibRequired, registerBukkitListeners);
+    }
+
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
