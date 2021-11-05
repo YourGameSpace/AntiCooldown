@@ -1,6 +1,7 @@
 package com.yourgamespace.anticooldown.modules;
 
 import com.yourgamespace.anticooldown.main.AntiCooldown;
+import com.yourgamespace.anticooldown.utils.AntiCooldownModule;
 import com.yourgamespace.anticooldown.utils.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.WorldManager;
 import de.tubeof.tubetils.api.cache.CacheContainer;
@@ -10,11 +11,10 @@ import org.bukkit.entity.EnderPearl;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.projectiles.ProjectileSource;
 
-public class EnderpearlCooldown implements Listener {
+public class EnderpearlCooldown extends AntiCooldownModule {
 
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
 

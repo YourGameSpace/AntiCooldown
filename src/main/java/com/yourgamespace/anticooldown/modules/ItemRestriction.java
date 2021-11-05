@@ -1,10 +1,7 @@
 package com.yourgamespace.anticooldown.modules;
 
 import com.yourgamespace.anticooldown.main.AntiCooldown;
-import com.yourgamespace.anticooldown.utils.CooldownHandler;
-import com.yourgamespace.anticooldown.utils.ItemRestrictionManager;
-import com.yourgamespace.anticooldown.utils.ObjectTransformer;
-import com.yourgamespace.anticooldown.utils.WorldManager;
+import com.yourgamespace.anticooldown.utils.*;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -12,7 +9,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
@@ -20,7 +16,7 @@ import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class ItemRestriction implements Listener {
+public class ItemRestriction extends AntiCooldownModule {
 
     private static final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
     private static final CooldownHandler cooldownHandler = new CooldownHandler();

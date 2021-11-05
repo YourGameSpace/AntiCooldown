@@ -1,22 +1,18 @@
 package com.yourgamespace.anticooldown.modules;
 
 import com.yourgamespace.anticooldown.main.AntiCooldown;
-import com.yourgamespace.anticooldown.utils.ItemDamageHandler;
-import com.yourgamespace.anticooldown.utils.ItemDamageManager;
-import com.yourgamespace.anticooldown.utils.ObjectTransformer;
-import com.yourgamespace.anticooldown.utils.WorldManager;
+import com.yourgamespace.anticooldown.utils.*;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
 @SuppressWarnings("ConstantConditions")
-public class CustomItemDamage implements Listener {
+public class CustomItemDamage extends AntiCooldownModule {
 
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
 

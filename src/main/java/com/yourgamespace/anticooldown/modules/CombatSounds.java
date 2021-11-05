@@ -5,13 +5,14 @@ import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
+import com.yourgamespace.anticooldown.utils.AntiCooldownModule;
 import com.yourgamespace.anticooldown.utils.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.WorldManager;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
-public class CombatSounds {
+public class CombatSounds extends AntiCooldownModule {
 
     private static final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
 

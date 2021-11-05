@@ -2,6 +2,7 @@ package com.yourgamespace.anticooldown.modules;
 
 import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
+import com.yourgamespace.anticooldown.utils.AntiCooldownModule;
 import com.yourgamespace.anticooldown.utils.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.PlayerCollisionHandler;
 import com.yourgamespace.anticooldown.utils.WorldManager;
@@ -9,11 +10,10 @@ import de.tubeof.tubetils.api.cache.CacheContainer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
-public class PlayerCollision implements Listener {
+public class PlayerCollision extends AntiCooldownModule {
 
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
     private final Data data = AntiCooldown.getData();

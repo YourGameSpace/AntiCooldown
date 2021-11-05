@@ -1,15 +1,15 @@
 package com.yourgamespace.anticooldown.modules;
 
 import com.yourgamespace.anticooldown.main.AntiCooldown;
+import com.yourgamespace.anticooldown.utils.AntiCooldownModule;
 import com.yourgamespace.anticooldown.utils.ObjectTransformer;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import de.tubeof.tubetils.api.updatechecker.UpdateChecker;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-public class UpdateNotifyOnJoin implements Listener {
+public class UpdateNotifyOnJoin extends AntiCooldownModule {
 
     private final UpdateChecker updateChecker = AntiCooldown.getUpdateChecker();
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
