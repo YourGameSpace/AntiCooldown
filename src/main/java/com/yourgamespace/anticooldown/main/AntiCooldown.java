@@ -18,13 +18,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
 
-@SuppressWarnings("ConstantConditions")
+@SuppressWarnings({"ConstantConditions", "unused"})
 public class AntiCooldown extends JavaPlugin {
 
     private final ConsoleCommandSender ccs = Bukkit.getConsoleSender();
     private final PluginManager pluginManager = Bukkit.getPluginManager();
 
     private static AntiCooldown main;
+    private static Logger logger;
+    private static ModuleHandler moduleHandler;
     private static VersionHandler versionHandler;
     private static TubeTilsManager tubeTilsManager;
     private static ProtocolManager protocolManager;
@@ -49,7 +51,7 @@ public class AntiCooldown extends JavaPlugin {
         checkUpdate();
 
         compatibilityTest();
-        registerListener();
+        registerModules();
         registerCommands();
         registerPlaceholders();
 
@@ -83,9 +85,11 @@ public class AntiCooldown extends JavaPlugin {
         cacheContainer.registerCacheType(Integer.class);
         cacheContainer.add(String.class, "STARTUP_PREFIX", "§7[§3AntiCooldownLogger§7] ");
 
+        logger = new Logger();
         data = new Data();
         pluginConfig = new PluginConfig();
         versionHandler = new VersionHandler();
+        moduleHandler = new ModuleHandler();
 
         //ProtocolLib
         if(Bukkit.getPluginManager().getPlugin("ProtocolLib") != null) {
@@ -136,25 +140,19 @@ public class AntiCooldown extends JavaPlugin {
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aConfig Files was successfully loaded!");
     }
 
-    private void registerListener() {
-        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aListeners will be registered ...");
+    private void registerModules() {
+        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aModules will be registered ...");
 
-        // Bukkit Events
-        pluginManager.registerEvents(new UpdateNotifyOnJoin(), getInstance());
-        pluginManager.registerEvents(new PvPCooldown(), getInstance());
-        pluginManager.registerEvents(new SweepAttack(), getInstance());
-        pluginManager.registerEvents(new ItemRestriction(), getInstance());
-        pluginManager.registerEvents(new CustomItemDamage(), getInstance());
-        pluginManager.registerEvents(new EnderpearlCooldown(), getInstance());
-        pluginManager.registerEvents(new PlayerCollision(), getInstance());
+        moduleHandler.registerModule(new UpdateNotifyOnJoin());
+        moduleHandler.registerModule(new PvPCooldown());
+        moduleHandler.registerModule(new SweepAttack());
+        moduleHandler.registerModule(new CombatSounds());
+        moduleHandler.registerModule(new EnderpearlCooldown());
+        moduleHandler.registerModule(new PlayerCollision());
+        moduleHandler.registerModule(new CustomItemDamage());
+        moduleHandler.registerModule(new ItemRestriction());
 
-        // Packet Handler
-        if(data.isProtocolLibInstalled()) {
-            new SweepAttack.PacketHandler();
-            new CombatSounds.PacketHandler();
-        }
-
-        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aListeners have been successfully registered!");
+        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aModules have been successfully registered!");
     }
 
     private void registerCommands() {
@@ -217,6 +215,10 @@ public class AntiCooldown extends JavaPlugin {
 
         ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§abStats was successfully loaded and activated!");
     }
+    
+    public static AntiCooldown getInstance() {
+        return main;
+    }
 
     public static PluginConfig getPluginConfig() {
         return pluginConfig;
@@ -242,7 +244,7 @@ public class AntiCooldown extends JavaPlugin {
         return versionHandler;
     }
 
-    public static AntiCooldown getInstance() {
-        return main;
+    public static Logger logger() {
+        return logger;
     }
 }

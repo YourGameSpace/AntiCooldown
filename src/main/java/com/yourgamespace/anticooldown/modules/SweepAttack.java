@@ -4,11 +4,11 @@ import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
+import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
-import com.yourgamespace.anticooldown.utils.AntiCooldownModule;
-import com.yourgamespace.anticooldown.utils.ObjectTransformer;
-import com.yourgamespace.anticooldown.utils.WorldManager;
+import com.yourgamespace.anticooldown.utils.*;
 import de.tubeof.tubetils.api.cache.CacheContainer;
+import org.bukkit.Bukkit;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,10 +17,26 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 public class SweepAttack extends AntiCooldownModule {
 
+    private static final Logger logger = AntiCooldown.logger();
     private static final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
-    // START TEMP DISABLED
-    //private static final ConsoleCommandSender ccs = Bukkit.getConsoleSender();
-    // END TEMP DISABLED
+    private static final Data data = AntiCooldown.getData();
+    private static final VersionHandler versionHandler = AntiCooldown.getVersionHandler();
+
+    @Override
+    public boolean compatibilityTest() {
+        if(versionHandler.getVersionId() < 8) {
+            logger.print("§4WARNING: §cDisableSweepAttacks is not supported by §e" + versionHandler.getMinecraftVersion() + " (" + Bukkit.getBukkitVersion() + "§c!");
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void onEnable() {
+        if(data.isProtocolLibInstalled()) {
+            new PacketHandler();
+        }
+    }
 
     @EventHandler
     public void onSweepAttackDamage(EntityDamageByEntityEvent event) {
@@ -28,13 +44,7 @@ public class SweepAttack extends AntiCooldownModule {
         if(AntiCooldown.getVersionHandler().getVersionId() < 8) return;
         // Check if feature is disabled
         if(!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "DISABLE_SWEEP_ATTACK"))) return;
-        // START TEMP DISABLED
-        // Just to make sure not causing errors
-        //if(!EnumUtils.isValidEnum(EntityDamageEvent.DamageCause.class, "ENTITY_SWEEP_ATTACK")) {
-        //    ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§4WARNING: §cDisableSweepAttacks is not supported by §e" + Bukkit.getBukkitVersion() + "§c!");
-        //    return;
-        //}
-        // END TEMP DISABLED
+
 
         if(event.getCause() != EntityDamageEvent.DamageCause.ENTITY_SWEEP_ATTACK) return;
         if(!(event.getDamager() instanceof Player)) return;

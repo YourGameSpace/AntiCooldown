@@ -4,6 +4,7 @@ import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
+import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.AntiCooldownModule;
 import com.yourgamespace.anticooldown.utils.ObjectTransformer;
@@ -15,6 +16,14 @@ import org.bukkit.entity.Player;
 public class CombatSounds extends AntiCooldownModule {
 
     private static final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
+    private static final Data data = AntiCooldown.getData();
+
+    @Override
+    public void onEnable() {
+        if(data.isProtocolLibInstalled()) {
+            new PacketHandler();
+        }
+    }
 
     public static class PacketHandler {
 

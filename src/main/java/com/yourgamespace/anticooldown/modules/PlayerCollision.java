@@ -18,6 +18,13 @@ public class PlayerCollision extends AntiCooldownModule {
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
     private final Data data = AntiCooldown.getData();
 
+    @Override
+    public boolean compatibilityTest() {
+        if(!data.isProtocolLibInstalled()) return false;
+
+        return true;
+    }
+
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         // Check if ProtocolLib is installed
