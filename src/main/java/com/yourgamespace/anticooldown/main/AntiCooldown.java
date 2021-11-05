@@ -5,7 +5,7 @@ import com.comphenix.protocol.ProtocolManager;
 import com.yourgamespace.anticooldown.commands.CmdAntiCooldown;
 import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.files.PluginConfig;
-import com.yourgamespace.anticooldown.listener.*;
+import com.yourgamespace.anticooldown.modules.*;
 import com.yourgamespace.anticooldown.utils.*;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import de.tubeof.tubetils.api.updatechecker.UpdateChecker;

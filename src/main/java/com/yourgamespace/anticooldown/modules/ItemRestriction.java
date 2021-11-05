@@ -1,4 +1,4 @@
-package com.yourgamespace.anticooldown.listener;
+package com.yourgamespace.anticooldown.modules;
 
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.CooldownHandler;

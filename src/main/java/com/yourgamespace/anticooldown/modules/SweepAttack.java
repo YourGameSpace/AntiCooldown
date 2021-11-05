@@ -1,4 +1,4 @@
-package com.yourgamespace.anticooldown.listener;
+package com.yourgamespace.anticooldown.modules;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.ListenerPriority;
