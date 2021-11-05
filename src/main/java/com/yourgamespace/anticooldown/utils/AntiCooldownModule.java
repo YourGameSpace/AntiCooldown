@@ -43,7 +43,7 @@ public abstract class AntiCooldownModule implements Listener {
     }
 
     /**
-     * Will enabled this module.
+     * Will enable this module.
      */
     public void enableModule() {
         pluginManager.registerEvents(this, AntiCooldown.getInstance());
