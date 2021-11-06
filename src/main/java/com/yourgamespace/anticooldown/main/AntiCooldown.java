@@ -50,7 +50,6 @@ public class AntiCooldown extends JavaPlugin {
         manageConfigs();
         checkUpdate();
 
-        compatibilityTest();
         registerModules();
         registerCommands();
         registerPlaceholders();
@@ -110,24 +109,6 @@ public class AntiCooldown extends JavaPlugin {
             data.setPlaceholderApi(false);
             ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cPlaceholderAPI is NOT installed! Support for PlaceholderAPI disabled!");
         }
-    }
-
-    private void compatibilityTest() {
-        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aRunning Compatibility-Check ...");
-
-        if(getVersionHandler().getVersionId() < 8) {
-            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§4WARNING: §cDisableSweepAttacks is not supported by §e" + versionHandler.getMinecraftVersion() + " (" + Bukkit.getBukkitVersion() + "§c!"); /* @see SweepAttack#onSweepAttackDamage */
-        }
-
-        if(!data.isProtocolLibInstalled()) {
-            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§4WARNING: §cProtocolLib is not installed. The following features are disabled:");
-
-            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§c- DisableSweepAttackParticle"); /* @see SweepAttack */
-            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§c- DisableNewCombatSounds"); /* @see CombatSounds */
-            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§c- DisablePlayerCollisions"); /* @see PlayerCollision */
-        }
-
-        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aCompatibility-Check done!");
     }
 
     private void manageConfigs() {
