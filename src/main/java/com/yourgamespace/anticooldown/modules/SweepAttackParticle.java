@@ -14,7 +14,7 @@ import org.bukkit.entity.Player;
 
 public class SweepAttackParticle extends AntiCooldownModule {
 
-    private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
+    private static final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
 
     public SweepAttackParticle(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
         super(isProtocolLibRequired, registerBukkitListeners);
@@ -22,43 +22,50 @@ public class SweepAttackParticle extends AntiCooldownModule {
 
     @Override
     public void registerPacketHandler() {
-        onSweepAttackParticles();
+        new PacketHandler();
     }
 
-    private void onSweepAttackParticles() {
-        if(!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "DISABLE_SWEEP_ATTACK"))) return;
+    public static class PacketHandler {
 
-        AntiCooldown.getProtocolManager().addPacketListener(new PacketAdapter(AntiCooldown.getInstance(), ListenerPriority.NORMAL, PacketType.Play.Server.WORLD_PARTICLES) {
-            @Override
-            public void onPacketSending(PacketEvent event) {
-                // Check if valid particle
-                boolean valid = false;
-                Particle particle = event.getPacket().getNewParticles().read(0).getParticle();
-                if(particle.equals(Particle.SWEEP_ATTACK)) valid = true;
-                if(particle.equals(Particle.DAMAGE_INDICATOR)) valid = true;
+        public PacketHandler() {
+            onSweepAttackParticles();
+        }
 
-                // If not valid: Return;
-                if(!valid) return;
+        private void onSweepAttackParticles() {
+            if(!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "DISABLE_SWEEP_ATTACK"))) return;
 
-                Player player = event.getPlayer();
-                String world = player.getWorld().getName();
+            AntiCooldown.getProtocolManager().addPacketListener(new PacketAdapter(AntiCooldown.getInstance(), ListenerPriority.NORMAL, PacketType.Play.Server.WORLD_PARTICLES) {
+                @Override
+                public void onPacketSending(PacketEvent event) {
+                    // Check if valid particle
+                    boolean valid = false;
+                    Particle particle = event.getPacket().getNewParticles().read(0).getParticle();
+                    if(particle.equals(Particle.SWEEP_ATTACK)) valid = true;
+                    if(particle.equals(Particle.DAMAGE_INDICATOR)) valid = true;
 
-                // Check Bypass and Permissions
-                boolean isBypassed = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_BYPASS_PERMISSION")) && player.hasPermission("anticooldown.bypass");
-                boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && player.hasPermission("anticooldown.sweepattack") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
+                    // If not valid: Return;
+                    if(!valid) return;
 
-                // If not permitted: Return;
-                if(!isPermitted) return;
+                    Player player = event.getPlayer();
+                    String world = player.getWorld().getName();
 
-                // Check if world is disabled
-                if (WorldManager.isWorldDisabled(world)) {
-                    // If disabled and is bypassed: disable particles;
-                    if(isBypassed) event.setCancelled(true);
-                } else {
-                    // If world enabled, player permitted and not bypassed: disable particles;
-                    event.setCancelled(true);
+                    // Check Bypass and Permissions
+                    boolean isBypassed = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_BYPASS_PERMISSION")) && player.hasPermission("anticooldown.bypass");
+                    boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && player.hasPermission("anticooldown.sweepattack") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
+
+                    // If not permitted: Return;
+                    if(!isPermitted) return;
+
+                    // Check if world is disabled
+                    if (WorldManager.isWorldDisabled(world)) {
+                        // If disabled and is bypassed: disable particles;
+                        if(isBypassed) event.setCancelled(true);
+                    } else {
+                        // If world enabled, player permitted and not bypassed: disable particles;
+                        event.setCancelled(true);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 }
