@@ -145,7 +145,8 @@ public class AntiCooldown extends JavaPlugin {
 
         moduleHandler.registerModule(new UpdateNotifyOnJoin(false, true));
         moduleHandler.registerModule(new PvPCooldown(false, true));
-        moduleHandler.registerModule(new SweepAttack(true, true));
+        moduleHandler.registerModule(new SweepAttackDamage(false, true));
+        moduleHandler.registerModule(new SweepAttackParticle(true, false));
         moduleHandler.registerModule(new CombatSounds(true, false));
         moduleHandler.registerModule(new EnderpearlCooldown(false, true));
         moduleHandler.registerModule(new PlayerCollision(true, true));

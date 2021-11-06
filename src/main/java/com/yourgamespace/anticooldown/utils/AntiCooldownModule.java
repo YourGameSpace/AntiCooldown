@@ -52,14 +52,16 @@ public abstract class AntiCooldownModule implements Listener {
     }
 
     /**
+     * If necessary, possibility to register packet handler.
+     */
+    public void registerPacketHandler() {}
+
+    /**
      * Will enable this module.
      */
     public void enableModule() {
-        if(isProtocolLibRequired && !data.isProtocolLibInstalled()) {
-            logger.warn("");
-        }
-
         if(registerBukkitListeners) pluginManager.registerEvents(this, AntiCooldown.getInstance());
+        registerPacketHandler();
         onEnable();
 
         setEnabled(true);
