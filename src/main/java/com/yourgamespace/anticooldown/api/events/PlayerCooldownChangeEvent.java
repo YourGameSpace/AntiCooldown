@@ -24,6 +24,10 @@ public class PlayerCooldownChangeEvent extends Event {
         return handlers;
     }
 
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Returns the player involved in this event
      * @return Returns the player object
