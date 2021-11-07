@@ -22,6 +22,10 @@ public class WorldDisableEvent extends Event {
         return handlers;
     }
 
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Returns the world involved in this event
      * @return Returns the world object
