@@ -65,17 +65,8 @@ public class CmdAntiCooldown implements CommandExecutor {
                 player.sendMessage(cacheContainer.get(String.class, "PREFIX") + ObjectTransformer.getString(cacheContainer.get(String.class, "SETTING_REMOVE_DISABLED_WORLD")).replace("%world%", world));
 
                 World bukkitWorld = Bukkit.getWorld(world);
-                Bukkit.getPluginManager().callEvent(new WorldEnableEvent(bukkitWorld));
-
                 if(bukkitWorld == null) return true;
-                for(Player worldPlayer : bukkitWorld.getPlayers()) {
-                    // Check Permissions
-                    boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && player.hasPermission("anticooldown.cooldown") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
-
-                    // Check if player is permitted
-                    if(!isPermitted) continue;
-                    cooldownHandler.disableCooldown(worldPlayer);
-                }
+                Bukkit.getPluginManager().callEvent(new WorldEnableEvent(bukkitWorld));
                 return true;
             }
             else if(arg.equalsIgnoreCase("disableWorld")) {
@@ -89,17 +80,8 @@ public class CmdAntiCooldown implements CommandExecutor {
                 player.sendMessage(cacheContainer.get(String.class, "PREFIX") + ObjectTransformer.getString(cacheContainer.get(String.class, "SETTING_ADD_DISABLED_WORLD")).replace("%world%", world));
 
                 World bukkitWorld = Bukkit.getWorld(world);
-                Bukkit.getPluginManager().callEvent(new WorldDisableEvent(bukkitWorld));
-
                 if(bukkitWorld == null) return true;
-                for(Player worldPlayer : bukkitWorld.getPlayers()) {
-                    // Check Bypass and Permissions
-                    boolean isBypassed = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_BYPASS_PERMISSION")) && player.hasPermission("anticooldown.bypass");
-                    boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && player.hasPermission("anticooldown.cooldown") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
-
-                    if(!isPermitted) continue;
-                    if(!isBypassed) cooldownHandler.enableCooldown(worldPlayer);
-                }
+                Bukkit.getPluginManager().callEvent(new WorldDisableEvent(bukkitWorld));
                 return true;
             }
             else {
@@ -121,17 +103,8 @@ public class CmdAntiCooldown implements CommandExecutor {
                 player.sendMessage(cacheContainer.get(String.class, "PREFIX") + ObjectTransformer.getString(cacheContainer.get(String.class, "SETTING_REMOVE_DISABLED_WORLD")).replace("%world%", world));
 
                 World bukkitWorld = Bukkit.getWorld(world);
-                Bukkit.getPluginManager().callEvent(new WorldEnableEvent(bukkitWorld));
-
                 if(bukkitWorld == null) return true;
-                for(Player worldPlayer : bukkitWorld.getPlayers()) {
-                    // Check Permissions
-                    boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && player.hasPermission("anticooldown.cooldown") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
-
-                    // Check if player is permitted
-                    if(!isPermitted) continue;
-                    cooldownHandler.disableCooldown(worldPlayer);
-                }
+                Bukkit.getPluginManager().callEvent(new WorldEnableEvent(bukkitWorld));
                 return true;
             }
             else if(arg.equalsIgnoreCase("disableWorld")) {
@@ -144,17 +117,8 @@ public class CmdAntiCooldown implements CommandExecutor {
                 player.sendMessage(cacheContainer.get(String.class, "PREFIX") + ObjectTransformer.getString(cacheContainer.get(String.class, "SETTING_ADD_DISABLED_WORLD")).replace("%world%", world));
 
                 World bukkitWorld = Bukkit.getWorld(world);
-                Bukkit.getPluginManager().callEvent(new WorldDisableEvent(bukkitWorld));
-                
                 if(bukkitWorld == null) return true;
-                for(Player worldPlayer : bukkitWorld.getPlayers()) {
-                    // Check Bypass and Permissions
-                    boolean isBypassed = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_BYPASS_PERMISSION")) && player.hasPermission("anticooldown.bypass");
-                    boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && player.hasPermission("anticooldown.cooldown") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
-
-                    if(!isPermitted) continue;
-                    if(!isBypassed) cooldownHandler.enableCooldown(worldPlayer);
-                }
+                Bukkit.getPluginManager().callEvent(new WorldDisableEvent(bukkitWorld));
                 return true;
             }
             else {

@@ -1,5 +1,7 @@
 package com.yourgamespace.anticooldown.modules;
 
+import com.yourgamespace.anticooldown.api.events.WorldDisableEvent;
+import com.yourgamespace.anticooldown.api.events.WorldEnableEvent;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.AntiCooldownModule;
 import com.yourgamespace.anticooldown.utils.CooldownHandler;
@@ -7,6 +9,7 @@ import com.yourgamespace.anticooldown.utils.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.WorldManager;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -48,6 +51,34 @@ public class PvPCooldown extends AntiCooldownModule {
         } else {
             cooldownHandler.disableCooldown(player);
             if (ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_LOGIN_MESSAGES"))) player.sendMessage(cacheContainer.get(String.class, "PREFIX") + ObjectTransformer.getString(cacheContainer.get(String.class, "LOGIN_ENABLED")));
+        }
+    }
+
+    @EventHandler
+    public void onWorldEnable(WorldEnableEvent event) {
+        World world = event.getWorld();
+
+        for(Player player : world.getPlayers()) {
+            // Check Permissions
+            boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && player.hasPermission("anticooldown.cooldown") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
+
+            // Check if player is permitted
+            if(!isPermitted) continue;
+            cooldownHandler.disableCooldown(player);
+        }
+    }
+
+    @EventHandler
+    public void onWorldDisable(WorldDisableEvent event) {
+        World world = event.getWorld();
+
+        for(Player player : world.getPlayers()) {
+            // Check Bypass and Permissions
+            boolean isBypassed = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_BYPASS_PERMISSION")) && player.hasPermission("anticooldown.bypass");
+            boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && player.hasPermission("anticooldown.cooldown") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
+
+            if(!isPermitted) continue;
+            if(!isBypassed) cooldownHandler.enableCooldown(player);
         }
     }
 
