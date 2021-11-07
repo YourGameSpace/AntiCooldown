@@ -33,11 +33,13 @@ public class ModuleHandler {
         }
 
         antiCooldownModule.enableModule();
+        enabledModules.add(antiCooldownModule);
     }
 
     public void unregisterModule(String moduleName) {
         for(AntiCooldownModule antiCooldownModule : enabledModules) {
             if (!antiCooldownModule.getModuleName().equals(moduleName)) continue;
+            enabledModules.remove(antiCooldownModule);
             antiCooldownModule.disableModule();
         }
     }
@@ -45,11 +47,15 @@ public class ModuleHandler {
     public void unregisterModule(String moduleName, String reason) {
         for(AntiCooldownModule antiCooldownModule : enabledModules) {
             if (!antiCooldownModule.getModuleName().equals(moduleName)) continue;
+            enabledModules.remove(antiCooldownModule);
             antiCooldownModule.disableModule(reason);
         }
     }
 
     public void unregisterAllModules() {
-        enabledModules.forEach(AntiCooldownModule::disableModule);
+        for(AntiCooldownModule antiCooldownModule : enabledModules) {
+            enabledModules.remove(antiCooldownModule);
+            antiCooldownModule.disableModule();
+        }
     }
 }
