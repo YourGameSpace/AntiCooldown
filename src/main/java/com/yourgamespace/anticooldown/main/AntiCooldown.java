@@ -82,7 +82,6 @@ public class AntiCooldown extends JavaPlugin {
         cacheContainer.registerCacheType(String.class);
         cacheContainer.registerCacheType(Boolean.class);
         cacheContainer.registerCacheType(Integer.class);
-        cacheContainer.add(String.class, "STARTUP_PREFIX", "§7[§3AntiCooldownLogger§7] ");
 
         loggingHandler = new LoggingHandler();
         data = new Data();

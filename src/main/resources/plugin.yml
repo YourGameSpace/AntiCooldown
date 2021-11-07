@@ -3,6 +3,7 @@ author: YourGameSpace
 website: yourgamespace.com
 version: 4.0.3-DEV
 api-version: 1.13
+prefix: AntiCooldownLogger
 
 main: com.yourgamespace.anticooldown.main.AntiCooldown
 softdepend:
