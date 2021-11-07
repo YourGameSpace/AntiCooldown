@@ -77,7 +77,7 @@ public class AntiCooldown extends JavaPlugin {
     private void initialisation() {
         main = this;
 
-        tubeTilsManager = new TubeTilsManager("§7[§3AntiCooldownLogger§7] ", getInstance(), 71, true);
+        tubeTilsManager = new TubeTilsManager("[AntiCooldownLogger] ", getInstance(), 71, true);
         cacheContainer = new CacheContainer("AntiCooldown");
         cacheContainer.registerCacheType(String.class);
         cacheContainer.registerCacheType(Boolean.class);
