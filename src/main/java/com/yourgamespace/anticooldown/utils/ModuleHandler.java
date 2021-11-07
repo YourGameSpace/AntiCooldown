@@ -34,4 +34,22 @@ public class ModuleHandler {
 
         antiCooldownModule.enableModule();
     }
+
+    public void unregisterModule(String moduleName) {
+        for(AntiCooldownModule antiCooldownModule : enabledModules) {
+            if (!antiCooldownModule.getModuleName().equals(moduleName)) continue;
+            antiCooldownModule.disableModule();
+        }
+    }
+
+    public void unregisterModule(String moduleName, String reason) {
+        for(AntiCooldownModule antiCooldownModule : enabledModules) {
+            if (!antiCooldownModule.getModuleName().equals(moduleName)) continue;
+            antiCooldownModule.disableModule(reason);
+        }
+    }
+
+    public void unregisterAllModules() {
+        enabledModules.forEach(AntiCooldownModule::disableModule);
+    }
 }
