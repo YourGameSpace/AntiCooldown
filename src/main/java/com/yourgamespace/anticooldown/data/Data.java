@@ -5,7 +5,7 @@ public class Data {
 
     public Data() {}
 
-    private final Integer currentConfigVersion = 9;
+    private final Integer currentConfigVersion = 18;
     private boolean protocolLib = true;
     private boolean placeholderApi = true;
 

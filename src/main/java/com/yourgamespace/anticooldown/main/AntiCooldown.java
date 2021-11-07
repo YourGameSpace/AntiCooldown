@@ -90,6 +90,8 @@ public class AntiCooldown extends JavaPlugin {
         versionHandler = new VersionHandler();
         moduleHandler = new ModuleHandler();
 
+        new PluginConfig().setupConfig();
+
         //ProtocolLib
         if(Bukkit.getPluginManager().getPlugin("ProtocolLib") != null) {
             ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aProtocolLib is installed! Support for ProtocolLib enabled!");
@@ -112,13 +114,14 @@ public class AntiCooldown extends JavaPlugin {
     }
 
     private void manageConfigs() {
-        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aLoading Config Files ...");
+        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aLoading config files ...");
 
-        pluginConfig.cfgConfig();
-        pluginConfig.setCache();
-        if(!ObjectTransformer.getInteger(cacheContainer.get(Integer.class, "CONFIG_VERSION")).equals(data.getCurrentConfigVersion())) pluginConfig.configUpdateMessage();
+        pluginConfig.setupConfig();
+        pluginConfig.initConfigFile();
+        pluginConfig.upgradeConfig();
+        pluginConfig.loadConfig();
 
-        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aConfig Files was successfully loaded!");
+        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aConfig files was successfully loaded!");
     }
 
     private void registerModules() {
