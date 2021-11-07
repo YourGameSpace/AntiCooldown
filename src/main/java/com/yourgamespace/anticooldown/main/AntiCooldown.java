@@ -42,10 +42,10 @@ public class AntiCooldown extends JavaPlugin {
         initialisation();
         if(!tubeTilsManager.wasSuccessful()) return;
 
-        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aThe Plugin will be activated ...");
-        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "==================================================");
-        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "JOIN OUR DISCORD: §ehttps://discord.gg/73ZDfbx");
-        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "==================================================");
+        loggingHandler.info("§aThe Plugin will be activated ...");
+        loggingHandler.info("==================================================");
+        loggingHandler.info("JOIN OUR DISCORD: §ehttps://discord.gg/73ZDfbx");
+        loggingHandler.info("==================================================");
 
         manageConfigs();
         checkUpdate();
@@ -57,7 +57,7 @@ public class AntiCooldown extends JavaPlugin {
         bStats();
 
         long startTime = System.currentTimeMillis() - startTimestamp;
-        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aThe plugin was successfully activated in §e" + startTime + "ms§a!");
+        loggingHandler.info("§aThe plugin was successfully activated in §e" + startTime + "ms§a!");
 
         // Code to run after plugin was enabled
         new CooldownHandler().setOnlinePlayersCooldown();
@@ -67,11 +67,11 @@ public class AntiCooldown extends JavaPlugin {
     public void onDisable() {
         if(!tubeTilsManager.wasSuccessful()) return;
 
-        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aThe Plugin will be deactivated ...");
+        loggingHandler.info("§aThe Plugin will be deactivated ...");
 
         new CooldownHandler().setDefaultCooldown();
 
-        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aThe plugin was successfully deactivated!");
+        loggingHandler.info("§aThe plugin was successfully deactivated!");
     }
 
     private void initialisation() {
@@ -93,38 +93,38 @@ public class AntiCooldown extends JavaPlugin {
 
         //ProtocolLib
         if(Bukkit.getPluginManager().getPlugin("ProtocolLib") != null) {
-            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aProtocolLib is installed! Support for ProtocolLib enabled!");
+            loggingHandler.info("§aProtocolLib is installed! Support for ProtocolLib enabled!");
             data.setProtocolLib(true);
 
             protocolManager = ProtocolLibrary.getProtocolManager();
         } else {
             data.setProtocolLib(false);
-            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cProtocolLib is NOT installed! Support for ProtocolLib disabled!");
+            loggingHandler.info("§cProtocolLib is NOT installed! Support for ProtocolLib disabled!");
         }
 
         //PlaceholderAPI
         if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aPlaceholderAPI is installed! Support for PlaceholderAPI enabled!");
+            loggingHandler.info("§aPlaceholderAPI is installed! Support for PlaceholderAPI enabled!");
             data.setPlaceholderApi(true);
         } else {
             data.setPlaceholderApi(false);
-            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cPlaceholderAPI is NOT installed! Support for PlaceholderAPI disabled!");
+            loggingHandler.info("§cPlaceholderAPI is NOT installed! Support for PlaceholderAPI disabled!");
         }
     }
 
     private void manageConfigs() {
-        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aLoading config files ...");
+        loggingHandler.info("§aLoading config files ...");
 
         pluginConfig.setupConfig();
         pluginConfig.initConfigFile();
         pluginConfig.upgradeConfig();
         pluginConfig.loadConfig();
 
-        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aConfig files was successfully loaded!");
+        loggingHandler.info("§aConfig files was successfully loaded!");
     }
 
     private void registerModules() {
-        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aModules will be registered ...");
+        loggingHandler.info("§aModules will be registered ...");
 
         moduleHandler.registerModule(new UpdateNotifyOnJoin(false, true));
         moduleHandler.registerModule(new PvPCooldown(false, true));
@@ -136,68 +136,68 @@ public class AntiCooldown extends JavaPlugin {
         moduleHandler.registerModule(new CustomItemDamage(false, true));
         moduleHandler.registerModule(new ItemRestriction(false, true));
 
-        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aModules have been successfully registered!");
+        loggingHandler.info("§aModules have been successfully registered!");
     }
 
     private void registerCommands() {
-        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aCommands will be registered ...");
+        loggingHandler.info("§aCommands will be registered ...");
 
         getCommand("anticooldown").setExecutor(new CmdAntiCooldown());
 
-        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aCommands have been successfully registered!");
+        loggingHandler.info("§aCommands have been successfully registered!");
     }
 
     private void registerPlaceholders() {
         if(data.isPlaceholderApiInstalled()) {
-            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aPlaceholders for PlacerholderAPI will be registered ...");
+            loggingHandler.info("§aPlaceholders for PlacerholderAPI will be registered ...");
 
             new PlaceholderHandler().register();
 
-            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aPlaceholders have been successfully registered!");
+            loggingHandler.info("§aPlaceholders have been successfully registered!");
         }
     }
 
     private void checkUpdate() {
         if(!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_UPDATE_CHECKER"))) {
-            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cCheck for updates disabled. The check will be skipped!");
+            loggingHandler.info("§cCheck for updates disabled. The check will be skipped!");
             return;
         }
 
-        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aChecking for updates ...");
+        loggingHandler.info("§aChecking for updates ...");
         try {
             updateChecker = new UpdateChecker("AntiCooldown-UpdateChecker", 51321, getInstance(), ApiMethode.YOURGAMESPACE, false, true);
 
             // Check errors
             if(!updateChecker.isOnline()) {
-                ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cUpdate-Check failed: No connection to the internet could be established.");
+                loggingHandler.info("§cUpdate-Check failed: No connection to the internet could be established.");
                 return;
             }
             if(updateChecker.isRateLimited()) {
-                ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cUpdate-Check failed: Request got blocked by rate limit!");
+                loggingHandler.info("§cUpdate-Check failed: Request got blocked by rate limit!");
                 return;
             }
             if(!updateChecker.wasSuccessful()) {
-                ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cUpdate-Check failed: An unknown error has occurred!");
+                loggingHandler.info("§cUpdate-Check failed: An unknown error has occurred!");
             }
 
             // Final outdated check
             if(updateChecker.isOutdated()) {
-                if(ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "UPDATE_NOTIFY_CONSOLE"))) ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cAn update was found! (v" + updateChecker.getLatestVersion() + ") Download here: " + updateChecker.getDownloadUrl());
+                if(ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "UPDATE_NOTIFY_CONSOLE"))) loggingHandler.info("§cAn update was found! (v" + updateChecker.getLatestVersion() + ") Download here: " + updateChecker.getDownloadUrl());
             }
         } catch (IOException exception) {
-            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cAn error occurred while checking for updates!");
-            ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§cPlease check the status page (https://yourgamespace.statuspage.io/) or contact our support (https://yourgamespace.com/support/).");
+            loggingHandler.info("§cAn error occurred while checking for updates!");
+            loggingHandler.info("§cPlease check the status page (https://yourgamespace.statuspage.io/) or contact our support (https://yourgamespace.com/support/).");
             exception.printStackTrace();
         }
     }
 
     @SuppressWarnings("unused")
     private void bStats() {
-        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§aLoad and activate bStats ...");
+        loggingHandler.info("§aLoad and activate bStats ...");
 
         Metrics metrics = new Metrics(getInstance(), 3440);
 
-        ccs.sendMessage(cacheContainer.get(String.class, "STARTUP_PREFIX") + "§abStats was successfully loaded and activated!");
+        loggingHandler.info("§abStats was successfully loaded and activated!");
     }
     
     public static AntiCooldown getInstance() {
