@@ -217,6 +217,10 @@ public class AntiCooldown extends JavaPlugin {
         return updateChecker;
     }
 
+    public static ModuleHandler getModuleHandler() {
+        return moduleHandler;
+    }
+
     public static ProtocolManager getProtocolManager() {
         return protocolManager;
     }
