@@ -4,6 +4,7 @@ import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 @SuppressWarnings("unused")
 public class ModuleHandler {
@@ -53,9 +54,11 @@ public class ModuleHandler {
     }
 
     public void unregisterAllModules() {
-        for(AntiCooldownModule antiCooldownModule : enabledModules) {
-            enabledModules.remove(antiCooldownModule);
-            antiCooldownModule.disableModule();
+        for(Iterator<AntiCooldownModule> antiCooldownModuleIterator = enabledModules.iterator(); antiCooldownModuleIterator.hasNext();) {
+            AntiCooldownModule module = antiCooldownModuleIterator.next();
+
+            module.disableModule();
+            antiCooldownModuleIterator.remove();
         }
     }
 }
