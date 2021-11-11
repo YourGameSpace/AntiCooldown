@@ -38,7 +38,9 @@ public class ModuleHandler {
     }
 
     public void unregisterModule(String moduleName) {
-        for(AntiCooldownModule antiCooldownModule : enabledModules) {
+        for(Iterator<AntiCooldownModule> antiCooldownModuleIterator = enabledModules.iterator(); antiCooldownModuleIterator.hasNext();) {
+            AntiCooldownModule antiCooldownModule = antiCooldownModuleIterator.next();
+
             if (!antiCooldownModule.getModuleName().equals(moduleName)) continue;
             enabledModules.remove(antiCooldownModule);
             antiCooldownModule.disableModule();
@@ -46,7 +48,9 @@ public class ModuleHandler {
     }
 
     public void unregisterModule(String moduleName, String reason) {
-        for(AntiCooldownModule antiCooldownModule : enabledModules) {
+        for(Iterator<AntiCooldownModule> antiCooldownModuleIterator = enabledModules.iterator(); antiCooldownModuleIterator.hasNext();) {
+            AntiCooldownModule antiCooldownModule = antiCooldownModuleIterator.next();
+
             if (!antiCooldownModule.getModuleName().equals(moduleName)) continue;
             enabledModules.remove(antiCooldownModule);
             antiCooldownModule.disableModule(reason);
@@ -55,9 +59,9 @@ public class ModuleHandler {
 
     public void unregisterAllModules() {
         for(Iterator<AntiCooldownModule> antiCooldownModuleIterator = enabledModules.iterator(); antiCooldownModuleIterator.hasNext();) {
-            AntiCooldownModule module = antiCooldownModuleIterator.next();
+            AntiCooldownModule antiCooldownModule = antiCooldownModuleIterator.next();
 
-            module.disableModule();
+            antiCooldownModule.disableModule();
             antiCooldownModuleIterator.remove();
         }
     }
