@@ -73,6 +73,7 @@ public class AntiCooldown extends JavaPlugin {
         moduleHandler.unregisterAllModules();
 
         loggingHandler.info("§aThe plugin was successfully deactivated!");
+        loggingHandler.info("§aThe plugin was successfully deactivated!");
     }
 
     private void initialisation() {
