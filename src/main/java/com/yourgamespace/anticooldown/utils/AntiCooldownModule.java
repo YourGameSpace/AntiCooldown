@@ -2,7 +2,6 @@ package com.yourgamespace.anticooldown.utils;
 
 import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
-import jdk.nashorn.internal.objects.annotations.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
@@ -39,7 +38,6 @@ public abstract class AntiCooldownModule implements Listener {
      * Check if this module is enabled.
      * @return Returns true, if module is enabled and false if not.
      */
-    @Getter
     public boolean isEnabled() {
         return isEnabled;
     }
@@ -107,7 +105,6 @@ public abstract class AntiCooldownModule implements Listener {
      * Getter for module name.
      * @return Returns the name of the module.
      */
-    @Getter
     public String getModuleName() {
         return moduleName;
     }
@@ -116,7 +113,6 @@ public abstract class AntiCooldownModule implements Listener {
      * Getter for isProtocolLibRequired
      * @return Returns if ProtocolLib is required for the module.
      */
-    @Getter
     public boolean isProtocolLibRequired() {
         return isProtocolLibRequired;
     }
