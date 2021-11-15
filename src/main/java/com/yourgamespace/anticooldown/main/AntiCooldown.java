@@ -146,6 +146,8 @@ public class AntiCooldown extends JavaPlugin {
         getCommand("anticooldown").setExecutor(new CmdAntiCooldown());
 
         loggingHandler.info("§aCommands have been successfully registered!");
+
+        loggingHandler.info("");
     }
 
     private void registerPlaceholders() {
