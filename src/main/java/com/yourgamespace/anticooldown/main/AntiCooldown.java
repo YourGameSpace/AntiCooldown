@@ -68,6 +68,11 @@ public class AntiCooldown extends JavaPlugin {
         if(!tubeTilsManager.wasSuccessful()) return;
 
         loggingHandler.info("§aThe Plugin will be deactivated ...");
+        loggingHandler.info("§aThe Plugin will be deactivated ...");
+        loggingHandler.info("§aThe Plugin will be deactivated ...");
+
+
+        loggingHandler.info("§aThe Plugin will be deactivated ...");
 
         new CooldownHandler().setDefaultCooldown();
         moduleHandler.unregisterAllModules();
