@@ -1,3 +1,4 @@
+name: Create PR
 on: push
 jobs:
   pull-request:
