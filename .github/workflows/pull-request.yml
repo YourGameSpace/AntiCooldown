@@ -1,5 +1,8 @@
 name: Create PR
-on: push
+on:
+  push:
+    branches:
+    - "dev/*"
 jobs:
   pull-request:
     runs-on: ubuntu-latest
@@ -10,3 +13,5 @@ jobs:
       with:
         destination_branch: "main"
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        pr_title: "Pulling ${{ github.ref }} into dev"
+        pr_body: ":crown: *An automated PR*"
