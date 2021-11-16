@@ -1,4 +1,5 @@
-on: pull_request
+name: Codestyle Check
+on: [ pull_request, push ]
 
 jobs:
   checkstyle_job:
