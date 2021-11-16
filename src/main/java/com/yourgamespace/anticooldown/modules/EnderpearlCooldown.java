@@ -25,17 +25,17 @@ public class EnderpearlCooldown extends AntiCooldownModule {
     @EventHandler
     public void onEnderpearlShoot(ProjectileLaunchEvent event) {
         // Check if feature is supported by minecraft version
-        if(AntiCooldown.getVersionHandler().getVersionId() < 8) return;
+        if (AntiCooldown.getVersionHandler().getVersionId() < 8) return;
         // Check if feature is disabled
-        if(!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "DISABLE_ENDERPEARL_COOLDOWN"))) return;
+        if (!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "DISABLE_ENDERPEARL_COOLDOWN"))) return;
 
         // For compatibility with other plugins
-        if(event.isCancelled()) return;
+        if (event.isCancelled()) return;
 
         Projectile projectile = event.getEntity();
-        if(!(projectile instanceof EnderPearl)) return;
+        if (!(projectile instanceof EnderPearl)) return;
         ProjectileSource projectileSource = projectile.getShooter();
-        if(!(projectileSource instanceof Player)) return;
+        if (!(projectileSource instanceof Player)) return;
         Player player = (Player) projectileSource;
         String world = player.getWorld().getName();
 
@@ -44,9 +44,9 @@ public class EnderpearlCooldown extends AntiCooldownModule {
         boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && player.hasPermission("anticooldown.enderpearlcooldown") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
 
         // If not permitted: Return;
-        if(!isPermitted) return;
+        if (!isPermitted) return;
         // If world is disable and not bypassed: Return;
-        if(WorldManager.isWorldDisabled(world) && !isBypassed) return;
+        if (WorldManager.isWorldDisabled(world) && !isBypassed) return;
 
         // Set enderpearl cooldown to 0 (ticks)
         // Will also disable cooldown animation at client

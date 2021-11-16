@@ -12,7 +12,8 @@ public class CooldownHandler {
 
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
 
-    public CooldownHandler() {}
+    public CooldownHandler() {
+    }
 
     public boolean isCooldownDisabled(Player player) {
         return player.getAttribute(Attribute.GENERIC_ATTACK_SPEED).getBaseValue() != 4;
@@ -31,8 +32,8 @@ public class CooldownHandler {
     public void setDefaultCooldown() {
         CooldownHandler cooldownHandler = new CooldownHandler();
 
-        for(Player player : Bukkit.getOnlinePlayers()) {
-            if(cooldownHandler.isCooldownDisabled(player)) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (cooldownHandler.isCooldownDisabled(player)) {
                 cooldownHandler.enableCooldown(player);
                 Bukkit.getPluginManager().callEvent(new PlayerCooldownChangeEvent(player));
             }
@@ -40,7 +41,7 @@ public class CooldownHandler {
     }
 
     public void setOnlinePlayersCooldown() {
-        for(Player player : Bukkit.getOnlinePlayers()) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
             String world = player.getLocation().getWorld().getName();
 
             // Check Bypass and Permissions
@@ -48,16 +49,15 @@ public class CooldownHandler {
             boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && player.hasPermission("anticooldown.cooldown") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
 
             // If not permitted: Return;
-            if(!isPermitted) return;
+            if (!isPermitted) return;
 
-            if(WorldManager.isWorldDisabled(world)) {
+            if (WorldManager.isWorldDisabled(world)) {
                 // If disabled and is bypassed, disable cooldown;
                 // If disabled and is not bypassed, do nothing;
-                if(isBypassed) {
+                if (isBypassed) {
                     disableCooldown(player);
                     Bukkit.getPluginManager().callEvent(new PlayerCooldownChangeEvent(player));
-                }
-                else {
+                } else {
                     enableCooldown(player);
                     Bukkit.getPluginManager().callEvent(new PlayerCooldownChangeEvent(player));
                 }

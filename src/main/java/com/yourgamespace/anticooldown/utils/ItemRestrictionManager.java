@@ -17,7 +17,9 @@ public class ItemRestrictionManager {
 
     public static void addCache(String paramMaterial) {
         Material material = null;
-        try { material = Material.valueOf(paramMaterial); } catch (IllegalArgumentException exception) {
+        try {
+            material = Material.valueOf(paramMaterial);
+        } catch (IllegalArgumentException exception) {
             loggingHandler.info("§4WARNING: §cMaterial §e" + paramMaterial + " §cfor ItemRestriction cannot be found or is not supported by §e" + Bukkit.getBukkitVersion() + "§c!");
         }
 
@@ -27,7 +29,9 @@ public class ItemRestrictionManager {
     public static boolean isItemRestricted(Material material) {
         boolean bol = restrictedItems.contains(material);
 
-        if(ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "ITEM_RESTRICTION_AS_WHITELIST"))) return !bol;
+        if (ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "ITEM_RESTRICTION_AS_WHITELIST"))) {
+            return !bol;
+        }
         return bol;
     }
 

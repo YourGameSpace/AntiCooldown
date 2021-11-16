@@ -3,11 +3,12 @@ package com.yourgamespace.anticooldown.data;
 @SuppressWarnings("FieldCanBeLocal")
 public class Data {
 
-    public Data() {}
-
     private final Integer currentConfigVersion = 18;
     private boolean protocolLib = true;
     private boolean placeholderApi = true;
+
+    public Data() {
+    }
 
     public int getCurrentConfigVersion() {
         return currentConfigVersion;

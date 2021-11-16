@@ -4,7 +4,8 @@ import com.yourgamespace.anticooldown.main.AntiCooldown;
 
 public class LoggingHandler {
 
-    public LoggingHandler() {}
+    public LoggingHandler() {
+    }
 
     public void info(String message) {
         AntiCooldown.getInstance().getLogger().info(message);
@@ -15,6 +16,6 @@ public class LoggingHandler {
     }
 
     public void debug(Class paramClass, String message) {
-        AntiCooldown.getInstance().getLogger().fine("[DEBUG] [" + paramClass.getName() + "]§r " +  message);
+        AntiCooldown.getInstance().getLogger().fine("[DEBUG] [" + paramClass.getName() + "]§r " + message);
     }
 }

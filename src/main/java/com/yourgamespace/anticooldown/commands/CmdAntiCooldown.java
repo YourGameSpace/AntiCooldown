@@ -27,36 +27,34 @@ public class CmdAntiCooldown implements CommandExecutor {
             return true;
         }
         Player player = (Player) commandSender;
-        if(args.length > 2 || args.length == 0) {
+        if (args.length > 2 || args.length == 0) {
             player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§cWrong usage!");
             sendHelpMessage(player);
             return true;
         }
 
         //Admin Area
-        if(!(player.hasPermission("anticooldown.settings"))) {
+        if (!(player.hasPermission("anticooldown.settings"))) {
             player.sendMessage(cacheContainer.get(String.class, "PREFIX") + ObjectTransformer.getString(cacheContainer.get(String.class, "ERROR_NO_PERMISSIONS")));
             return true;
         }
 
         String arg = args[0];
 
-        if(args.length == 1) {
-            if(arg.equalsIgnoreCase("help")) {
+        if (args.length == 1) {
+            if (arg.equalsIgnoreCase("help")) {
                 sendHelpMessage(player);
                 return true;
-            }
-            else if(arg.equalsIgnoreCase("listDisabledWorlds")) {
+            } else if (arg.equalsIgnoreCase("listDisabledWorlds")) {
                 player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§aDisabled Worlds:");
-                for(String world : WorldManager.getDisabledWorlds()) {
+                for (String world : WorldManager.getDisabledWorlds()) {
                     player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§7> §e" + world);
                 }
                 player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§7##### §cEND OF LIST §7#####");
                 return true;
-            }
-            else if(arg.equalsIgnoreCase("enableWorld")) {
+            } else if (arg.equalsIgnoreCase("enableWorld")) {
                 String world = player.getLocation().getWorld().getName();
-                if(!(WorldManager.isWorldDisabled(world))) {
+                if (!(WorldManager.isWorldDisabled(world))) {
                     player.sendMessage(cacheContainer.get(String.class, "PREFIX") + ObjectTransformer.getString(cacheContainer.get(String.class, "ERROR_WORLD_NOT_LISTED")));
                     return true;
                 }
@@ -65,13 +63,12 @@ public class CmdAntiCooldown implements CommandExecutor {
                 player.sendMessage(cacheContainer.get(String.class, "PREFIX") + ObjectTransformer.getString(cacheContainer.get(String.class, "SETTING_REMOVE_DISABLED_WORLD")).replace("%world%", world));
 
                 World bukkitWorld = Bukkit.getWorld(world);
-                if(bukkitWorld == null) return true;
+                if (bukkitWorld == null) return true;
                 Bukkit.getPluginManager().callEvent(new WorldEnableEvent(bukkitWorld));
                 return true;
-            }
-            else if(arg.equalsIgnoreCase("disableWorld")) {
+            } else if (arg.equalsIgnoreCase("disableWorld")) {
                 String world = player.getLocation().getWorld().getName();
-                if(WorldManager.isWorldDisabled(world)) {
+                if (WorldManager.isWorldDisabled(world)) {
                     player.sendMessage(cacheContainer.get(String.class, "PREFIX") + ObjectTransformer.getString(cacheContainer.get(String.class, "ERROR_WORLD_ALRADY_LISTED")));
                     return true;
                 }
@@ -80,11 +77,10 @@ public class CmdAntiCooldown implements CommandExecutor {
                 player.sendMessage(cacheContainer.get(String.class, "PREFIX") + ObjectTransformer.getString(cacheContainer.get(String.class, "SETTING_ADD_DISABLED_WORLD")).replace("%world%", world));
 
                 World bukkitWorld = Bukkit.getWorld(world);
-                if(bukkitWorld == null) return true;
+                if (bukkitWorld == null) return true;
                 Bukkit.getPluginManager().callEvent(new WorldDisableEvent(bukkitWorld));
                 return true;
-            }
-            else {
+            } else {
                 sendHelpMessage(player);
                 return true;
             }
@@ -92,9 +88,9 @@ public class CmdAntiCooldown implements CommandExecutor {
 
         String world = args[1];
 
-        if(args.length == 2) {
-            if(arg.equalsIgnoreCase("enableWorld")) {
-                if(!(WorldManager.isWorldDisabled(world))) {
+        if (args.length == 2) {
+            if (arg.equalsIgnoreCase("enableWorld")) {
+                if (!(WorldManager.isWorldDisabled(world))) {
                     player.sendMessage(cacheContainer.get(String.class, "PREFIX") + ObjectTransformer.getString(cacheContainer.get(String.class, "ERROR_WORLD_NOT_LISTED")));
                     return true;
                 }
@@ -103,12 +99,11 @@ public class CmdAntiCooldown implements CommandExecutor {
                 player.sendMessage(cacheContainer.get(String.class, "PREFIX") + ObjectTransformer.getString(cacheContainer.get(String.class, "SETTING_REMOVE_DISABLED_WORLD")).replace("%world%", world));
 
                 World bukkitWorld = Bukkit.getWorld(world);
-                if(bukkitWorld == null) return true;
+                if (bukkitWorld == null) return true;
                 Bukkit.getPluginManager().callEvent(new WorldEnableEvent(bukkitWorld));
                 return true;
-            }
-            else if(arg.equalsIgnoreCase("disableWorld")) {
-                if(WorldManager.isWorldDisabled(world)) {
+            } else if (arg.equalsIgnoreCase("disableWorld")) {
+                if (WorldManager.isWorldDisabled(world)) {
                     player.sendMessage(cacheContainer.get(String.class, "PREFIX") + ObjectTransformer.getString(cacheContainer.get(String.class, "ERROR_WORLD_ALRADY_LISTED")));
                     return true;
                 }
@@ -117,18 +112,17 @@ public class CmdAntiCooldown implements CommandExecutor {
                 player.sendMessage(cacheContainer.get(String.class, "PREFIX") + ObjectTransformer.getString(cacheContainer.get(String.class, "SETTING_ADD_DISABLED_WORLD")).replace("%world%", world));
 
                 World bukkitWorld = Bukkit.getWorld(world);
-                if(bukkitWorld == null) return true;
+                if (bukkitWorld == null) return true;
                 Bukkit.getPluginManager().callEvent(new WorldDisableEvent(bukkitWorld));
                 return true;
-            }
-            else {
+            } else {
                 sendHelpMessage(player);
                 return true;
             }
         }
         return true;
     }
-    
+
     private void sendHelpMessage(Player player) {
         player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§7> §e/anticooldown");
         player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§7> §e/anticooldown help");

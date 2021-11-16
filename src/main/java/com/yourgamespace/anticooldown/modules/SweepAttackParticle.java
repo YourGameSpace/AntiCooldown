@@ -32,7 +32,7 @@ public class SweepAttackParticle extends AntiCooldownModule {
         }
 
         private void onSweepAttackParticles() {
-            if(!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "DISABLE_SWEEP_ATTACK"))) return;
+            if (!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "DISABLE_SWEEP_ATTACK"))) return;
 
             AntiCooldown.getProtocolManager().addPacketListener(new PacketAdapter(AntiCooldown.getInstance(), ListenerPriority.NORMAL, PacketType.Play.Server.WORLD_PARTICLES) {
                 @Override
@@ -40,11 +40,11 @@ public class SweepAttackParticle extends AntiCooldownModule {
                     // Check if valid particle
                     boolean valid = false;
                     Particle particle = event.getPacket().getNewParticles().read(0).getParticle();
-                    if(particle.equals(Particle.SWEEP_ATTACK)) valid = true;
-                    if(particle.equals(Particle.DAMAGE_INDICATOR)) valid = true;
+                    if (particle.equals(Particle.SWEEP_ATTACK)) valid = true;
+                    if (particle.equals(Particle.DAMAGE_INDICATOR)) valid = true;
 
                     // If not valid: Return;
-                    if(!valid) return;
+                    if (!valid) return;
 
                     Player player = event.getPlayer();
                     String world = player.getWorld().getName();
@@ -54,12 +54,12 @@ public class SweepAttackParticle extends AntiCooldownModule {
                     boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && player.hasPermission("anticooldown.sweepattack") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
 
                     // If not permitted: Return;
-                    if(!isPermitted) return;
+                    if (!isPermitted) return;
 
                     // Check if world is disabled
                     if (WorldManager.isWorldDisabled(world)) {
                         // If disabled and is bypassed: disable particles;
-                        if(isBypassed) event.setCancelled(true);
+                        if (isBypassed) event.setCancelled(true);
                     } else {
                         // If world enabled, player permitted and not bypassed: disable particles;
                         event.setCancelled(true);

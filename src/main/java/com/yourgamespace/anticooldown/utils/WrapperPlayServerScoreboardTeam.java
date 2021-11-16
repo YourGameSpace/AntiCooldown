@@ -6,7 +6,9 @@ import com.comphenix.protocol.reflect.IntEnum;
 import com.comphenix.protocol.utility.MinecraftReflection;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -23,25 +25,6 @@ public class WrapperPlayServerScoreboardTeam extends AbstractPacket {
 
     public WrapperPlayServerScoreboardTeam(PacketContainer packet) {
         super(packet, TYPE);
-    }
-
-    /**
-     * Enum containing all known modes.
-     *
-     * @author dmulloy2
-     */
-    public static class Mode extends IntEnum {
-        public static final int TEAM_CREATED = 0;
-        public static final int TEAM_REMOVED = 1;
-        public static final int TEAM_UPDATED = 2;
-        public static final int PLAYERS_ADDED = 3;
-        public static final int PLAYERS_REMOVED = 4;
-
-        private static final Mode INSTANCE = new Mode();
-
-        public static Mode getInstance() {
-            return INSTANCE;
-        }
     }
 
     /**
@@ -170,6 +153,7 @@ public class WrapperPlayServerScoreboardTeam extends AbstractPacket {
     /**
      * Get the collision rule.
      * Notes: only if Mode = 0 or 2. always, pushOtherTeams, pushOwnTeam, never.
+     *
      * @return The current collision rule
      */
     public String getCollisionRule() {
@@ -178,6 +162,7 @@ public class WrapperPlayServerScoreboardTeam extends AbstractPacket {
 
     /**
      * Sets the collision rule.
+     *
      * @param value - new value.
      */
     public void setCollisionRule(String value) {
@@ -203,7 +188,7 @@ public class WrapperPlayServerScoreboardTeam extends AbstractPacket {
      *
      * @param value - new value.
      */
-    public void setPlayers(List<String> value) {
+    public void setPlayers(ArrayList<Player> value) {
         handle.getSpecificModifier(Collection.class).write(0, value);
     }
 
@@ -258,5 +243,23 @@ public class WrapperPlayServerScoreboardTeam extends AbstractPacket {
      */
     public void setPackOptionData(int value) {
         handle.getIntegers().write(1, value);
+    }
+
+    /**
+     * Enum containing all known modes.
+     *
+     * @author dmulloy2
+     */
+    public static class Mode extends IntEnum {
+        public static final int TEAM_CREATED = 0;
+        public static final int TEAM_REMOVED = 1;
+        public static final int TEAM_UPDATED = 2;
+        public static final int PLAYERS_ADDED = 3;
+        public static final int PLAYERS_REMOVED = 4;
+        private static final Mode INSTANCE = new Mode();
+
+        public static Mode getInstance() {
+            return INSTANCE;
+        }
     }
 }
