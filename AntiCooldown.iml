@@ -10,6 +10,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: org.bstats:bstats-bukkit:2.2.1" level="project" />
+    <orderEntry type="library" name="Maven: org.bstats:bstats-base:2.2.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.spigotmc:spigot:1.17.1-R0.1-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: de.tubeof:TubeTils:SNAPSHOT-71" level="project" />
     <orderEntry type="library" name="Maven: de.tubeof:TubeTilsManager:SNAPSHOT-26" level="project" />
