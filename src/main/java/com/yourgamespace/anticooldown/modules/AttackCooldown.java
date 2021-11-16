@@ -26,6 +26,11 @@ public class AttackCooldown extends AntiCooldownModule {
         super(isProtocolLibRequired, registerBukkitListeners);
     }
 
+    @Override
+    public void onEnable() {
+        cooldownHandler.setOnlinePlayersCooldown();
+    }
+
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();

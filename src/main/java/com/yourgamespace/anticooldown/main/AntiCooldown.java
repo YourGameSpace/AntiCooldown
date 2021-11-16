@@ -107,9 +107,6 @@ public class AntiCooldown extends JavaPlugin {
 
         long startTime = System.currentTimeMillis() - startTimestamp;
         loggingHandler.info("§aThe plugin was successfully activated in §e" + startTime + "ms§a!");
-
-        // Code to run after plugin was enabled
-        new CooldownHandler().setOnlinePlayersCooldown();
     }
 
     @Override
