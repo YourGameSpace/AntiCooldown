@@ -10,3 +10,7 @@ jobs:
       with:
         destination_branch: "main"
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        pr_title: "Pulling ${{ github.ref }} into master"
+        pr_draft: true
+        pr_label: "auto-pr"
+        pr_template: ".github/PULL_REQUEST_TEMPLATE.md"
