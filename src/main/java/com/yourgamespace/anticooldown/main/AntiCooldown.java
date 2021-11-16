@@ -5,12 +5,12 @@ import com.comphenix.protocol.ProtocolManager;
 import com.yourgamespace.anticooldown.commands.CmdAntiCooldown;
 import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.files.PluginConfig;
+import com.yourgamespace.anticooldown.modules.AttackCooldown;
 import com.yourgamespace.anticooldown.modules.CombatSounds;
 import com.yourgamespace.anticooldown.modules.CustomItemDamage;
 import com.yourgamespace.anticooldown.modules.EnderpearlCooldown;
 import com.yourgamespace.anticooldown.modules.ItemRestriction;
 import com.yourgamespace.anticooldown.modules.PlayerCollision;
-import com.yourgamespace.anticooldown.modules.PvpCooldown;
 import com.yourgamespace.anticooldown.modules.SweepAttackDamage;
 import com.yourgamespace.anticooldown.modules.SweepAttackParticle;
 import com.yourgamespace.anticooldown.modules.UpdateNotifyOnJoin;
@@ -177,7 +177,7 @@ public class AntiCooldown extends JavaPlugin {
         loggingHandler.info("§aModules will be registered ...");
 
         moduleHandler.registerModule(new UpdateNotifyOnJoin(false, true));
-        moduleHandler.registerModule(new PvpCooldown(false, true));
+        moduleHandler.registerModule(new AttackCooldown(false, true));
         moduleHandler.registerModule(new SweepAttackDamage(false, true));
         moduleHandler.registerModule(new SweepAttackParticle(true, false));
         moduleHandler.registerModule(new CombatSounds(true, false));

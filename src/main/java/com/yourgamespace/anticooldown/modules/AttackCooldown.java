@@ -17,12 +17,12 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 @SuppressWarnings("ConstantConditions")
-public class PvpCooldown extends AntiCooldownModule {
+public class AttackCooldown extends AntiCooldownModule {
 
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
     private final CooldownHandler cooldownHandler = new CooldownHandler();
 
-    public PvpCooldown(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
+    public AttackCooldown(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
         super(isProtocolLibRequired, registerBukkitListeners);
     }
 
