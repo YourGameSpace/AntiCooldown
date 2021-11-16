@@ -244,10 +244,10 @@ public class AntiCooldown extends JavaPlugin {
 
     @SuppressWarnings("unused")
     private void setupMetrics() {
-        loggingHandler.info("§aLoad and activate metrics ...");
+        loggingHandler.info("§aEnabling metrics ...");
 
         Metrics metrics = new Metrics(getInstance(), 3440);
 
-        loggingHandler.info("§aMetrics was successfully loaded and activated!");
+        loggingHandler.info("§aMetrics was successfully enabled!");
     }
 }
