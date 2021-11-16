@@ -17,7 +17,7 @@ public class PlayerCollisionHandler {
 
     public static void enableCollisions(Player player) {
         // If collisions is not disabled: Return;
-        if(!collisionPlayers.contains(player.getUniqueId())) return;
+        if (!collisionPlayers.contains(player.getUniqueId())) return;
 
         // Create no-collision team delete packet
         WrapperPlayServerScoreboardTeam disableCollisionTeam = new WrapperPlayServerScoreboardTeam();
@@ -33,7 +33,7 @@ public class PlayerCollisionHandler {
 
     public static void disableCollisions(Player player) {
         // If collisions already disabled: Return;
-        if(collisionPlayers.contains(player.getUniqueId())) return;
+        if (collisionPlayers.contains(player.getUniqueId())) return;
 
         // Create no-collision team packet
         WrapperPlayServerScoreboardTeam disableCollisionTeam = new WrapperPlayServerScoreboardTeam();

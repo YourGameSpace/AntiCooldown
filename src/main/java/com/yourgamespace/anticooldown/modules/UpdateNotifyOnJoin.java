@@ -23,7 +23,7 @@ public class UpdateNotifyOnJoin extends AntiCooldownModule {
         Player player = event.getPlayer();
 
         // Update Notify
-        if(updateChecker != null && player.hasPermission("anticooldown.update") && updateChecker.isOutdated() && ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "UPDATE_NOTIFY_INGAME"))) {
+        if (updateChecker != null && player.hasPermission("anticooldown.update") && updateChecker.isOutdated() && ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "UPDATE_NOTIFY_INGAME"))) {
             player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§cAn update is available! (v" + updateChecker.getLatestVersion() + ") Download here: §e" + updateChecker.getDownloadUrl());
         }
     }

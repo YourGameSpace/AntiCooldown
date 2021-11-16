@@ -28,7 +28,7 @@ public class SweepAttackDamage extends AntiCooldownModule {
 
     @Override
     public boolean compatibilityTest() {
-        if(versionHandler.getVersionId() < 8) {
+        if (versionHandler.getVersionId() < 8) {
             loggingHandler.warn("§4WARNING: §cDisableSweepAttacks is not supported by §e" + versionHandler.getMinecraftVersion() + " (" + Bukkit.getBukkitVersion() + "§c!");
             return false;
         }
@@ -37,7 +37,7 @@ public class SweepAttackDamage extends AntiCooldownModule {
 
     @Override
     public void onEnable() {
-        if(data.isProtocolLibInstalled()) {
+        if (data.isProtocolLibInstalled()) {
             new PacketHandler();
         }
     }
@@ -45,13 +45,13 @@ public class SweepAttackDamage extends AntiCooldownModule {
     @EventHandler
     public void onSweepAttackDamage(EntityDamageByEntityEvent event) {
         // Check if feature is supported by minecraft version
-        if(AntiCooldown.getVersionHandler().getVersionId() < 8) return;
+        if (AntiCooldown.getVersionHandler().getVersionId() < 8) return;
         // Check if feature is disabled
-        if(!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "DISABLE_SWEEP_ATTACK"))) return;
+        if (!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "DISABLE_SWEEP_ATTACK"))) return;
 
 
-        if(event.getCause() != EntityDamageEvent.DamageCause.ENTITY_SWEEP_ATTACK) return;
-        if(!(event.getDamager() instanceof Player)) return;
+        if (event.getCause() != EntityDamageEvent.DamageCause.ENTITY_SWEEP_ATTACK) return;
+        if (!(event.getDamager() instanceof Player)) return;
         Player player = (Player) event.getDamager();
         String world = player.getWorld().getName();
 
@@ -60,12 +60,12 @@ public class SweepAttackDamage extends AntiCooldownModule {
         boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && player.hasPermission("anticooldown.sweepattack") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
 
         // If not permitted: Return;
-        if(!isPermitted) return;
+        if (!isPermitted) return;
 
         // Check if world is disabled
         if (WorldManager.isWorldDisabled(world)) {
             // If disabled and is bypassed: disable particles;
-            if(isBypassed) event.setCancelled(true);
+            if (isBypassed) event.setCancelled(true);
         } else {
             // If world enabled, player permitted and not bypassed: disable particles;
             event.setCancelled(true);
@@ -79,7 +79,7 @@ public class SweepAttackDamage extends AntiCooldownModule {
         }
 
         private void onSweepAttackParticles() {
-            if(!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "DISABLE_SWEEP_ATTACK"))) return;
+            if (!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "DISABLE_SWEEP_ATTACK"))) return;
 
             AntiCooldown.getProtocolManager().addPacketListener(new PacketAdapter(AntiCooldown.getInstance(), ListenerPriority.NORMAL, PacketType.Play.Server.WORLD_PARTICLES) {
                 @Override
@@ -87,11 +87,11 @@ public class SweepAttackDamage extends AntiCooldownModule {
                     // Check if valid particle
                     boolean valid = false;
                     Particle particle = event.getPacket().getNewParticles().read(0).getParticle();
-                    if(particle.equals(Particle.SWEEP_ATTACK)) valid = true;
-                    if(particle.equals(Particle.DAMAGE_INDICATOR)) valid = true;
+                    if (particle.equals(Particle.SWEEP_ATTACK)) valid = true;
+                    if (particle.equals(Particle.DAMAGE_INDICATOR)) valid = true;
 
                     // If not valid: Return;
-                    if(!valid) return;
+                    if (!valid) return;
 
                     Player player = event.getPlayer();
                     String world = player.getWorld().getName();
@@ -101,12 +101,12 @@ public class SweepAttackDamage extends AntiCooldownModule {
                     boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && player.hasPermission("anticooldown.sweepattack") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
 
                     // If not permitted: Return;
-                    if(!isPermitted) return;
+                    if (!isPermitted) return;
 
                     // Check if world is disabled
                     if (WorldManager.isWorldDisabled(world)) {
                         // If disabled and is bypassed: disable particles;
-                        if(isBypassed) event.setCancelled(true);
+                        if (isBypassed) event.setCancelled(true);
                     } else {
                         // If world enabled, player permitted and not bypassed: disable particles;
                         event.setCancelled(true);

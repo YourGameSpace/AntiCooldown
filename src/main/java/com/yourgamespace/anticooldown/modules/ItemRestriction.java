@@ -27,8 +27,8 @@ public class ItemRestriction extends AntiCooldownModule {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onItemHold(PlayerItemHeldEvent event) {
-        if(!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "ITEM_RESTRICTION"))) return;
-        if(event.isCancelled()) return;
+        if (!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "ITEM_RESTRICTION"))) return;
+        if (event.isCancelled()) return;
 
         Player player = event.getPlayer();
         String world = player.getWorld().getName();
@@ -39,12 +39,12 @@ public class ItemRestriction extends AntiCooldownModule {
         boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && player.hasPermission("anticooldown.cooldown") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
 
         // If not permitted: Return;
-        if(!isPermitted) return;
+        if (!isPermitted) return;
 
         // Check if world is disabled
         if (WorldManager.isWorldDisabled(world)) {
             // If disabled and is bypassed: apply cooldown;
-            if(isBypassed) applyCooldown(player, item);
+            if (isBypassed) applyCooldown(player, item);
         } else {
             // If world enabled, player permitted and not bypassed: apply cooldown;
             applyCooldown(player, item);
@@ -53,7 +53,7 @@ public class ItemRestriction extends AntiCooldownModule {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onInventoryClose(InventoryCloseEvent event) {
-        if(!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "ITEM_RESTRICTION"))) return;
+        if (!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "ITEM_RESTRICTION"))) return;
 
         Player player = (Player) event.getPlayer();
         String world = player.getWorld().getName();
@@ -64,12 +64,12 @@ public class ItemRestriction extends AntiCooldownModule {
         boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && player.hasPermission("anticooldown.cooldown") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
 
         // If not permitted: Return;
-        if(!isPermitted) return;
+        if (!isPermitted) return;
 
         // Check if world is disabled
         if (WorldManager.isWorldDisabled(world)) {
             // If disabled and is bypassed: apply cooldown;
-            if(isBypassed) applyCooldown(player, item);
+            if (isBypassed) applyCooldown(player, item);
         } else {
             // If world enabled, player permitted and not bypassed: apply cooldown;
             applyCooldown(player, item);
@@ -78,7 +78,7 @@ public class ItemRestriction extends AntiCooldownModule {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onItemDrop(PlayerDropItemEvent event) {
-        if(!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "ITEM_RESTRICTION"))) return;
+        if (!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "ITEM_RESTRICTION"))) return;
 
         Player player = event.getPlayer();
         String world = player.getWorld().getName();
@@ -89,12 +89,12 @@ public class ItemRestriction extends AntiCooldownModule {
         boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && player.hasPermission("anticooldown.cooldown") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
 
         // If not permitted: Return;
-        if(!isPermitted) return;
+        if (!isPermitted) return;
 
         // Check if world is disabled
         if (WorldManager.isWorldDisabled(world)) {
             // If disabled and is bypassed: apply cooldown;
-            if(isBypassed) applyCooldown(player, item);
+            if (isBypassed) applyCooldown(player, item);
         } else {
             // If world enabled, player permitted and not bypassed: apply cooldown;
             applyCooldown(player, item);
@@ -103,8 +103,8 @@ public class ItemRestriction extends AntiCooldownModule {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onItemPickup(PlayerSwapHandItemsEvent event) {
-        if(!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "ITEM_RESTRICTION"))) return;
-        if(event.isCancelled()) return;
+        if (!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "ITEM_RESTRICTION"))) return;
+        if (event.isCancelled()) return;
 
         Bukkit.getScheduler().runTaskLater(AntiCooldown.getInstance(), () -> {
             Player player = event.getPlayer();
@@ -116,12 +116,12 @@ public class ItemRestriction extends AntiCooldownModule {
             boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && player.hasPermission("anticooldown.cooldown") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
 
             // If not permitted: Return;
-            if(!isPermitted) return;
+            if (!isPermitted) return;
 
             // Check if world is disabled
             if (WorldManager.isWorldDisabled(world)) {
                 // If disabled and is bypassed: apply cooldown;
-                if(isBypassed) applyCooldown(player, item);
+                if (isBypassed) applyCooldown(player, item);
             } else {
                 // If world enabled, player permitted and not bypassed: apply cooldown;
                 applyCooldown(player, item);
@@ -132,8 +132,8 @@ public class ItemRestriction extends AntiCooldownModule {
     @SuppressWarnings("deprecation")
     @EventHandler(priority = EventPriority.LOWEST)
     public void onItemPickup(PlayerPickupItemEvent event) {
-        if(!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "ITEM_RESTRICTION"))) return;
-        if(event.isCancelled()) return;
+        if (!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "ITEM_RESTRICTION"))) return;
+        if (event.isCancelled()) return;
 
         Bukkit.getScheduler().runTaskLater(AntiCooldown.getInstance(), () -> {
             Player player = event.getPlayer();
@@ -145,12 +145,12 @@ public class ItemRestriction extends AntiCooldownModule {
             boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && player.hasPermission("anticooldown.cooldown") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
 
             // If not permitted: Return;
-            if(!isPermitted) return;
+            if (!isPermitted) return;
 
             // Check if world is disabled
             if (WorldManager.isWorldDisabled(world)) {
                 // If disabled and is bypassed: apply cooldown;
-                if(isBypassed) applyCooldown(player, item);
+                if (isBypassed) applyCooldown(player, item);
             } else {
                 // If world enabled, player permitted and not bypassed: apply cooldown;
                 applyCooldown(player, item);
@@ -159,28 +159,26 @@ public class ItemRestriction extends AntiCooldownModule {
     }
 
     private void applyCooldown(Player player, ItemStack item) {
-        if(item == null) {
-            if(!cooldownHandler.isCooldownDisabled(player)) {
+        if (item == null) {
+            if (!cooldownHandler.isCooldownDisabled(player)) {
                 cooldownHandler.disableCooldown(player);
                 sendActionBar(player);
             }
-        }
-        else if(ItemRestrictionManager.isItemRestricted(item.getType())) {
-            if(cooldownHandler.isCooldownDisabled(player)) {
+        } else if (ItemRestrictionManager.isItemRestricted(item.getType())) {
+            if (cooldownHandler.isCooldownDisabled(player)) {
                 cooldownHandler.enableCooldown(player);
                 sendActionBar(player);
             }
-        }
-        else if(!cooldownHandler.isCooldownDisabled(player)) {
+        } else if (!cooldownHandler.isCooldownDisabled(player)) {
             cooldownHandler.disableCooldown(player);
             sendActionBar(player);
         }
     }
 
     private void sendActionBar(Player player) {
-        if(ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "ENABLE_ITEM_RESTRICTION_ACTIONBAR"))) {
+        if (ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "ENABLE_ITEM_RESTRICTION_ACTIONBAR"))) {
             String message;
-            if(cooldownHandler.isCooldownDisabled(player)) {
+            if (cooldownHandler.isCooldownDisabled(player)) {
                 message = ObjectTransformer.getString(cacheContainer.get(String.class, "ITEM_RESTRICTION_ACTIONBAR_MESSAGE_ENABLED"));
             } else {
                 message = ObjectTransformer.getString(cacheContainer.get(String.class, "ITEM_RESTRICTION_ACTIONBAR_MESSAGE_DISABLED"));

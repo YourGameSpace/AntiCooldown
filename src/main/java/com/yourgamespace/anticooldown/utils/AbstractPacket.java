@@ -1,13 +1,12 @@
 package com.yourgamespace.anticooldown.utils;
 
-import java.lang.reflect.InvocationTargetException;
-
-import org.bukkit.entity.Player;
-
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketContainer;
 import com.google.common.base.Objects;
+import org.bukkit.entity.Player;
+
+import java.lang.reflect.InvocationTargetException;
 
 @SuppressWarnings("unused")
 public class AbstractPacket {
@@ -19,7 +18,7 @@ public class AbstractPacket {
      * Constructs a new strongly typed wrapper for the given packet.
      *
      * @param handle - handle to the raw packet data.
-     * @param type - the packet type.
+     * @param type   - the packet type.
      */
     protected AbstractPacket(PacketContainer handle, PacketType type) {
         // Make sure we're given a valid packet
@@ -68,8 +67,8 @@ public class AbstractPacket {
      *
      * @param sender - the sender.
      * @throws RuntimeException If the packet cannot be received.
-     * @deprecated Misspelled. recieve to receive
      * @see #receivePacket(Player)
+     * @deprecated Misspelled. recieve to receive
      */
     @Deprecated
     public void recievePacket(Player sender) {

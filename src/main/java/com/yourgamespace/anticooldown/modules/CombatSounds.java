@@ -32,7 +32,7 @@ public class CombatSounds extends AntiCooldownModule {
         }
 
         private void onNewAttackSounds() {
-            if(!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "DISABLE_NEW_COMBAT_SOUNDS"))) return;
+            if (!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "DISABLE_NEW_COMBAT_SOUNDS"))) return;
 
             AntiCooldown.getProtocolManager().addPacketListener(new PacketAdapter(AntiCooldown.getInstance(), ListenerPriority.NORMAL, PacketType.Play.Server.NAMED_SOUND_EFFECT) {
                 @Override
@@ -40,14 +40,14 @@ public class CombatSounds extends AntiCooldownModule {
                     // Check if valid sound
                     boolean valid = false;
                     Sound sound = event.getPacket().getSoundEffects().read(0);
-                    if(sound.equals(Sound.ENTITY_PLAYER_ATTACK_SWEEP)) valid = true;
-                    if(sound.equals(Sound.ENTITY_PLAYER_ATTACK_CRIT)) valid = true;
-                    if(sound.equals(Sound.ENTITY_PLAYER_ATTACK_KNOCKBACK)) valid = true;
-                    if(sound.equals(Sound.ENTITY_PLAYER_ATTACK_STRONG)) valid = true;
-                    if(sound.equals(Sound.ENTITY_PLAYER_ATTACK_NODAMAGE)) valid = true;
+                    if (sound.equals(Sound.ENTITY_PLAYER_ATTACK_SWEEP)) valid = true;
+                    if (sound.equals(Sound.ENTITY_PLAYER_ATTACK_CRIT)) valid = true;
+                    if (sound.equals(Sound.ENTITY_PLAYER_ATTACK_KNOCKBACK)) valid = true;
+                    if (sound.equals(Sound.ENTITY_PLAYER_ATTACK_STRONG)) valid = true;
+                    if (sound.equals(Sound.ENTITY_PLAYER_ATTACK_NODAMAGE)) valid = true;
 
                     // If not valid: Return;
-                    if(!valid) return;
+                    if (!valid) return;
 
                     Player player = event.getPlayer();
                     String world = player.getWorld().getName();
@@ -57,7 +57,7 @@ public class CombatSounds extends AntiCooldownModule {
                     boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && player.hasPermission("anticooldown.combatsounds") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
 
                     // If not permitted: Return;
-                    if(!isPermitted) return;
+                    if (!isPermitted) return;
 
                     // Check if world is disabled
                     if (WorldManager.isWorldDisabled(world)) {

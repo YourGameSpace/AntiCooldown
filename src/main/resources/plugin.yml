@@ -30,4 +30,4 @@ permissions:
 commands:
   anticooldown:
     usage: </command>
-    aliases: [ac]
+    aliases: [ ac ]

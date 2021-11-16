@@ -13,51 +13,13 @@ public class ItemDamageHandler {
 
     private final Player player;
     private final Entity entity;
-
+    private double baseDamage = 0.0D;
+    private double enchantmentDamage = 0.0D;
     public ItemDamageHandler(Player player, Entity entity) {
         this.player = player;
         this.entity = entity;
 
         calculateDamage();
-    }
-
-    private double baseDamage = 0.0D;
-    private double enchantmentDamage = 0.0D;
-
-    private void calculateDamage() {
-        ItemStack itemStack = player.getInventory().getItemInMainHand();
-        baseDamage = ItemDamageManager.getItemDamage(itemStack.getType());
-
-        // Potion Effects
-        baseDamage += player.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE) ? (player.getPotionEffect(PotionEffectType.INCREASE_DAMAGE).getAmplifier() + 1) * 3 : 0;
-        baseDamage -= player.hasPotionEffect(PotionEffectType.WEAKNESS) ? (player.getPotionEffect(PotionEffectType.WEAKNESS).getAmplifier() + 1) * 4 : 0;
-        baseDamage *= canCriticalHit(player) ? 1.5D : 1.0D;
-
-        // Enchantments
-        if(itemStack.containsEnchantment(Enchantment.DAMAGE_ALL)) {
-            int level = itemStack.getEnchantmentLevel(Enchantment.DAMAGE_ALL);
-            enchantmentDamage += level > 0 ? 1.0D + 0.5D * (level - 1) : 0;
-        }
-        if(itemStack.containsEnchantment(Enchantment.DAMAGE_ARTHROPODS) && isMonsterTypeArthropod(entity)) {
-            int level = itemStack.getEnchantmentLevel(Enchantment.DAMAGE_ARTHROPODS);
-            enchantmentDamage += 2.5D * level;
-        }
-        if(itemStack.containsEnchantment(Enchantment.DAMAGE_UNDEAD) && isMonsterTypeUndead(entity)) {
-            int level = itemStack.getEnchantmentLevel(Enchantment.DAMAGE_UNDEAD);
-            enchantmentDamage += 2.5D * level;
-        }
-    }
-
-    public double getFinalDamage() {
-        return baseDamage + enchantmentDamage;
-    }
-
-    public double getBaseDamage() {
-        return baseDamage;
-    }
-
-    public double getEnchantmentDamage() {
-        return enchantmentDamage;
     }
 
     private static boolean canCriticalHit(Player player) {
@@ -97,5 +59,41 @@ public class ItemDamageHandler {
                 entityType.equals(EntityType.PHANTOM) ||
                 entityType.equals(EntityType.DROWNED) ||
                 entityType.equals(EntityType.ZOGLIN);
+    }
+
+    private void calculateDamage() {
+        ItemStack itemStack = player.getInventory().getItemInMainHand();
+        baseDamage = ItemDamageManager.getItemDamage(itemStack.getType());
+
+        // Potion Effects
+        baseDamage += player.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE) ? (player.getPotionEffect(PotionEffectType.INCREASE_DAMAGE).getAmplifier() + 1) * 3 : 0;
+        baseDamage -= player.hasPotionEffect(PotionEffectType.WEAKNESS) ? (player.getPotionEffect(PotionEffectType.WEAKNESS).getAmplifier() + 1) * 4 : 0;
+        baseDamage *= canCriticalHit(player) ? 1.5D : 1.0D;
+
+        // Enchantments
+        if (itemStack.containsEnchantment(Enchantment.DAMAGE_ALL)) {
+            int level = itemStack.getEnchantmentLevel(Enchantment.DAMAGE_ALL);
+            enchantmentDamage += level > 0 ? 1.0D + 0.5D * (level - 1) : 0;
+        }
+        if (itemStack.containsEnchantment(Enchantment.DAMAGE_ARTHROPODS) && isMonsterTypeArthropod(entity)) {
+            int level = itemStack.getEnchantmentLevel(Enchantment.DAMAGE_ARTHROPODS);
+            enchantmentDamage += 2.5D * level;
+        }
+        if (itemStack.containsEnchantment(Enchantment.DAMAGE_UNDEAD) && isMonsterTypeUndead(entity)) {
+            int level = itemStack.getEnchantmentLevel(Enchantment.DAMAGE_UNDEAD);
+            enchantmentDamage += 2.5D * level;
+        }
+    }
+
+    public double getFinalDamage() {
+        return baseDamage + enchantmentDamage;
+    }
+
+    public double getBaseDamage() {
+        return baseDamage;
+    }
+
+    public double getEnchantmentDamage() {
+        return enchantmentDamage;
     }
 }

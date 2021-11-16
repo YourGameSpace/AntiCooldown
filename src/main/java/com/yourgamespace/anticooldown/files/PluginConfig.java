@@ -17,11 +17,10 @@ public class PluginConfig {
     private final LoggingHandler loggingHandler = AntiCooldown.getLoggingHandler();
     private final Data data = AntiCooldown.getData();
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
-
-    public PluginConfig() {}
-
     private final File configFile = new File("plugins/AntiCooldown", "Config.yml");
     private FileConfiguration config;
+    public PluginConfig() {
+    }
 
     public void initConfigFile() {
         config = YamlConfiguration.loadConfiguration(configFile);
@@ -31,16 +30,16 @@ public class PluginConfig {
     }
 
     public void setupConfig() {
-        if(!configFile.exists()) AntiCooldown.getInstance().saveResource(configFile.getName(), false);
+        if (!configFile.exists()) AntiCooldown.getInstance().saveResource(configFile.getName(), false);
     }
 
     public void upgradeConfig() {
-        if(!ObjectTransformer.getInteger(cacheContainer.get(Integer.class, "CONFIG_VERSION")).equals(data.getCurrentConfigVersion())) {
+        if (!ObjectTransformer.getInteger(cacheContainer.get(Integer.class, "CONFIG_VERSION")).equals(data.getCurrentConfigVersion())) {
             loggingHandler.info("§aUpgrading Config.yml to version §e" + data.getCurrentConfigVersion() + " §a...");
 
             // Create backup file object and delete if already exists
             File backup = new File(configFile.getParent(), configFile.getName() + "-backup.yml");
-            if(backup.exists()) backup.delete();
+            if (backup.exists()) backup.delete();
 
             // Rename outdated config, create new config and init new config
             configFile.renameTo(backup);
@@ -139,9 +138,9 @@ public class PluginConfig {
     public void setDisabledWorld(String world, boolean bol) {
         List<String> disabledWorlds = config.getStringList("Settings.Values.DisabledWorlds");
 
-        if(bol) {
+        if (bol) {
             disabledWorlds.add(world);
-        }else {
+        } else {
             disabledWorlds.remove(world);
         }
 

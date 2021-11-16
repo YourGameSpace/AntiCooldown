@@ -22,12 +22,12 @@ public class CustomItemDamage extends AntiCooldownModule {
 
     @EventHandler
     public void onDamage(EntityDamageByEntityEvent event) {
-        if(!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "ENABLE_CUSTOM_ITEM_DAMAGE"))) return;
-        if(!(event.getDamager() instanceof Player)) return;
+        if (!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "ENABLE_CUSTOM_ITEM_DAMAGE"))) return;
+        if (!(event.getDamager() instanceof Player)) return;
         Player player = (Player) event.getDamager();
         ItemStack itemStack = player.getInventory().getItemInMainHand();
-        if(itemStack == null) return;
-        if(!ItemDamageManager.hasItemCustomDamage(itemStack)) return;
+        if (itemStack == null) return;
+        if (!ItemDamageManager.hasItemCustomDamage(itemStack)) return;
         Entity entity = event.getEntity();
         String world = player.getWorld().getName();
 
@@ -36,14 +36,14 @@ public class CustomItemDamage extends AntiCooldownModule {
         boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && player.hasPermission("anticooldown.customitemdamage") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
 
         // If not permitted: Return;
-        if(!isPermitted) return;
+        if (!isPermitted) return;
 
         ItemDamageHandler itemDamageHandler = null;
 
         // Check if world is disabled
         if (WorldManager.isWorldDisabled(world)) {
             // If disabled and not bypassed: Return;
-            if(!isBypassed) return;
+            if (!isBypassed) return;
 
             // If disabled and is bypassed: Apply damage;
             if (isBypassed) {
@@ -56,7 +56,7 @@ public class CustomItemDamage extends AntiCooldownModule {
             event.setDamage(itemDamageHandler.getFinalDamage());
         }
 
-        if(ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "ENABLE_CUSTOM_ITEM_DAMAGE_ACTIONBAR"))) {
+        if (ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "ENABLE_CUSTOM_ITEM_DAMAGE_ACTIONBAR"))) {
             String message = ObjectTransformer.getString(cacheContainer.get(String.class, "CUSTOM_ITEM_DAMAGE_ACTIONBAR_MESSAGE"));
             message = message.replace("%actionbar_prefix%", ObjectTransformer.getString(cacheContainer.get(String.class, "ACTIONBAR_PREFIX")));
             message = message.replace("%finaldamage%", Double.toString(itemDamageHandler.getFinalDamage()));

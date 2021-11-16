@@ -21,9 +21,6 @@ import java.io.IOException;
 @SuppressWarnings({"ConstantConditions", "unused"})
 public class AntiCooldown extends JavaPlugin {
 
-    private final ConsoleCommandSender ccs = Bukkit.getConsoleSender();
-    private final PluginManager pluginManager = Bukkit.getPluginManager();
-
     private static AntiCooldown main;
     private static LoggingHandler loggingHandler;
     private static ModuleHandler moduleHandler;
@@ -34,13 +31,51 @@ public class AntiCooldown extends JavaPlugin {
     private static UpdateChecker updateChecker;
     private static Data data;
     private static PluginConfig pluginConfig;
+    private final ConsoleCommandSender ccs = Bukkit.getConsoleSender();
+    private final PluginManager pluginManager = Bukkit.getPluginManager();
+
+    public static AntiCooldown getInstance() {
+        return main;
+    }
+
+    public static PluginConfig getPluginConfig() {
+        return pluginConfig;
+    }
+
+    public static Data getData() {
+        return data;
+    }
+
+    public static UpdateChecker getUpdateChecker() {
+        return updateChecker;
+    }
+
+    public static ModuleHandler getModuleHandler() {
+        return moduleHandler;
+    }
+
+    public static ProtocolManager getProtocolManager() {
+        return protocolManager;
+    }
+
+    public static CacheContainer getCacheContainer() {
+        return cacheContainer;
+    }
+
+    public static VersionHandler getVersionHandler() {
+        return versionHandler;
+    }
+
+    public static LoggingHandler getLoggingHandler() {
+        return loggingHandler;
+    }
 
     @Override
     public void onEnable() {
         long startTimestamp = System.currentTimeMillis();
 
         initialisation();
-        if(!tubeTilsManager.wasSuccessful()) return;
+        if (!tubeTilsManager.wasSuccessful()) return;
 
         loggingHandler.info("§aThe Plugin will be activated ...");
         loggingHandler.info("==================================================");
@@ -65,7 +100,7 @@ public class AntiCooldown extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        if(!tubeTilsManager.wasSuccessful()) return;
+        if (!tubeTilsManager.wasSuccessful()) return;
 
         loggingHandler.info("§aThe Plugin will be deactivated ...");
 
@@ -93,7 +128,7 @@ public class AntiCooldown extends JavaPlugin {
         new PluginConfig().setupConfig();
 
         //ProtocolLib
-        if(Bukkit.getPluginManager().getPlugin("ProtocolLib") != null) {
+        if (Bukkit.getPluginManager().getPlugin("ProtocolLib") != null) {
             loggingHandler.info("§aProtocolLib is installed! Support for ProtocolLib enabled!");
             data.setProtocolLib(true);
 
@@ -104,7 +139,7 @@ public class AntiCooldown extends JavaPlugin {
         }
 
         //PlaceholderAPI
-        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             loggingHandler.info("§aPlaceholderAPI is installed! Support for PlaceholderAPI enabled!");
             data.setPlaceholderApi(true);
         } else {
@@ -151,7 +186,7 @@ public class AntiCooldown extends JavaPlugin {
     }
 
     private void registerPlaceholders() {
-        if(data.isPlaceholderApiInstalled()) {
+        if (data.isPlaceholderApiInstalled()) {
             loggingHandler.info("§aPlaceholders for PlacerholderAPI will be registered ...");
 
             new PlaceholderHandler().register();
@@ -161,7 +196,7 @@ public class AntiCooldown extends JavaPlugin {
     }
 
     private void checkUpdate() {
-        if(!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_UPDATE_CHECKER"))) {
+        if (!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_UPDATE_CHECKER"))) {
             loggingHandler.info("§cCheck for updates disabled. The check will be skipped!");
             return;
         }
@@ -171,21 +206,22 @@ public class AntiCooldown extends JavaPlugin {
             updateChecker = new UpdateChecker("AntiCooldown-UpdateChecker", 51321, getInstance(), ApiMethode.YOURGAMESPACE, false, true);
 
             // Check errors
-            if(!updateChecker.isOnline()) {
+            if (!updateChecker.isOnline()) {
                 loggingHandler.info("§cUpdate-Check failed: No connection to the internet could be established.");
                 return;
             }
-            if(updateChecker.isRateLimited()) {
+            if (updateChecker.isRateLimited()) {
                 loggingHandler.info("§cUpdate-Check failed: Request got blocked by rate limit!");
                 return;
             }
-            if(!updateChecker.wasSuccessful()) {
+            if (!updateChecker.wasSuccessful()) {
                 loggingHandler.info("§cUpdate-Check failed: An unknown error has occurred!");
             }
 
             // Final outdated check
-            if(updateChecker.isOutdated()) {
-                if(ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "UPDATE_NOTIFY_CONSOLE"))) loggingHandler.info("§cAn update was found! (v" + updateChecker.getLatestVersion() + ") Download here: " + updateChecker.getDownloadUrl());
+            if (updateChecker.isOutdated()) {
+                if (ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "UPDATE_NOTIFY_CONSOLE")))
+                    loggingHandler.info("§cAn update was found! (v" + updateChecker.getLatestVersion() + ") Download here: " + updateChecker.getDownloadUrl());
             }
         } catch (IOException exception) {
             loggingHandler.info("§cAn error occurred while checking for updates!");
@@ -201,41 +237,5 @@ public class AntiCooldown extends JavaPlugin {
         Metrics metrics = new Metrics(getInstance(), 3440);
 
         loggingHandler.info("§abStats was successfully loaded and activated!");
-    }
-    
-    public static AntiCooldown getInstance() {
-        return main;
-    }
-
-    public static PluginConfig getPluginConfig() {
-        return pluginConfig;
-    }
-
-    public static Data getData() {
-        return data;
-    }
-
-    public static UpdateChecker getUpdateChecker() {
-        return updateChecker;
-    }
-
-    public static ModuleHandler getModuleHandler() {
-        return moduleHandler;
-    }
-
-    public static ProtocolManager getProtocolManager() {
-        return protocolManager;
-    }
-
-    public static CacheContainer getCacheContainer() {
-        return cacheContainer;
-    }
-
-    public static VersionHandler getVersionHandler() {
-        return versionHandler;
-    }
-
-    public static LoggingHandler getLoggingHandler() {
-        return loggingHandler;
     }
 }

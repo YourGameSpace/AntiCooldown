@@ -27,15 +27,18 @@ public abstract class AntiCooldownModule implements Listener {
     /**
      * If necessary, possibility to run code when the module will be enabled.
      */
-    public void onEnable() {}
+    public void onEnable() {
+    }
 
     /**
      * If necessary, possibility to run code when the module will be disabled.
      */
-    public void onDisable() {}
+    public void onDisable() {
+    }
 
     /**
      * Check if this module is enabled.
+     *
      * @return Returns true, if module is enabled and false if not.
      */
     public boolean isEnabled() {
@@ -45,6 +48,7 @@ public abstract class AntiCooldownModule implements Listener {
     /**
      * Set the status of this module. Status can be set to enabled and disabled using this methode.
      * WARNING: This will NOT disable/enable the module.
+     *
      * @param enabled true for enabled and false for disabled.
      */
     private void setEnabled(boolean enabled) {
@@ -54,13 +58,14 @@ public abstract class AntiCooldownModule implements Listener {
     /**
      * If necessary, possibility to register packet handler.
      */
-    public void registerPacketHandler() {}
+    public void registerPacketHandler() {
+    }
 
     /**
      * Will enable this module.
      */
     public void enableModule() {
-        if(registerBukkitListeners) pluginManager.registerEvents(this, AntiCooldown.getInstance());
+        if (registerBukkitListeners) pluginManager.registerEvents(this, AntiCooldown.getInstance());
         registerPacketHandler();
         onEnable();
 
@@ -82,6 +87,7 @@ public abstract class AntiCooldownModule implements Listener {
 
     /**
      * Will disable the module with the given reason.
+     *
      * @param reason The reason, why the module was disabled.
      */
     public void disableModule(String reason) {
@@ -95,6 +101,7 @@ public abstract class AntiCooldownModule implements Listener {
 
     /**
      * If necessary, possibility for a self-test.
+     *
      * @return Returns true, if self-test passed or false if failed.
      */
     public boolean compatibilityTest() {
@@ -103,6 +110,7 @@ public abstract class AntiCooldownModule implements Listener {
 
     /**
      * Getter for module name.
+     *
      * @return Returns the name of the module.
      */
     public String getModuleName() {
@@ -111,6 +119,7 @@ public abstract class AntiCooldownModule implements Listener {
 
     /**
      * Getter for isProtocolLibRequired
+     *
      * @return Returns if ProtocolLib is required for the module.
      */
     public boolean isProtocolLibRequired() {

@@ -16,18 +16,19 @@ public class WorldEnableEvent extends Event {
         this.world = world;
     }
 
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     @NotNull
     @Override
     public HandlerList getHandlers() {
         return handlers;
     }
 
-    public static HandlerList getHandlerList() {
-        return handlers;
-    }
-
     /**
      * Returns the world involved in this event
+     *
      * @return Returns the world object
      */
     public World getWorld() {

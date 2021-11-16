@@ -30,26 +30,25 @@ public class PlaceholderHandler extends PlaceholderExpansion {
 
     @Override
     public String onRequest(OfflinePlayer offlinePlayer, @NotNull String placeholder) {
-        if(offlinePlayer == null) return null;
+        if (offlinePlayer == null) return null;
         Player player = offlinePlayer.getPlayer();
 
-        if(placeholder.equalsIgnoreCase("worldcooldown")) {
-            if(WorldManager.isWorldDisabled(player.getWorld().getName())) {
+        if (placeholder.equalsIgnoreCase("worldcooldown")) {
+            if (WorldManager.isWorldDisabled(player.getWorld().getName())) {
                 // World disabled = Cooldown enabled: Return enabled;
                 return ObjectTransformer.getString(cacheContainer.get(String.class, "PLACEHOLDER_WORLD_COOLDOWN_ENABLED"));
             }
             // World enabled = Cooldown disabled: Return disabled;
             return ObjectTransformer.getString(cacheContainer.get(String.class, "PLACEHOLDER_WORLD_COOLDOWN_DISABLED"));
         }
-        if(placeholder.equalsIgnoreCase("playercooldown")) {
-            if(cooldownHandler.isCooldownDisabled(player)) {
+        if (placeholder.equalsIgnoreCase("playercooldown")) {
+            if (cooldownHandler.isCooldownDisabled(player)) {
                 // Cooldown disabled
                 return ObjectTransformer.getString(cacheContainer.get(String.class, "PLACEHOLDER_PLAYER_COOLDOWN_DISABLED"));
             }
             // Cooldown enabled
             return ObjectTransformer.getString(cacheContainer.get(String.class, "PLACEHOLDER_PLAYER_COOLDOWN_ENABLED"));
         }
-
 
 
         return null;

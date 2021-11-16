@@ -18,18 +18,19 @@ public class PlayerCooldownChangeEvent extends Event {
         this.player = player;
     }
 
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     @NotNull
     @Override
     public HandlerList getHandlers() {
         return handlers;
     }
 
-    public static HandlerList getHandlerList() {
-        return handlers;
-    }
-
     /**
      * Returns the player involved in this event
+     *
      * @return Returns the player object
      */
     public Player getPlayer() {
@@ -38,6 +39,7 @@ public class PlayerCooldownChangeEvent extends Event {
 
     /**
      * Returns the new cooldown status of the player
+     *
      * @return Returns true if cooldown is disabled or true, if enabled.
      */
     public boolean isCooldownDisabled() {
