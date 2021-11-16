@@ -1,7 +1,11 @@
 package com.yourgamespace.anticooldown.modules;
 
 import com.yourgamespace.anticooldown.main.AntiCooldown;
-import com.yourgamespace.anticooldown.utils.*;
+import com.yourgamespace.anticooldown.utils.AntiCooldownModule;
+import com.yourgamespace.anticooldown.utils.ItemDamageHandler;
+import com.yourgamespace.anticooldown.utils.ItemDamageManager;
+import com.yourgamespace.anticooldown.utils.ObjectTransformer;
+import com.yourgamespace.anticooldown.utils.WorldManager;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;

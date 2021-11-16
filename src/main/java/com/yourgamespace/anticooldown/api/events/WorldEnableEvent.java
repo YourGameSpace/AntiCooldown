@@ -27,7 +27,7 @@ public class WorldEnableEvent extends Event {
     }
 
     /**
-     * Returns the world involved in this event
+     * Returns the world involved in this event.
      *
      * @return Returns the world object
      */

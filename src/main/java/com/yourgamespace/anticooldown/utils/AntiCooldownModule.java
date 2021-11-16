@@ -118,7 +118,7 @@ public abstract class AntiCooldownModule implements Listener {
     }
 
     /**
-     * Getter for isProtocolLibRequired
+     * Getter for isProtocolLibRequired.
      *
      * @return Returns if ProtocolLib is required for the module.
      */

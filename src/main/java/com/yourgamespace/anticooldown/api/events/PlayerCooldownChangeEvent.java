@@ -29,7 +29,7 @@ public class PlayerCooldownChangeEvent extends Event {
     }
 
     /**
-     * Returns the player involved in this event
+     * Returns the player involved in this event.
      *
      * @return Returns the player object
      */
@@ -38,7 +38,7 @@ public class PlayerCooldownChangeEvent extends Event {
     }
 
     /**
-     * Returns the new cooldown status of the player
+     * Returns the new cooldown status of the player.
      *
      * @return Returns true if cooldown is disabled or true, if enabled.
      */

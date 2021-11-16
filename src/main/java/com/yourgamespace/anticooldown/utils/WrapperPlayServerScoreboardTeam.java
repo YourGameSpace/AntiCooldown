@@ -6,7 +6,9 @@ import com.comphenix.protocol.reflect.IntEnum;
 import com.comphenix.protocol.utility.MinecraftReflection;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -186,7 +188,7 @@ public class WrapperPlayServerScoreboardTeam extends AbstractPacket {
      *
      * @param value - new value.
      */
-    public void setPlayers(List<String> value) {
+    public void setPlayers(ArrayList<Player> value) {
         handle.getSpecificModifier(Collection.class).write(0, value);
     }
 

@@ -10,7 +10,7 @@ import com.yourgamespace.anticooldown.modules.CustomItemDamage;
 import com.yourgamespace.anticooldown.modules.EnderpearlCooldown;
 import com.yourgamespace.anticooldown.modules.ItemRestriction;
 import com.yourgamespace.anticooldown.modules.PlayerCollision;
-import com.yourgamespace.anticooldown.modules.PvPCooldown;
+import com.yourgamespace.anticooldown.modules.PvpCooldown;
 import com.yourgamespace.anticooldown.modules.SweepAttackDamage;
 import com.yourgamespace.anticooldown.modules.SweepAttackParticle;
 import com.yourgamespace.anticooldown.modules.UpdateNotifyOnJoin;
@@ -103,7 +103,7 @@ public class AntiCooldown extends JavaPlugin {
         registerCommands();
         registerPlaceholders();
 
-        bStats();
+        setupMetrics();
 
         long startTime = System.currentTimeMillis() - startTimestamp;
         loggingHandler.info("§aThe plugin was successfully activated in §e" + startTime + "ms§a!");
@@ -177,7 +177,7 @@ public class AntiCooldown extends JavaPlugin {
         loggingHandler.info("§aModules will be registered ...");
 
         moduleHandler.registerModule(new UpdateNotifyOnJoin(false, true));
-        moduleHandler.registerModule(new PvPCooldown(false, true));
+        moduleHandler.registerModule(new PvpCooldown(false, true));
         moduleHandler.registerModule(new SweepAttackDamage(false, true));
         moduleHandler.registerModule(new SweepAttackParticle(true, false));
         moduleHandler.registerModule(new CombatSounds(true, false));
@@ -234,8 +234,9 @@ public class AntiCooldown extends JavaPlugin {
 
             // Final outdated check
             if (updateChecker.isOutdated()) {
-                if (ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "UPDATE_NOTIFY_CONSOLE")))
+                if (ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "UPDATE_NOTIFY_CONSOLE"))) {
                     loggingHandler.info("§cAn update was found! (v" + updateChecker.getLatestVersion() + ") Download here: " + updateChecker.getDownloadUrl());
+                }
             }
         } catch (IOException exception) {
             loggingHandler.info("§cAn error occurred while checking for updates!");
@@ -245,11 +246,11 @@ public class AntiCooldown extends JavaPlugin {
     }
 
     @SuppressWarnings("unused")
-    private void bStats() {
-        loggingHandler.info("§aLoad and activate bStats ...");
+    private void setupMetrics() {
+        loggingHandler.info("§aLoad and activate metrics ...");
 
         Metrics metrics = new Metrics(getInstance(), 3440);
 
-        loggingHandler.info("§abStats was successfully loaded and activated!");
+        loggingHandler.info("§aMetrics was successfully loaded and activated!");
     }
 }

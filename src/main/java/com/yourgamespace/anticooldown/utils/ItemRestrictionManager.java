@@ -29,8 +29,9 @@ public class ItemRestrictionManager {
     public static boolean isItemRestricted(Material material) {
         boolean bol = restrictedItems.contains(material);
 
-        if (ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "ITEM_RESTRICTION_AS_WHITELIST")))
+        if (ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "ITEM_RESTRICTION_AS_WHITELIST"))) {
             return !bol;
+        }
         return bol;
     }
 

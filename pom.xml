@@ -29,6 +29,8 @@
                     </dependency>
                 </dependencies>
                 <configuration>
+                    <excludes>com/yourgamespace/anticooldown/utils/WrapperPlayServerScoreboardTeam*</excludes>
+
                     <configLocation>checkstyle-checker.xml</configLocation>
                     <encoding>UTF-8</encoding>
                     <failsOnError>true</failsOnError>

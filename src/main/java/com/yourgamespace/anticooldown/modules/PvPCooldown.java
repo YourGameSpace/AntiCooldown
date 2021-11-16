@@ -17,12 +17,12 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 @SuppressWarnings("ConstantConditions")
-public class PvPCooldown extends AntiCooldownModule {
+public class PvpCooldown extends AntiCooldownModule {
 
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
     private final CooldownHandler cooldownHandler = new CooldownHandler();
 
-    public PvPCooldown(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
+    public PvpCooldown(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
         super(isProtocolLibRequired, registerBukkitListeners);
     }
 
@@ -44,16 +44,19 @@ public class PvPCooldown extends AntiCooldownModule {
             // If disabled and is not bypassed, do nothing;
             if (isBypassed) {
                 cooldownHandler.disableCooldown(player);
-                if (ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_LOGIN_MESSAGES")))
+                if (ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_LOGIN_MESSAGES"))) {
                     player.sendMessage(cacheContainer.get(String.class, "PREFIX") + ObjectTransformer.getString(cacheContainer.get(String.class, "LOGIN_BYPASSED")));
+                }
             } else {
-                if (ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_LOGIN_MESSAGES")))
+                if (ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_LOGIN_MESSAGES"))) {
                     player.sendMessage(cacheContainer.get(String.class, "PREFIX") + ObjectTransformer.getString(cacheContainer.get(String.class, "LOGIN_DISABLED")));
+                }
             }
         } else {
             cooldownHandler.disableCooldown(player);
-            if (ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_LOGIN_MESSAGES")))
+            if (ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_LOGIN_MESSAGES"))) {
                 player.sendMessage(cacheContainer.get(String.class, "PREFIX") + ObjectTransformer.getString(cacheContainer.get(String.class, "LOGIN_ENABLED")));
+            }
         }
     }
 
@@ -108,17 +111,20 @@ public class PvPCooldown extends AntiCooldownModule {
                 // If disabled and is not bypassed, do nothing;
                 if (isBypassed) {
                     cooldownHandler.disableCooldown(player);
-                    if (ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_SWITCH_WORLD_MESSAGES")))
+                    if (ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_SWITCH_WORLD_MESSAGES"))) {
                         player.sendMessage(cacheContainer.get(String.class, "PREFIX") + ObjectTransformer.getString(cacheContainer.get(String.class, "SWITCH_WORLD_BYPASSED")));
+                    }
                 } else {
                     cooldownHandler.enableCooldown(player);
-                    if (ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_SWITCH_WORLD_MESSAGES")))
+                    if (ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_SWITCH_WORLD_MESSAGES"))) {
                         player.sendMessage(cacheContainer.get(String.class, "PREFIX") + ObjectTransformer.getString(cacheContainer.get(String.class, "SWITCH_WORLD_DISABLED")));
+                    }
                 }
             } else {
                 cooldownHandler.disableCooldown(player);
-                if (ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_SWITCH_WORLD_MESSAGES")))
+                if (ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_SWITCH_WORLD_MESSAGES"))) {
                     player.sendMessage(cacheContainer.get(String.class, "PREFIX") + ObjectTransformer.getString(cacheContainer.get(String.class, "SWITCH_WORLD_ENABLED")));
+                }
             }
         }, 2);
     }
@@ -127,7 +133,8 @@ public class PvPCooldown extends AntiCooldownModule {
     public void onQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
 
-        if (cooldownHandler.isCooldownDisabled(player))
+        if (cooldownHandler.isCooldownDisabled(player)) {
             cooldownHandler.enableCooldown(player);
+        }
     }
 }

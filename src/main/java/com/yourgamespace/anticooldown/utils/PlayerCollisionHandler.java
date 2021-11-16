@@ -6,7 +6,9 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.UUID;
 
-@SuppressWarnings("unused")
+import static java.util.Arrays.asList;
+
+@SuppressWarnings({"unused", "ArraysAsListWithZeroOrOneArgument"})
 public class PlayerCollisionHandler {
 
     private static final ArrayList<UUID> collisionPlayers = new ArrayList<>();
@@ -41,9 +43,7 @@ public class PlayerCollisionHandler {
         disableCollisionTeam.setName("dis-coll");
         disableCollisionTeam.setColor(ChatColor.RESET);
         disableCollisionTeam.setCollisionRule("never");
-        disableCollisionTeam.setPlayers(new ArrayList<String>() {{
-            add(player.getName());
-        }});
+        disableCollisionTeam.setPlayers(new ArrayList<>(asList(player)));
 
         // Send packet
         disableCollisionTeam.sendPacket(player);
