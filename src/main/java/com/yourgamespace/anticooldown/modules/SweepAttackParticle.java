@@ -6,20 +6,15 @@ import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.AntiCooldownModule;
-import com.yourgamespace.anticooldown.utils.LoggingHandler;
 import com.yourgamespace.anticooldown.utils.ObjectTransformer;
-import com.yourgamespace.anticooldown.utils.VersionHandler;
 import com.yourgamespace.anticooldown.utils.WorldManager;
 import de.tubeof.tubetils.api.cache.CacheContainer;
-import org.bukkit.Bukkit;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 
 public class SweepAttackParticle extends AntiCooldownModule {
 
-    private static final LoggingHandler loggingHandler = AntiCooldown.getLoggingHandler();
     private static final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
-    private static final VersionHandler versionHandler = AntiCooldown.getVersionHandler();
 
     public SweepAttackParticle(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
         super(isProtocolLibRequired, registerBukkitListeners);
@@ -27,15 +22,6 @@ public class SweepAttackParticle extends AntiCooldownModule {
 
     // TODO: Added own config option
     // TODO: Add own permissions
-
-    @Override
-    public boolean compatibilityTest() {
-        if (versionHandler.getVersionId() < 8) {
-            loggingHandler.warn("§4WARNING: §cDisableSweepAttacksParticles is not supported by §e" + versionHandler.getMinecraftVersion() + " (" + Bukkit.getBukkitVersion() + "§c!");
-            return false;
-        }
-        return true;
-    }
 
     @Override
     public void registerPacketHandler() {
