@@ -16,8 +16,8 @@ import org.bukkit.event.EventHandler;
 
 public class CombatSounds extends AntiCooldownModule {
 
-    private static final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
-    private static final WorldManager worldManager = AntiCooldown.getWorldManager();
+    private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
+    private final WorldManager worldManager = AntiCooldown.getWorldManager();
 
     public CombatSounds(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
         super(isProtocolLibRequired, registerBukkitListeners);
@@ -28,28 +28,12 @@ public class CombatSounds extends AntiCooldownModule {
         new PacketHandler();
     }
 
-    public static boolean hasPermission(Player player) {
-        String world = player.getWorld().getName();
-
-        // Check Bypass and Permissions
-        boolean isBypassed = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_BYPASS_PERMISSION")) && player.hasPermission("anticooldown.bypass");
-        boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && player.hasPermission("anticooldown.combatsounds") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
-
-        // If not permitted: false;
-        if (!isPermitted) return false;
-        // If world is enabled: true
-        if (!worldManager.isWorldDisabled(world)) return true;
-        // If world is disabled and bypassed: true
-        if (worldManager.isWorldDisabled(world) && isBypassed) return true;
-        else return false;
-    }
-
     @EventHandler
     public void onWorldDisable(WorldDisableEvent event) {
 
     }
 
-    public static class PacketHandler {
+    public class PacketHandler {
 
         public PacketHandler() {
             onNewAttackSounds();
@@ -75,9 +59,23 @@ public class CombatSounds extends AntiCooldownModule {
 
                     // Check if player has permissions
                     Player player = event.getPlayer();
-                    if (!hasPermission(player)) return;
+                    String world = player.getWorld().getName();
 
-                    event.setCancelled(true);
+                    // Check Bypass and Permissions
+                    boolean isBypassed = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_BYPASS_PERMISSION")) && player.hasPermission("anticooldown.bypass");
+                    boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && player.hasPermission("anticooldown.combatsounds") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
+
+                    // If not permitted: Return;
+                    if (!isPermitted) return;
+
+                    // Check if world is disabled
+                    if (worldManager.isWorldDisabled(world)) {
+                        // If disabled and is bypassed: disable sounds;
+                        if (isBypassed) event.setCancelled(true);
+                    } else {
+                        // If permitted and not bypassed: disable sounds;
+                        event.setCancelled(true);
+                    }
                 }
             });
         }
