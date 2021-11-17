@@ -1,6 +1,5 @@
 package com.yourgamespace.anticooldown.modules;
 
-import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.AntiCooldownModule;
 import com.yourgamespace.anticooldown.utils.ObjectTransformer;
@@ -16,7 +15,6 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 public class PlayerCollision extends AntiCooldownModule {
 
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
-    private final Data data = AntiCooldown.getData();
 
     public PlayerCollision(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
         super(isProtocolLibRequired, registerBukkitListeners);
@@ -24,8 +22,6 @@ public class PlayerCollision extends AntiCooldownModule {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        // Check if ProtocolLib is installed
-        if (!data.isProtocolLibInstalled()) return;
         // Check if feature is disabled
         if (!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "DISABLE_PLAYER_COLLISION"))) return;
 
