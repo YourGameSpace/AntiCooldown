@@ -14,8 +14,8 @@ import org.bukkit.entity.Player;
 
 public class SweepAttackParticle extends AntiCooldownModule {
 
-    private static final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
-    private static final WorldManager worldManager = AntiCooldown.getWorldManager();
+    private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
+    private final WorldManager worldManager = AntiCooldown.getWorldManager();
 
     public SweepAttackParticle(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
         super(isProtocolLibRequired, registerBukkitListeners);
@@ -29,7 +29,7 @@ public class SweepAttackParticle extends AntiCooldownModule {
         new PacketHandler();
     }
 
-    public static class PacketHandler {
+    public class PacketHandler {
 
         public PacketHandler() {
             onSweepAttackParticles();
