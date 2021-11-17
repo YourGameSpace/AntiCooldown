@@ -15,10 +15,10 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 public class SweepAttackDamage extends AntiCooldownModule {
 
-    private static final LoggingHandler loggingHandler = AntiCooldown.getLoggingHandler();
-    private static final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
-    private static final VersionHandler versionHandler = AntiCooldown.getVersionHandler();
-    private static final WorldManager worldManager = AntiCooldown.getWorldManager();
+    private final LoggingHandler loggingHandler = AntiCooldown.getLoggingHandler();
+    private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
+    private final VersionHandler versionHandler = AntiCooldown.getVersionHandler();
+    private final WorldManager worldManager = AntiCooldown.getWorldManager();
 
     public SweepAttackDamage(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
         super(isProtocolLibRequired, registerBukkitListeners);

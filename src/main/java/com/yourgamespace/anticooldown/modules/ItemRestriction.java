@@ -22,9 +22,9 @@ import org.bukkit.inventory.ItemStack;
 
 public class ItemRestriction extends AntiCooldownModule {
 
-    private static final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
-    private static final WorldManager worldManager = AntiCooldown.getWorldManager();
-    private static final CooldownHandler cooldownHandler = new CooldownHandler();
+    private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
+    private final WorldManager worldManager = AntiCooldown.getWorldManager();
+    private final CooldownHandler cooldownHandler = new CooldownHandler();
 
     public ItemRestriction(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
         super(isProtocolLibRequired, registerBukkitListeners);
