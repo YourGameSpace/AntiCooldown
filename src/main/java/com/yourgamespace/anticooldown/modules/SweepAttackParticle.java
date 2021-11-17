@@ -14,6 +14,12 @@ import de.tubeof.tubetils.api.cache.CacheContainer;
 import org.bukkit.Bukkit;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
+
+import java.util.ArrayList;
+import java.util.UUID;
 
 public class SweepAttackParticle extends AntiCooldownModule {
 
@@ -42,6 +48,37 @@ public class SweepAttackParticle extends AntiCooldownModule {
         new PacketHandler();
     }
 
+    private static final ArrayList<UUID> disableParticlePlayers = new ArrayList<>();
+
+    @EventHandler
+    public void onSweepAttackDamage(EntityDamageByEntityEvent event) {
+        // Check if feature is disabled
+        if (!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "DISABLE_SWEEP_ATTACK"))) return;
+
+        if (event.getCause() != EntityDamageEvent.DamageCause.ENTITY_SWEEP_ATTACK) return;
+        if (!(event.getDamager() instanceof Player)) return;
+        Player player = (Player) event.getDamager();
+        String world = player.getWorld().getName();
+
+        // Check Bypass and Permissions
+        boolean isBypassed = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_BYPASS_PERMISSION")) && player.hasPermission("anticooldown.bypass");
+        boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && player.hasPermission("anticooldown.sweepattack") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
+
+        // If not permitted: Return;
+        if (!isPermitted) return;
+
+        // Check if world is disabled
+        if (WorldManager.isWorldDisabled(world)) {
+            // If disabled and is bypassed: disable particles;
+            if (isBypassed) {
+                disableParticlePlayers.add(player.getUniqueId());
+            }
+        } else {
+            // If world enabled, player permitted and not bypassed: disable particles;
+            disableParticlePlayers.add(player.getUniqueId());
+        }
+    }
+
     public static class PacketHandler {
 
         public PacketHandler() {
@@ -63,24 +100,13 @@ public class SweepAttackParticle extends AntiCooldownModule {
                     // If not valid: Return;
                     if (!valid) return;
 
+                    // Check if particles disable for player
                     Player player = event.getPlayer();
-                    String world = player.getWorld().getName();
+                    if (!disableParticlePlayers.contains(player.getUniqueId())) return;
 
-                    // Check Bypass and Permissions
-                    boolean isBypassed = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_BYPASS_PERMISSION")) && player.hasPermission("anticooldown.bypass");
-                    boolean isPermitted = ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS")) && player.hasPermission("anticooldown.sweepattack") || !ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_PERMISSIONS"));
-
-                    // If not permitted: Return;
-                    if (!isPermitted) return;
-
-                    // Check if world is disabled
-                    if (WorldManager.isWorldDisabled(world)) {
-                        // If disabled and is bypassed: disable particles;
-                        if (isBypassed) event.setCancelled(true);
-                    } else {
-                        // If world enabled, player permitted and not bypassed: disable particles;
-                        event.setCancelled(true);
-                    }
+                    // Disable particles
+                    event.setCancelled(true);
+                    disableParticlePlayers.remove(player.getUniqueId());
                 }
             });
         }
