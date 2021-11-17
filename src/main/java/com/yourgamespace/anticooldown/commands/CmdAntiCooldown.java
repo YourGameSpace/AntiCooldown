@@ -3,7 +3,6 @@ package com.yourgamespace.anticooldown.commands;
 import com.yourgamespace.anticooldown.api.events.WorldDisableEvent;
 import com.yourgamespace.anticooldown.api.events.WorldEnableEvent;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
-import com.yourgamespace.anticooldown.utils.CooldownHandler;
 import com.yourgamespace.anticooldown.utils.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.WorldManager;
 import de.tubeof.tubetils.api.cache.CacheContainer;
@@ -18,7 +17,6 @@ import org.bukkit.entity.Player;
 public class CmdAntiCooldown implements CommandExecutor {
 
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
-    private final CooldownHandler cooldownHandler = new CooldownHandler();
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
