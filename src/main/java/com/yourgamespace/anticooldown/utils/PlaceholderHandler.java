@@ -12,6 +12,7 @@ public class PlaceholderHandler extends PlaceholderExpansion {
 
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
     private final CooldownHandler cooldownHandler = new CooldownHandler();
+    private final WorldManager worldManager = AntiCooldown.getWorldManager();
 
     @Override
     public @NotNull String getIdentifier() {
@@ -34,7 +35,7 @@ public class PlaceholderHandler extends PlaceholderExpansion {
         Player player = offlinePlayer.getPlayer();
 
         if (placeholder.equalsIgnoreCase("worldcooldown")) {
-            if (WorldManager.isWorldDisabled(player.getWorld().getName())) {
+            if (worldManager.isWorldDisabled(player.getWorld().getName())) {
                 // World disabled = Cooldown enabled: Return enabled;
                 return ObjectTransformer.getString(cacheContainer.get(String.class, "PLACEHOLDER_WORLD_COOLDOWN_ENABLED"));
             }

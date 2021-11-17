@@ -15,6 +15,7 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 public class PlayerCollision extends AntiCooldownModule {
 
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
+    private final WorldManager worldManager = AntiCooldown.getWorldManager();
 
     public PlayerCollision(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
         super(isProtocolLibRequired, registerBukkitListeners);
@@ -36,7 +37,7 @@ public class PlayerCollision extends AntiCooldownModule {
         if (!isPermitted) return;
 
         // Check if world is disabled
-        if (WorldManager.isWorldDisabled(world)) {
+        if (worldManager.isWorldDisabled(world)) {
             // If disabled and is bypassed, disable collisions;
             // If disabled and is not bypassed, enable collisions;
             if (isBypassed) {
@@ -67,7 +68,7 @@ public class PlayerCollision extends AntiCooldownModule {
         // 2 Tick Delay to prevent bugs
         Bukkit.getScheduler().scheduleSyncDelayedTask(AntiCooldown.getInstance(), () -> {
             // Check if world is disabled
-            if (WorldManager.isWorldDisabled(world)) {
+            if (worldManager.isWorldDisabled(world)) {
                 // If disabled and is bypassed, disable collisions;
                 // If disabled and is not bypassed, enable collisions;
                 if (isBypassed) {

@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 public class SweepAttackParticle extends AntiCooldownModule {
 
     private static final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
+    private static final WorldManager worldManager = AntiCooldown.getWorldManager();
 
     public SweepAttackParticle(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
         super(isProtocolLibRequired, registerBukkitListeners);
@@ -60,7 +61,7 @@ public class SweepAttackParticle extends AntiCooldownModule {
                     if (!isPermitted) return;
 
                     // Check if world is disabled
-                    if (WorldManager.isWorldDisabled(world)) {
+                    if (worldManager.isWorldDisabled(world)) {
                         // If disabled and is bypassed: disable particles;
                         if (isBypassed) event.setCancelled(true);
                     } else {

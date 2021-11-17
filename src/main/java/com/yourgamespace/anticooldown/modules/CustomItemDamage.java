@@ -19,6 +19,7 @@ import org.bukkit.inventory.ItemStack;
 public class CustomItemDamage extends AntiCooldownModule {
 
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
+    private final WorldManager worldManager = AntiCooldown.getWorldManager();
 
     public CustomItemDamage(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
         super(isProtocolLibRequired, registerBukkitListeners);
@@ -45,7 +46,7 @@ public class CustomItemDamage extends AntiCooldownModule {
         ItemDamageHandler itemDamageHandler = null;
 
         // Check if world is disabled
-        if (WorldManager.isWorldDisabled(world)) {
+        if (worldManager.isWorldDisabled(world)) {
             // If disabled and not bypassed: Return;
             if (!isBypassed) return;
 

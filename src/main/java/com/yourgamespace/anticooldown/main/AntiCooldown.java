@@ -20,6 +20,7 @@ import com.yourgamespace.anticooldown.utils.ModuleHandler;
 import com.yourgamespace.anticooldown.utils.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.PlaceholderHandler;
 import com.yourgamespace.anticooldown.utils.VersionHandler;
+import com.yourgamespace.anticooldown.utils.WorldManager;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import de.tubeof.tubetils.api.updatechecker.UpdateChecker;
 import de.tubeof.tubetils.api.updatechecker.enums.ApiMethode;
@@ -36,53 +37,20 @@ import java.io.IOException;
 public class AntiCooldown extends JavaPlugin {
 
     private static AntiCooldown main;
-    private static LoggingHandler loggingHandler;
-    private static ModuleHandler moduleHandler;
-    private static VersionHandler versionHandler;
     private static TubeTilsManager tubeTilsManager;
-    private static ProtocolManager protocolManager;
     private static CacheContainer cacheContainer;
-    private static UpdateChecker updateChecker;
+    private static LoggingHandler loggingHandler;
     private static Data data;
+    private static WorldManager worldManager;
     private static PluginConfig pluginConfig;
+    private static VersionHandler versionHandler;
+    private static ModuleHandler moduleHandler;
+    private static ProtocolManager protocolManager;
+    private static UpdateChecker updateChecker;
+
+
     private final ConsoleCommandSender ccs = Bukkit.getConsoleSender();
     private final PluginManager pluginManager = Bukkit.getPluginManager();
-
-    public static AntiCooldown getInstance() {
-        return main;
-    }
-
-    public static PluginConfig getPluginConfig() {
-        return pluginConfig;
-    }
-
-    public static Data getData() {
-        return data;
-    }
-
-    public static UpdateChecker getUpdateChecker() {
-        return updateChecker;
-    }
-
-    public static ModuleHandler getModuleHandler() {
-        return moduleHandler;
-    }
-
-    public static ProtocolManager getProtocolManager() {
-        return protocolManager;
-    }
-
-    public static CacheContainer getCacheContainer() {
-        return cacheContainer;
-    }
-
-    public static VersionHandler getVersionHandler() {
-        return versionHandler;
-    }
-
-    public static LoggingHandler getLoggingHandler() {
-        return loggingHandler;
-    }
 
     @Override
     public void onEnable() {
@@ -132,11 +100,10 @@ public class AntiCooldown extends JavaPlugin {
 
         loggingHandler = new LoggingHandler();
         data = new Data();
+        worldManager = new WorldManager();
         pluginConfig = new PluginConfig();
         versionHandler = new VersionHandler();
         moduleHandler = new ModuleHandler();
-
-        new PluginConfig().setupConfig();
 
         //ProtocolLib
         if (Bukkit.getPluginManager().getPlugin("ProtocolLib") != null) {
@@ -192,8 +159,6 @@ public class AntiCooldown extends JavaPlugin {
         getCommand("anticooldown").setExecutor(new CmdAntiCooldown());
 
         loggingHandler.info("§aCommands have been successfully registered!");
-
-        loggingHandler.info("");
     }
 
     private void registerPlaceholders() {
@@ -249,5 +214,45 @@ public class AntiCooldown extends JavaPlugin {
         Metrics metrics = new Metrics(getInstance(), 3440);
 
         loggingHandler.info("§aMetrics was successfully enabled!");
+    }
+
+    public static AntiCooldown getInstance() {
+        return main;
+    }
+
+    public static CacheContainer getCacheContainer() {
+        return cacheContainer;
+    }
+
+    public static LoggingHandler getLoggingHandler() {
+        return loggingHandler;
+    }
+
+    public static Data getData() {
+        return data;
+    }
+
+    public static WorldManager getWorldManager() {
+        return worldManager;
+    }
+
+    public static PluginConfig getPluginConfig() {
+        return pluginConfig;
+    }
+
+    public static VersionHandler getVersionHandler() {
+        return versionHandler;
+    }
+
+    public static ModuleHandler getModuleHandler() {
+        return moduleHandler;
+    }
+
+    public static ProtocolManager getProtocolManager() {
+        return protocolManager;
+    }
+
+    public static UpdateChecker getUpdateChecker() {
+        return updateChecker;
     }
 }

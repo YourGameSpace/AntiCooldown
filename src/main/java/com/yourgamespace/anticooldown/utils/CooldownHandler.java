@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 public class CooldownHandler {
 
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
+    private final WorldManager worldManager = AntiCooldown.getWorldManager();
 
     public CooldownHandler() {
     }
@@ -51,7 +52,7 @@ public class CooldownHandler {
             // If not permitted: Return;
             if (!isPermitted) return;
 
-            if (WorldManager.isWorldDisabled(world)) {
+            if (worldManager.isWorldDisabled(world)) {
                 // If disabled and is bypassed, disable cooldown;
                 // If disabled and is not bypassed, do nothing;
                 if (isBypassed) {

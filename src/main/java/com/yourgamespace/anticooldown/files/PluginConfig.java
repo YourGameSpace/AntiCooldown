@@ -19,13 +19,14 @@ import java.util.List;
 public class PluginConfig {
 
     private final LoggingHandler loggingHandler = AntiCooldown.getLoggingHandler();
-    private final Data data = AntiCooldown.getData();
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
+    private final WorldManager worldManager = AntiCooldown.getWorldManager();
+    private final Data data = AntiCooldown.getData();
+
     private final File configFile = new File("plugins/AntiCooldown", "Config.yml");
     private FileConfiguration config;
 
-    public PluginConfig() {
-    }
+    public PluginConfig() {}
 
     public void initConfigFile() {
         config = YamlConfiguration.loadConfiguration(configFile);
@@ -126,7 +127,7 @@ public class PluginConfig {
 
         //Values: DisabledWorlds
         for (String disabledWorld : config.getStringList("Settings.Values.DisabledWorlds")) {
-            WorldManager.addCache(disabledWorld);
+            worldManager.addCache(disabledWorld);
             loggingHandler.info("§aWorld §e" + disabledWorld + " §adisabled!");
         }
 
