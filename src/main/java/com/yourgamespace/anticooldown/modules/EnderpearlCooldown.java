@@ -17,6 +17,7 @@ import org.bukkit.projectiles.ProjectileSource;
 public class EnderpearlCooldown extends AntiCooldownModule {
 
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
+    private final WorldManager worldManager = AntiCooldown.getWorldManager();
 
     public EnderpearlCooldown(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
         super(isProtocolLibRequired, registerBukkitListeners);
@@ -46,7 +47,7 @@ public class EnderpearlCooldown extends AntiCooldownModule {
         // If not permitted: Return;
         if (!isPermitted) return;
         // If world is disable and not bypassed: Return;
-        if (WorldManager.isWorldDisabled(world) && !isBypassed) return;
+        if (worldManager.isWorldDisabled(world) && !isBypassed) return;
 
         // Set enderpearl cooldown to 0 (ticks)
         // Will also disable cooldown animation at client

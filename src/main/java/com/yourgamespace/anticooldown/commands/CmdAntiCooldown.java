@@ -17,6 +17,7 @@ import org.bukkit.entity.Player;
 public class CmdAntiCooldown implements CommandExecutor {
 
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
+    private final WorldManager worldManager = AntiCooldown.getWorldManager();
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
@@ -45,19 +46,19 @@ public class CmdAntiCooldown implements CommandExecutor {
                 return true;
             } else if (arg.equalsIgnoreCase("listDisabledWorlds")) {
                 player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§aDisabled Worlds:");
-                for (String world : WorldManager.getDisabledWorlds()) {
+                for (String world : worldManager.getDisabledWorlds()) {
                     player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§7> §e" + world);
                 }
                 player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§7##### §cEND OF LIST §7#####");
                 return true;
             } else if (arg.equalsIgnoreCase("enableWorld")) {
                 String world = player.getLocation().getWorld().getName();
-                if (!(WorldManager.isWorldDisabled(world))) {
+                if (!(worldManager.isWorldDisabled(world))) {
                     player.sendMessage(cacheContainer.get(String.class, "PREFIX") + ObjectTransformer.getString(cacheContainer.get(String.class, "ERROR_WORLD_NOT_LISTED")));
                     return true;
                 }
 
-                WorldManager.enableWorld(world);
+                worldManager.enableWorld(world);
                 player.sendMessage(cacheContainer.get(String.class, "PREFIX") + ObjectTransformer.getString(cacheContainer.get(String.class, "SETTING_REMOVE_DISABLED_WORLD")).replace("%world%", world));
 
                 World bukkitWorld = Bukkit.getWorld(world);
@@ -66,12 +67,12 @@ public class CmdAntiCooldown implements CommandExecutor {
                 return true;
             } else if (arg.equalsIgnoreCase("disableWorld")) {
                 String world = player.getLocation().getWorld().getName();
-                if (WorldManager.isWorldDisabled(world)) {
+                if (worldManager.isWorldDisabled(world)) {
                     player.sendMessage(cacheContainer.get(String.class, "PREFIX") + ObjectTransformer.getString(cacheContainer.get(String.class, "ERROR_WORLD_ALRADY_LISTED")));
                     return true;
                 }
 
-                WorldManager.disableWorld(world);
+                worldManager.disableWorld(world);
                 player.sendMessage(cacheContainer.get(String.class, "PREFIX") + ObjectTransformer.getString(cacheContainer.get(String.class, "SETTING_ADD_DISABLED_WORLD")).replace("%world%", world));
 
                 World bukkitWorld = Bukkit.getWorld(world);
@@ -88,12 +89,12 @@ public class CmdAntiCooldown implements CommandExecutor {
 
         if (args.length == 2) {
             if (arg.equalsIgnoreCase("enableWorld")) {
-                if (!(WorldManager.isWorldDisabled(world))) {
+                if (!(worldManager.isWorldDisabled(world))) {
                     player.sendMessage(cacheContainer.get(String.class, "PREFIX") + ObjectTransformer.getString(cacheContainer.get(String.class, "ERROR_WORLD_NOT_LISTED")));
                     return true;
                 }
 
-                WorldManager.enableWorld(world);
+                worldManager.enableWorld(world);
                 player.sendMessage(cacheContainer.get(String.class, "PREFIX") + ObjectTransformer.getString(cacheContainer.get(String.class, "SETTING_REMOVE_DISABLED_WORLD")).replace("%world%", world));
 
                 World bukkitWorld = Bukkit.getWorld(world);
@@ -101,12 +102,12 @@ public class CmdAntiCooldown implements CommandExecutor {
                 Bukkit.getPluginManager().callEvent(new WorldEnableEvent(bukkitWorld));
                 return true;
             } else if (arg.equalsIgnoreCase("disableWorld")) {
-                if (WorldManager.isWorldDisabled(world)) {
+                if (worldManager.isWorldDisabled(world)) {
                     player.sendMessage(cacheContainer.get(String.class, "PREFIX") + ObjectTransformer.getString(cacheContainer.get(String.class, "ERROR_WORLD_ALRADY_LISTED")));
                     return true;
                 }
 
-                WorldManager.disableWorld(world);
+                worldManager.disableWorld(world);
                 player.sendMessage(cacheContainer.get(String.class, "PREFIX") + ObjectTransformer.getString(cacheContainer.get(String.class, "SETTING_ADD_DISABLED_WORLD")).replace("%world%", world));
 
                 World bukkitWorld = Bukkit.getWorld(world);

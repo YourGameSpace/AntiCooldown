@@ -41,9 +41,9 @@ public class AntiCooldown extends JavaPlugin {
     private static CacheContainer cacheContainer;
     private static LoggingHandler loggingHandler;
     private static Data data;
+    private static WorldManager worldManager;
     private static PluginConfig pluginConfig;
     private static VersionHandler versionHandler;
-    private static WorldManager worldManager;
     private static ModuleHandler moduleHandler;
     private static ProtocolManager protocolManager;
     private static UpdateChecker updateChecker;
@@ -100,9 +100,9 @@ public class AntiCooldown extends JavaPlugin {
 
         loggingHandler = new LoggingHandler();
         data = new Data();
+        worldManager = new WorldManager();
         pluginConfig = new PluginConfig();
         versionHandler = new VersionHandler();
-        worldManager = new WorldManager();
         moduleHandler = new ModuleHandler();
 
         new PluginConfig().setupConfig();
@@ -236,16 +236,16 @@ public class AntiCooldown extends JavaPlugin {
         return data;
     }
 
+    public static WorldManager getWorldManager() {
+        return worldManager;
+    }
+
     public static PluginConfig getPluginConfig() {
         return pluginConfig;
     }
 
     public static VersionHandler getVersionHandler() {
         return versionHandler;
-    }
-
-    public static WorldManager getWorldManager() {
-        return worldManager;
     }
 
     public static ModuleHandler getModuleHandler() {

@@ -23,6 +23,7 @@ import org.bukkit.inventory.ItemStack;
 public class ItemRestriction extends AntiCooldownModule {
 
     private static final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
+    private static final WorldManager worldManager = AntiCooldown.getWorldManager();
     private static final CooldownHandler cooldownHandler = new CooldownHandler();
 
     public ItemRestriction(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
@@ -46,7 +47,7 @@ public class ItemRestriction extends AntiCooldownModule {
         if (!isPermitted) return;
 
         // Check if world is disabled
-        if (WorldManager.isWorldDisabled(world)) {
+        if (worldManager.isWorldDisabled(world)) {
             // If disabled and is bypassed: apply cooldown;
             if (isBypassed) applyCooldown(player, item);
         } else {
@@ -71,7 +72,7 @@ public class ItemRestriction extends AntiCooldownModule {
         if (!isPermitted) return;
 
         // Check if world is disabled
-        if (WorldManager.isWorldDisabled(world)) {
+        if (worldManager.isWorldDisabled(world)) {
             // If disabled and is bypassed: apply cooldown;
             if (isBypassed) applyCooldown(player, item);
         } else {
@@ -96,7 +97,7 @@ public class ItemRestriction extends AntiCooldownModule {
         if (!isPermitted) return;
 
         // Check if world is disabled
-        if (WorldManager.isWorldDisabled(world)) {
+        if (worldManager.isWorldDisabled(world)) {
             // If disabled and is bypassed: apply cooldown;
             if (isBypassed) applyCooldown(player, item);
         } else {
@@ -123,7 +124,7 @@ public class ItemRestriction extends AntiCooldownModule {
             if (!isPermitted) return;
 
             // Check if world is disabled
-            if (WorldManager.isWorldDisabled(world)) {
+            if (worldManager.isWorldDisabled(world)) {
                 // If disabled and is bypassed: apply cooldown;
                 if (isBypassed) applyCooldown(player, item);
             } else {
@@ -152,7 +153,7 @@ public class ItemRestriction extends AntiCooldownModule {
             if (!isPermitted) return;
 
             // Check if world is disabled
-            if (WorldManager.isWorldDisabled(world)) {
+            if (worldManager.isWorldDisabled(world)) {
                 // If disabled and is bypassed: apply cooldown;
                 if (isBypassed) applyCooldown(player, item);
             } else {

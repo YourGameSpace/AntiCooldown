@@ -17,6 +17,7 @@ import org.bukkit.event.EventHandler;
 public class CombatSounds extends AntiCooldownModule {
 
     private static final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
+    private static final WorldManager worldManager = AntiCooldown.getWorldManager();
 
     public CombatSounds(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
         super(isProtocolLibRequired, registerBukkitListeners);
@@ -37,9 +38,9 @@ public class CombatSounds extends AntiCooldownModule {
         // If not permitted: false;
         if (!isPermitted) return false;
         // If world is enabled: true
-        if (!WorldManager.isWorldDisabled(world)) return true;
+        if (!worldManager.isWorldDisabled(world)) return true;
         // If world is disabled and bypassed: true
-        if (WorldManager.isWorldDisabled(world) && isBypassed) return true;
+        if (worldManager.isWorldDisabled(world) && isBypassed) return true;
         else return false;
     }
 
