@@ -105,8 +105,6 @@ public class AntiCooldown extends JavaPlugin {
         versionHandler = new VersionHandler();
         moduleHandler = new ModuleHandler();
 
-        new PluginConfig().setupConfig();
-
         //ProtocolLib
         if (Bukkit.getPluginManager().getPlugin("ProtocolLib") != null) {
             loggingHandler.info("§aProtocolLib is installed! Support for ProtocolLib enabled!");
@@ -161,8 +159,6 @@ public class AntiCooldown extends JavaPlugin {
         getCommand("anticooldown").setExecutor(new CmdAntiCooldown());
 
         loggingHandler.info("§aCommands have been successfully registered!");
-
-        loggingHandler.info("");
     }
 
     private void registerPlaceholders() {
