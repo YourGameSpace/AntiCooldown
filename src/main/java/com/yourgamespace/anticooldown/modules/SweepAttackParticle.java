@@ -57,12 +57,12 @@ public class SweepAttackParticle extends AntiCooldownModule {
                     boolean valid = false;
                     if (versionHandler.getVersionId() >= 12) {
                         Particle particle = event.getPacket().getNewParticles().read(0).getParticle();
-                        if (particle.equals(Particle.SWEEP_ATTACK)) valid = true;
-                        if (particle.equals(Particle.DAMAGE_INDICATOR)) valid = true;
+                        if (particle.equals(Particle.SWEEP_ATTACK)
+                        || particle.equals(Particle.DAMAGE_INDICATOR)) valid = true;
                     } else {
                         String particle = event.getPacket().getParticles().read(0).toString();
-                        if (particle.equals("SWEEP_ATTACK")) valid = true;
-                        if (particle.equals("DAMAGE_INDICATOR")) valid = true;
+                        if (particle.equals("SWEEP_ATTACK")
+                        || particle.equals("DAMAGE_INDICATOR")) valid = true;
                     }
 
                     // If particle not valid: Return;
