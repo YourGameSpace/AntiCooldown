@@ -1,4 +1,4 @@
-package com.yourgamespace.anticooldown.utils;
+package com.yourgamespace.anticooldown.utils.packets;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;

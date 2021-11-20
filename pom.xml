@@ -89,7 +89,7 @@
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <excludes>com/yourgamespace/anticooldown/utils/WrapperPlayServerScoreboardTeam*</excludes>
+                    <excludes>com/yourgamespace/anticooldown/utils/packets/WrapperPlayServerScoreboardTeam*</excludes>
 
                     <configLocation>checkstyle-checker.xml</configLocation>
                     <encoding>UTF-8</encoding>

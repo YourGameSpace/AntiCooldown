@@ -1,5 +1,6 @@
 package com.yourgamespace.anticooldown.utils;
 
+import com.yourgamespace.anticooldown.utils.packets.WrapperPlayServerScoreboardTeam;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
