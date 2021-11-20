@@ -10,12 +10,8 @@ import com.yourgamespace.anticooldown.utils.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.VersionHandler;
 import com.yourgamespace.anticooldown.utils.WorldManager;
 import de.tubeof.tubetils.api.cache.CacheContainer;
-import org.bukkit.Bukkit;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
-
-import java.sql.BatchUpdateException;
-import java.util.Arrays;
 
 public class SweepAttackParticle extends AntiCooldownModule {
 
