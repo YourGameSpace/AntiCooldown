@@ -52,16 +52,6 @@ public class PlayerCollisionHandler {
             e.printStackTrace();
         }
 
-        // START: TEMP DISABLE
-        // // Create no-collision team delete packet
-        // WrapperPlayServerScoreboardTeam disableCollisionTeam = new WrapperPlayServerScoreboardTeam();
-        // disableCollisionTeam.setMode(WrapperPlayServerScoreboardTeam.Mode.TEAM_REMOVED);
-        // disableCollisionTeam.setName("dis-coll");
-        //
-        // // Send packet
-        // disableCollisionTeam.sendPacket(player);
-        // END: TEMP DISABLE
-
         // Remove player
         collisionPlayers.remove(player.getUniqueId());
     }
@@ -110,22 +100,6 @@ public class PlayerCollisionHandler {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
-
-        // START: TEMP DISABLE
-        // // Create no-collision team packet
-        // WrapperPlayServerScoreboardTeam disableCollisionTeam = new WrapperPlayServerScoreboardTeam();
-        // disableCollisionTeam.setMode(WrapperPlayServerScoreboardTeam.Mode.TEAM_CREATED);
-        // disableCollisionTeam.setName("dis-coll");
-        // disableCollisionTeam.setColor(ChatColor.RESET);
-        // disableCollisionTeam.setCollisionRule("never");
-        // disableCollisionTeam.setPlayers(new ArrayList<String>() {{
-        //     add(player.getName());
-        // }
-        // });
-        //
-        // // Send packet
-        // disableCollisionTeam.sendPacket(player);
-        // END: TEMP DISABLE
 
         // Add player
         collisionPlayers.add(player.getUniqueId());
