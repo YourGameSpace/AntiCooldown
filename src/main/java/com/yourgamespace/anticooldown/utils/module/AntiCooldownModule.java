@@ -1,7 +1,8 @@
-package com.yourgamespace.anticooldown.utils;
+package com.yourgamespace.anticooldown.utils.module;
 
 import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
+import com.yourgamespace.anticooldown.utils.LoggingHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
@@ -17,6 +18,7 @@ public abstract class AntiCooldownModule implements Listener {
 
     private final boolean isProtocolLibRequired;
     private final boolean registerBukkitListeners;
+    private ModuleDescription description;
     private boolean isEnabled;
 
     public AntiCooldownModule(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
@@ -53,6 +55,14 @@ public abstract class AntiCooldownModule implements Listener {
      */
     private void setEnabled(boolean enabled) {
         isEnabled = enabled;
+    }
+
+    public ModuleDescription getDescription() {
+        return this.description;
+    }
+
+    protected void setDescription(ModuleDescription description) {
+        this.description = description;
     }
 
     /**

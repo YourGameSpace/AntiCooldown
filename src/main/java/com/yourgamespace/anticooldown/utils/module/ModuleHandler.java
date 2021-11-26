@@ -1,12 +1,13 @@
-package com.yourgamespace.anticooldown.utils;
+package com.yourgamespace.anticooldown.utils.module;
 
 import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
+import com.yourgamespace.anticooldown.utils.LoggingHandler;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "ForLoopReplaceableByForEach"})
 public class ModuleHandler {
 
     private final LoggingHandler loggingHandler = AntiCooldown.getLoggingHandler();
@@ -18,6 +19,13 @@ public class ModuleHandler {
 
     public ArrayList<AntiCooldownModule> getEnabledModules() {
         return enabledModules;
+    }
+
+    public AntiCooldownModule getModule(String name) {
+        for (AntiCooldownModule antiCooldownModule : enabledModules) {
+            if (antiCooldownModule.getModuleName().equalsIgnoreCase(name)) return antiCooldownModule;
+        }
+        return null;
     }
 
     public void registerModule(AntiCooldownModule antiCooldownModule) {
