@@ -5,17 +5,13 @@ import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
-import com.yourgamespace.anticooldown.utils.AntiCooldownModule;
 import com.yourgamespace.anticooldown.utils.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.VersionHandler;
 import com.yourgamespace.anticooldown.utils.WorldManager;
+import com.yourgamespace.anticooldown.utils.module.AntiCooldownModule;
 import de.tubeof.tubetils.api.cache.CacheContainer;
-import org.bukkit.Bukkit;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
-
-import java.sql.BatchUpdateException;
-import java.util.Arrays;
 
 public class SweepAttackParticle extends AntiCooldownModule {
 
@@ -61,12 +57,12 @@ public class SweepAttackParticle extends AntiCooldownModule {
                     boolean valid = false;
                     if (versionHandler.getVersionId() >= 12) {
                         Particle particle = event.getPacket().getNewParticles().read(0).getParticle();
-                        if (particle.equals(Particle.SWEEP_ATTACK)) valid = true;
-                        if (particle.equals(Particle.DAMAGE_INDICATOR)) valid = true;
+                        if (particle.equals(Particle.SWEEP_ATTACK)
+                        || particle.equals(Particle.DAMAGE_INDICATOR)) valid = true;
                     } else {
                         String particle = event.getPacket().getParticles().read(0).toString();
-                        if (particle.equals("SWEEP_ATTACK")) valid = true;
-                        if (particle.equals("DAMAGE_INDICATOR")) valid = true;
+                        if (particle.equals("SWEEP_ATTACK")
+                        || particle.equals("DAMAGE_INDICATOR")) valid = true;
                     }
 
                     // If particle not valid: Return;
