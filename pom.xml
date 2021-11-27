@@ -6,14 +6,18 @@
 
     <groupId>com.yourgamespace</groupId>
     <artifactId>AntiCooldown</artifactId>
-    <version>SNAPSHOT-XXX</version>
-    <packaging>jar</packaging>
+    <version>SNAPSHOT-4.0.3-DEV</version>
+    <packaging>pom</packaging>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <modules>
+        <module>anticooldown-modules</module>
+    </modules>
 
     <repositories>
         <repository>
@@ -97,7 +101,7 @@
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <excludes>com/yourgamespace/anticooldown/utils/packets/WrapperPlayServerScoreboardTeam*</excludes>
+                    <excludes>com/yourgamespace/anticooldown/utils/packets/WrapperPlayServerScoreboardTeam*, com/yourgamespace/anticooldown/utils/module/*</excludes>
 
                     <configLocation>checkstyle-checker.xml</configLocation>
                     <encoding>UTF-8</encoding>
@@ -160,5 +164,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
