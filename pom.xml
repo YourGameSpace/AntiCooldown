@@ -15,10 +15,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <modules>
-        <module>anticooldown-modules</module>
-    </modules>
-
     <repositories>
         <repository>
             <id>nexus.yourgamespace</id>
@@ -101,7 +97,10 @@
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <excludes>com/yourgamespace/anticooldown/utils/packets/WrapperPlayServerScoreboardTeam*, com/yourgamespace/anticooldown/utils/module/*</excludes>
+                    <excludes>
+                        com/yourgamespace/anticooldown/utils/packets/WrapperPlayServerScoreboardTeam*,
+                        com/yourgamespace/anticooldown/utils/module/*
+                    </excludes>
 
                     <configLocation>checkstyle-checker.xml</configLocation>
                     <encoding>UTF-8</encoding>
