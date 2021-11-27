@@ -9,72 +9,44 @@
     <version>SNAPSHOT-4.0.3-DEV</version>
     <packaging>pom</packaging>
 
+    <modules>
+        <module>anticooldown</module>
+        <module>module</module>
+    </modules>
+
+    <name>AntiCooldown</name>
+    <url>https://github.com/YourGameSpace/AntiCooldown/</url>
+    <inceptionYear>2017</inceptionYear>
+
+    <organization>
+        <name>YourGameSpace</name>
+        <url>https://github.com/YourGameSpace/</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <id>TUBEOF</id>
+        </developer>
+        <developer>
+            <id>ThoD4v</id>
+        </developer>
+    </developers>
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/YourGameSpace/AntiCooldown/issues/</url>
+    </issueManagement>
+    <ciManagement>
+        <system>jenkins</system>
+        <url>http://hub.yourgamespace.com/jenkins/</url>
+    </ciManagement>
+
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <build.number>unknown</build.number>
     </properties>
-
-    <repositories>
-        <repository>
-            <id>nexus.yourgamespace</id>
-            <url>https://hub.yourgamespace.com/nexus/repository/public/</url>
-        </repository>
-
-        <repository>
-            <id>codemc-repo</id>
-            <url>https://repo.codemc.org/repository/maven-public/</url>
-            <layout>default</layout>
-        </repository>
-        <repository>
-            <id>placeholderapi</id>
-            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
-        </repository>
-        <repository>
-            <id>dmulloy2-repo</id>
-            <url>https://repo.dmulloy2.net/repository/public/</url>
-        </repository>
-    </repositories>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.bstats</groupId>
-            <artifactId>bstats-bukkit</artifactId>
-            <version>2.2.1</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot</artifactId>
-            <version>1.17.1-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>de.tubeof</groupId>
-            <artifactId>TubeTils</artifactId>
-            <version>SNAPSHOT-71</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>de.tubeof</groupId>
-            <artifactId>TubeTilsManager</artifactId>
-            <version>SNAPSHOT-26</version>
-        </dependency>
-        <dependency>
-            <groupId>me.clip</groupId>
-            <artifactId>placeholderapi</artifactId>
-            <version>2.10.10</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.comphenix.protocol</groupId>
-            <artifactId>ProtocolLib</artifactId>
-            <version>4.7.0</version>
-            <scope>provided</scope>
-        </dependency>
-
-    </dependencies>
 
     <build>
         <plugins>
@@ -112,48 +84,7 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <finalName>${project.name}-${project.version}</finalName>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                    <appendAssemblyId>false</appendAssemblyId>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>include-libs</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.1</version>
-                <configuration>
-                    <relocations>
-                        <relocation>
-                            <pattern>org.bstats</pattern>
-                            <shadedPattern>com.yourgamespace.anticooldown.utils.bstats</shadedPattern>
-                        </relocation>
-                    </relocations>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
+
 </project>
