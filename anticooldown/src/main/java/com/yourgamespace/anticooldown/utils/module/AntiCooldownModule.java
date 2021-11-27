@@ -58,7 +58,7 @@ public abstract class AntiCooldownModule implements Listener {
     }
 
     /**
-     * Get description from module
+     * Get description from module.
      * @return Module description
      */
     public ModuleDescription getDescription() {
@@ -66,7 +66,7 @@ public abstract class AntiCooldownModule implements Listener {
     }
 
     /**
-     * Set module description
+     * Set module description.
      * @param description
      */
     protected void setDescription(ModuleDescription description) {
