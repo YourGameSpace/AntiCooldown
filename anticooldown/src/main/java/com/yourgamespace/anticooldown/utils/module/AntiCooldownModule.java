@@ -57,10 +57,18 @@ public abstract class AntiCooldownModule implements Listener {
         isEnabled = enabled;
     }
 
+    /**
+     * Get description from module
+     * @return Module description
+     */
     public ModuleDescription getDescription() {
         return this.description;
     }
 
+    /**
+     * Set module description
+     * @param description
+     */
     protected void setDescription(ModuleDescription description) {
         this.description = description;
     }
