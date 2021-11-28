@@ -1,6 +1,8 @@
 package com.yourgamespace.anticooldown.utils;
 
 import com.yourgamespace.anticooldown.main.AntiCooldown;
+import com.yourgamespace.anticooldown.utils.basics.AntiCooldownLogger;
+import com.yourgamespace.anticooldown.utils.basics.ObjectTransformer;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 @SuppressWarnings("unused")
 public class ItemRestrictionManager {
 
-    private static final LoggingHandler loggingHandler = AntiCooldown.getLoggingHandler();
+    private static final AntiCooldownLogger antiCooldownLogger = AntiCooldown.getAntiCooldownLogger();
     private static final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
 
     private static final ArrayList<Material> restrictedItems = new ArrayList<>();
@@ -20,7 +22,7 @@ public class ItemRestrictionManager {
         try {
             material = Material.valueOf(paramMaterial);
         } catch (IllegalArgumentException exception) {
-            loggingHandler.info("§4WARNING: §cMaterial §e" + paramMaterial + " §cfor ItemRestriction cannot be found or is not supported by §e" + Bukkit.getBukkitVersion() + "§c!");
+            antiCooldownLogger.info("§4WARNING: §cMaterial §e" + paramMaterial + " §cfor ItemRestriction cannot be found or is not supported by §e" + Bukkit.getBukkitVersion() + "§c!");
         }
 
         restrictedItems.add(material);

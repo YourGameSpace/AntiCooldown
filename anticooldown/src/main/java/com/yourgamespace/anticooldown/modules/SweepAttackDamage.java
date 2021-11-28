@@ -1,9 +1,9 @@
 package com.yourgamespace.anticooldown.modules;
 
 import com.yourgamespace.anticooldown.main.AntiCooldown;
-import com.yourgamespace.anticooldown.utils.LoggingHandler;
-import com.yourgamespace.anticooldown.utils.ObjectTransformer;
-import com.yourgamespace.anticooldown.utils.VersionHandler;
+import com.yourgamespace.anticooldown.utils.basics.AntiCooldownLogger;
+import com.yourgamespace.anticooldown.utils.basics.ObjectTransformer;
+import com.yourgamespace.anticooldown.utils.basics.VersionHandler;
 import com.yourgamespace.anticooldown.utils.WorldManager;
 import com.yourgamespace.anticooldown.utils.module.AntiCooldownModule;
 import de.tubeof.tubetils.api.cache.CacheContainer;
@@ -15,7 +15,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 public class SweepAttackDamage extends AntiCooldownModule {
 
-    private final LoggingHandler loggingHandler = AntiCooldown.getLoggingHandler();
+    private final AntiCooldownLogger antiCooldownLogger = AntiCooldown.getAntiCooldownLogger();
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
     private final VersionHandler versionHandler = AntiCooldown.getVersionHandler();
     private final WorldManager worldManager = AntiCooldown.getWorldManager();
@@ -27,7 +27,7 @@ public class SweepAttackDamage extends AntiCooldownModule {
     @Override
     public boolean compatibilityTest() {
         if (versionHandler.getVersionId() < 8) {
-            loggingHandler.warn("§4WARNING: §cDisableSweepAttacks is not supported by §e" + versionHandler.getMinecraftVersion() + " (" + Bukkit.getBukkitVersion() + "§c!");
+            antiCooldownLogger.warn("§4WARNING: §cDisableSweepAttacks is not supported by §e" + versionHandler.getMinecraftVersion() + " (" + Bukkit.getBukkitVersion() + "§c!");
             return false;
         }
         return true;

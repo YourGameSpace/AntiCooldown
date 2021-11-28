@@ -15,11 +15,12 @@ import com.yourgamespace.anticooldown.modules.SweepAttackDamage;
 import com.yourgamespace.anticooldown.modules.SweepAttackParticle;
 import com.yourgamespace.anticooldown.modules.UpdateNotifyOnJoin;
 import com.yourgamespace.anticooldown.utils.CooldownHandler;
-import com.yourgamespace.anticooldown.utils.LoggingHandler;
-import com.yourgamespace.anticooldown.utils.ObjectTransformer;
+import com.yourgamespace.anticooldown.utils.basics.AntiCooldownLogger;
+import com.yourgamespace.anticooldown.utils.basics.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.PlaceholderHandler;
-import com.yourgamespace.anticooldown.utils.VersionHandler;
+import com.yourgamespace.anticooldown.utils.basics.VersionHandler;
 import com.yourgamespace.anticooldown.utils.WorldManager;
+import com.yourgamespace.anticooldown.utils.module.ModuleCommandHandler;
 import com.yourgamespace.anticooldown.utils.module.ModuleHandler;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import de.tubeof.tubetils.api.updatechecker.UpdateChecker;
@@ -39,12 +40,13 @@ public class AntiCooldown extends JavaPlugin {
     private static AntiCooldown main;
     private static TubeTilsManager tubeTilsManager;
     private static CacheContainer cacheContainer;
-    private static LoggingHandler loggingHandler;
+    private static AntiCooldownLogger antiCooldownLogger;
     private static Data data;
     private static WorldManager worldManager;
     private static PluginConfig pluginConfig;
     private static VersionHandler versionHandler;
     private static ModuleHandler moduleHandler;
+    private static ModuleCommandHandler moduleCommandHandler;
     private static ProtocolManager protocolManager;
     private static UpdateChecker updateChecker;
 
@@ -59,10 +61,10 @@ public class AntiCooldown extends JavaPlugin {
         initialisation();
         if (!tubeTilsManager.wasSuccessful()) return;
 
-        loggingHandler.info("§aThe Plugin will be activated ...");
-        loggingHandler.info("==================================================");
-        loggingHandler.info("JOIN OUR DISCORD: §ehttps://discord.gg/73ZDfbx");
-        loggingHandler.info("==================================================");
+        antiCooldownLogger.info("§aThe Plugin will be activated ...");
+        antiCooldownLogger.info("==================================================");
+        antiCooldownLogger.info("JOIN OUR DISCORD: §ehttps://discord.gg/73ZDfbx");
+        antiCooldownLogger.info("==================================================");
 
         manageConfigs();
         checkUpdate();
@@ -74,19 +76,19 @@ public class AntiCooldown extends JavaPlugin {
         setupMetrics();
 
         long startTime = System.currentTimeMillis() - startTimestamp;
-        loggingHandler.info("§aThe plugin was successfully activated in §e" + startTime + "ms§a!");
+        antiCooldownLogger.info("§aThe plugin was successfully activated in §e" + startTime + "ms§a!");
     }
 
     @Override
     public void onDisable() {
         if (!tubeTilsManager.wasSuccessful()) return;
 
-        loggingHandler.info("§aThe Plugin will be deactivated ...");
+        antiCooldownLogger.info("§aThe Plugin will be deactivated ...");
 
         new CooldownHandler().setDefaultCooldown();
         moduleHandler.unregisterAllModules();
 
-        loggingHandler.info("§aThe plugin was successfully deactivated!");
+        antiCooldownLogger.info("§aThe plugin was successfully deactivated!");
     }
 
     private void initialisation() {
@@ -98,47 +100,48 @@ public class AntiCooldown extends JavaPlugin {
         cacheContainer.registerCacheType(Boolean.class);
         cacheContainer.registerCacheType(Integer.class);
 
-        loggingHandler = new LoggingHandler();
+        antiCooldownLogger = new AntiCooldownLogger();
         data = new Data();
         worldManager = new WorldManager();
         pluginConfig = new PluginConfig();
         versionHandler = new VersionHandler();
         moduleHandler = new ModuleHandler();
+        moduleCommandHandler = new ModuleCommandHandler();
 
         //ProtocolLib
         if (Bukkit.getPluginManager().getPlugin("ProtocolLib") != null) {
-            loggingHandler.info("§aProtocolLib is installed! Support for ProtocolLib enabled!");
+            antiCooldownLogger.info("§aProtocolLib is installed! Support for ProtocolLib enabled!");
             data.setProtocolLib(true);
 
             protocolManager = ProtocolLibrary.getProtocolManager();
         } else {
             data.setProtocolLib(false);
-            loggingHandler.info("§cProtocolLib is NOT installed! Support for ProtocolLib disabled!");
+            antiCooldownLogger.info("§cProtocolLib is NOT installed! Support for ProtocolLib disabled!");
         }
 
         //PlaceholderAPI
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            loggingHandler.info("§aPlaceholderAPI is installed! Support for PlaceholderAPI enabled!");
+            antiCooldownLogger.info("§aPlaceholderAPI is installed! Support for PlaceholderAPI enabled!");
             data.setPlaceholderApi(true);
         } else {
             data.setPlaceholderApi(false);
-            loggingHandler.info("§cPlaceholderAPI is NOT installed! Support for PlaceholderAPI disabled!");
+            antiCooldownLogger.info("§cPlaceholderAPI is NOT installed! Support for PlaceholderAPI disabled!");
         }
     }
 
     private void manageConfigs() {
-        loggingHandler.info("§aLoading config files ...");
+        antiCooldownLogger.info("§aLoading config files ...");
 
         pluginConfig.setupConfig();
         pluginConfig.initConfigFile();
         pluginConfig.upgradeConfig();
         pluginConfig.loadConfig();
 
-        loggingHandler.info("§aConfig files was successfully loaded!");
+        antiCooldownLogger.info("§aConfig files was successfully loaded!");
     }
 
     private void registerModules() {
-        loggingHandler.info("§aModules will be registered ...");
+        antiCooldownLogger.info("§aModules will be registered ...");
 
         moduleHandler.registerModule(new UpdateNotifyOnJoin(false, true));
         moduleHandler.registerModule(new AttackCooldown(false, true));
@@ -150,70 +153,70 @@ public class AntiCooldown extends JavaPlugin {
         moduleHandler.registerModule(new CustomItemDamage(false, true));
         moduleHandler.registerModule(new ItemRestriction(false, true));
 
-        loggingHandler.info("§aModules have been successfully registered!");
+        antiCooldownLogger.info("§aModules have been successfully registered!");
     }
 
     private void registerCommands() {
-        loggingHandler.info("§aCommands will be registered ...");
+        antiCooldownLogger.info("§aCommands will be registered ...");
 
         getCommand("anticooldown").setExecutor(new CmdAntiCooldown());
 
-        loggingHandler.info("§aCommands have been successfully registered!");
+        antiCooldownLogger.info("§aCommands have been successfully registered!");
     }
 
     private void registerPlaceholders() {
         if (data.isPlaceholderApiInstalled()) {
-            loggingHandler.info("§aPlaceholders for PlacerholderAPI will be registered ...");
+            antiCooldownLogger.info("§aPlaceholders for PlacerholderAPI will be registered ...");
 
             new PlaceholderHandler().register();
 
-            loggingHandler.info("§aPlaceholders have been successfully registered!");
+            antiCooldownLogger.info("§aPlaceholders have been successfully registered!");
         }
     }
 
     private void checkUpdate() {
         if (!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "USE_UPDATE_CHECKER"))) {
-            loggingHandler.info("§cCheck for updates disabled. The check will be skipped!");
+            antiCooldownLogger.info("§cCheck for updates disabled. The check will be skipped!");
             return;
         }
 
-        loggingHandler.info("§aChecking for updates ...");
+        antiCooldownLogger.info("§aChecking for updates ...");
         try {
             updateChecker = new UpdateChecker("AntiCooldown-UpdateChecker", 51321, getInstance(), ApiMethode.YOURGAMESPACE, false, true);
 
             // Check errors
             if (!updateChecker.isOnline()) {
-                loggingHandler.info("§cUpdate-Check failed: No connection to the internet could be established.");
+                antiCooldownLogger.info("§cUpdate-Check failed: No connection to the internet could be established.");
                 return;
             }
             if (updateChecker.isRateLimited()) {
-                loggingHandler.info("§cUpdate-Check failed: Request got blocked by rate limit!");
+                antiCooldownLogger.info("§cUpdate-Check failed: Request got blocked by rate limit!");
                 return;
             }
             if (!updateChecker.wasSuccessful()) {
-                loggingHandler.info("§cUpdate-Check failed: An unknown error has occurred!");
+                antiCooldownLogger.info("§cUpdate-Check failed: An unknown error has occurred!");
             }
 
             // Final outdated check
             if (updateChecker.isOutdated()) {
                 if (ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "UPDATE_NOTIFY_CONSOLE"))) {
-                    loggingHandler.info("§cAn update was found! (v" + updateChecker.getLatestVersion() + ") Download here: " + updateChecker.getDownloadUrl());
+                    antiCooldownLogger.info("§cAn update was found! (v" + updateChecker.getLatestVersion() + ") Download here: " + updateChecker.getDownloadUrl());
                 }
             }
         } catch (IOException exception) {
-            loggingHandler.info("§cAn error occurred while checking for updates!");
-            loggingHandler.info("§cPlease check the status page (https://yourgamespace.statuspage.io/) or contact our support (https://yourgamespace.com/support/).");
+            antiCooldownLogger.info("§cAn error occurred while checking for updates!");
+            antiCooldownLogger.info("§cPlease check the status page (https://yourgamespace.statuspage.io/) or contact our support (https://yourgamespace.com/support/).");
             exception.printStackTrace();
         }
     }
 
     @SuppressWarnings("unused")
     private void setupMetrics() {
-        loggingHandler.info("§aEnabling metrics ...");
+        antiCooldownLogger.info("§aEnabling metrics ...");
 
         Metrics metrics = new Metrics(getInstance(), 3440);
 
-        loggingHandler.info("§aMetrics was successfully enabled!");
+        antiCooldownLogger.info("§aMetrics was successfully enabled!");
     }
 
     public static AntiCooldown getInstance() {
@@ -224,8 +227,8 @@ public class AntiCooldown extends JavaPlugin {
         return cacheContainer;
     }
 
-    public static LoggingHandler getLoggingHandler() {
-        return loggingHandler;
+    public static AntiCooldownLogger getAntiCooldownLogger() {
+        return antiCooldownLogger;
     }
 
     public static Data getData() {
@@ -246,6 +249,10 @@ public class AntiCooldown extends JavaPlugin {
 
     public static ModuleHandler getModuleHandler() {
         return moduleHandler;
+    }
+
+    public static ModuleCommandHandler getModuleCommandHandler() {
+        return moduleCommandHandler;
     }
 
     public static ProtocolManager getProtocolManager() {

@@ -2,7 +2,7 @@ package com.yourgamespace.anticooldown.utils.module;
 
 import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
-import com.yourgamespace.anticooldown.utils.LoggingHandler;
+import com.yourgamespace.anticooldown.utils.basics.AntiCooldownLogger;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -10,7 +10,7 @@ import java.util.Iterator;
 @SuppressWarnings({"unused", "ForLoopReplaceableByForEach"})
 public class ModuleHandler {
 
-    private final LoggingHandler loggingHandler = AntiCooldown.getLoggingHandler();
+    private final AntiCooldownLogger antiCooldownLogger = AntiCooldown.getAntiCooldownLogger();
     private final Data data = AntiCooldown.getData();
     private final ArrayList<AntiCooldownModule> enabledModules = new ArrayList<>();
 
@@ -31,13 +31,13 @@ public class ModuleHandler {
     public void registerModule(AntiCooldownModule antiCooldownModule) {
         // If ProtocolLib is required: Check if installed
         if (antiCooldownModule.isProtocolLibRequired() && !data.isProtocolLibInstalled()) {
-            loggingHandler.warn("§cModule §e" + antiCooldownModule.getModuleName() + " §crequires §eProtocolLib §cto be installed!");
+            antiCooldownLogger.warn("§cModule §e" + antiCooldownModule.getModuleName() + " §crequires §eProtocolLib §cto be installed!");
             return;
         }
 
         // If compatibility test failed: Do not enable module
         if (!antiCooldownModule.compatibilityTest()) {
-            loggingHandler.warn("§cCompatibility-Test failed! Module §e" + antiCooldownModule.getModuleName() + " §cwill not be enabled!");
+            antiCooldownLogger.warn("§cCompatibility-Test failed! Module §e" + antiCooldownModule.getModuleName() + " §cwill not be enabled!");
             return;
         }
 

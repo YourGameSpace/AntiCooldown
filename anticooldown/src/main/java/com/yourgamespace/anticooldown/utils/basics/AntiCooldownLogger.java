@@ -1,10 +1,10 @@
-package com.yourgamespace.anticooldown.utils;
+package com.yourgamespace.anticooldown.utils.basics;
 
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 
-public class LoggingHandler {
+public class AntiCooldownLogger {
 
-    public LoggingHandler() {
+    public AntiCooldownLogger() {
     }
 
     public void info(String message) {

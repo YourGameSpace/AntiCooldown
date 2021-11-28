@@ -1,7 +1,7 @@
 package com.yourgamespace.anticooldown.modules;
 
 import com.yourgamespace.anticooldown.main.AntiCooldown;
-import com.yourgamespace.anticooldown.utils.ObjectTransformer;
+import com.yourgamespace.anticooldown.utils.basics.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.module.AntiCooldownModule;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import de.tubeof.tubetils.api.updatechecker.UpdateChecker;

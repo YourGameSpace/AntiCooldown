@@ -4,8 +4,8 @@ import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.ItemDamageManager;
 import com.yourgamespace.anticooldown.utils.ItemRestrictionManager;
-import com.yourgamespace.anticooldown.utils.LoggingHandler;
-import com.yourgamespace.anticooldown.utils.ObjectTransformer;
+import com.yourgamespace.anticooldown.utils.basics.AntiCooldownLogger;
+import com.yourgamespace.anticooldown.utils.basics.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.WorldManager;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -18,7 +18,7 @@ import java.util.List;
 @SuppressWarnings("ResultOfMethodCallIgnored")
 public class PluginConfig {
 
-    private final LoggingHandler loggingHandler = AntiCooldown.getLoggingHandler();
+    private final AntiCooldownLogger antiCooldownLogger = AntiCooldown.getAntiCooldownLogger();
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
     private final WorldManager worldManager = AntiCooldown.getWorldManager();
     private final Data data = AntiCooldown.getData();
@@ -46,7 +46,7 @@ public class PluginConfig {
 
     public void upgradeConfig() {
         if (!ObjectTransformer.getInteger(cacheContainer.get(Integer.class, "CONFIG_VERSION")).equals(data.getCurrentConfigVersion())) {
-            loggingHandler.info("§aUpgrading Config.yml to version §e" + data.getCurrentConfigVersion() + " §a...");
+            antiCooldownLogger.info("§aUpgrading Config.yml to version §e" + data.getCurrentConfigVersion() + " §a...");
 
             // Create backup file object and delete if already exists
             File backup = new File(configFile.getParent(), configFile.getName() + "-backup.yml");
@@ -57,7 +57,7 @@ public class PluginConfig {
             AntiCooldown.getInstance().saveResource(configFile.getName(), false);
             initConfigFile();
 
-            loggingHandler.info("§aConfig.yml successfully upgraded! A backup file was created: §e" + configFile.getPath() + "-backup.yml");
+            antiCooldownLogger.info("§aConfig.yml successfully upgraded! A backup file was created: §e" + configFile.getPath() + "-backup.yml");
         }
     }
 
@@ -65,13 +65,13 @@ public class PluginConfig {
         try {
             config.save(configFile);
         } catch (IOException exception) {
-            loggingHandler.warn("§cAn error occurred while trying to save config changes:");
+            antiCooldownLogger.warn("§cAn error occurred while trying to save config changes:");
             exception.printStackTrace();
         }
     }
 
     public void loadConfig() {
-        loggingHandler.info("§aLoad configurations from config file §e" + configFile.getName() + " §a...");
+        antiCooldownLogger.info("§aLoad configurations from config file §e" + configFile.getName() + " §a...");
 
         //Messages
         cacheContainer.add(String.class, "PREFIX", config.getString("Messages.Prefix"));
@@ -133,7 +133,7 @@ public class PluginConfig {
         //Values: DisabledWorlds
         for (String disabledWorld : config.getStringList("Settings.Values.DisabledWorlds")) {
             worldManager.addCache(disabledWorld);
-            loggingHandler.info("§aWorld §e" + disabledWorld + " §adisabled!");
+            antiCooldownLogger.info("§aWorld §e" + disabledWorld + " §adisabled!");
         }
 
         //Values: CustomItemDamage
@@ -143,7 +143,7 @@ public class PluginConfig {
             ItemDamageManager.addCache(itemParams[0], itemParams[1]);
         }
 
-        loggingHandler.info("§aConfigurations from config file §e" + configFile.getName() + " §asuccessfully loaded!");
+        antiCooldownLogger.info("§aConfigurations from config file §e" + configFile.getName() + " §asuccessfully loaded!");
     }
 
     public void setDisabledWorld(String world, boolean bol) {

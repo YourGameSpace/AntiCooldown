@@ -1,4 +1,4 @@
-package com.yourgamespace.anticooldown.utils;
+package com.yourgamespace.anticooldown.utils.basics;
 
 import org.bukkit.Bukkit;
 

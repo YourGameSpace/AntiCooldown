@@ -2,8 +2,9 @@ package com.yourgamespace.anticooldown.utils.module;
 
 import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
-import com.yourgamespace.anticooldown.utils.LoggingHandler;
+import com.yourgamespace.anticooldown.utils.basics.AntiCooldownLogger;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
@@ -11,7 +12,7 @@ import org.bukkit.plugin.PluginManager;
 @SuppressWarnings("unused")
 public abstract class AntiCooldownModule implements Listener {
 
-    private final LoggingHandler logger = AntiCooldown.getLoggingHandler();
+    private final AntiCooldownLogger logger = AntiCooldown.getAntiCooldownLogger();
     private final Data data = AntiCooldown.getData();
     private final PluginManager pluginManager = Bukkit.getPluginManager();
     private final String moduleName = getClass().getSimpleName();
@@ -27,15 +28,39 @@ public abstract class AntiCooldownModule implements Listener {
     }
 
     /**
+     * Get description from module.
+     * @return Module description
+     */
+    public ModuleDescription getDescription() {
+        return this.description;
+    }
+
+    /**
+     * Set module description.
+     * @param description
+     */
+    protected void setDescription(ModuleDescription description) {
+        this.description = description;
+    }
+
+    /**
      * If necessary, possibility to run code when the module will be enabled.
      */
-    public void onEnable() {
-    }
+    public void onEnable() {}
 
     /**
      * If necessary, possibility to run code when the module will be disabled.
      */
-    public void onDisable() {
+    public void onDisable() {}
+
+    /**
+     * Handle module command methode
+     * @param commandSender The command sender
+     * @param args Used args of the command
+     * @return
+     */
+    public boolean onCommand(CommandSender commandSender, String[] args) {
+        return false;
     }
 
     /**
@@ -58,26 +83,9 @@ public abstract class AntiCooldownModule implements Listener {
     }
 
     /**
-     * Get description from module.
-     * @return Module description
-     */
-    public ModuleDescription getDescription() {
-        return this.description;
-    }
-
-    /**
-     * Set module description.
-     * @param description
-     */
-    protected void setDescription(ModuleDescription description) {
-        this.description = description;
-    }
-
-    /**
      * If necessary, possibility to register packet handler.
      */
-    public void registerPacketHandler() {
-    }
+    public void registerPacketHandler() {}
 
     /**
      * Will enable this module.

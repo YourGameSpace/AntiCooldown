@@ -1,6 +1,7 @@
 package com.yourgamespace.anticooldown.utils;
 
 import com.yourgamespace.anticooldown.main.AntiCooldown;
+import com.yourgamespace.anticooldown.utils.basics.AntiCooldownLogger;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -9,7 +10,7 @@ import java.util.HashMap;
 
 public class ItemDamageManager {
 
-    private static final LoggingHandler loggingHandler = AntiCooldown.getLoggingHandler();
+    private static final AntiCooldownLogger antiCooldownLogger = AntiCooldown.getAntiCooldownLogger();
 
     private static final HashMap<Material, Double> itemDamages = new HashMap<>();
 
@@ -18,14 +19,14 @@ public class ItemDamageManager {
         try {
             material = Material.valueOf(paramMaterial);
         } catch (IllegalArgumentException exception) {
-            loggingHandler.info("§4WARNING: §cMaterial §e" + paramMaterial + " §cfor CustomItemDamage cannot be found or is not supported by §e" + Bukkit.getBukkitVersion() + "§c!");
+            antiCooldownLogger.info("§4WARNING: §cMaterial §e" + paramMaterial + " §cfor CustomItemDamage cannot be found or is not supported by §e" + Bukkit.getBukkitVersion() + "§c!");
             return;
         }
         double damage;
         try {
             damage = Double.parseDouble(paramDamage);
         } catch (NumberFormatException exception) {
-            loggingHandler.info("§4WARNING: §cDamage for material §e" + paramMaterial + " §c cannot be applied! It must be a double!");
+            antiCooldownLogger.info("§4WARNING: §cDamage for material §e" + paramMaterial + " §c cannot be applied! It must be a double!");
             return;
         }
 

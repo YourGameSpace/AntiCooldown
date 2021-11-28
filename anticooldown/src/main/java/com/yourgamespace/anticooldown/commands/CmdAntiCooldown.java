@@ -3,7 +3,7 @@ package com.yourgamespace.anticooldown.commands;
 import com.yourgamespace.anticooldown.api.events.WorldDisableEvent;
 import com.yourgamespace.anticooldown.api.events.WorldEnableEvent;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
-import com.yourgamespace.anticooldown.utils.ObjectTransformer;
+import com.yourgamespace.anticooldown.utils.basics.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.WorldManager;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import org.bukkit.Bukkit;

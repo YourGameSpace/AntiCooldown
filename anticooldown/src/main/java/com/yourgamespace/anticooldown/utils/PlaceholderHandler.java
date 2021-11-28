@@ -1,6 +1,7 @@
 package com.yourgamespace.anticooldown.utils;
 
 import com.yourgamespace.anticooldown.main.AntiCooldown;
+import com.yourgamespace.anticooldown.utils.basics.ObjectTransformer;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;

@@ -4,7 +4,7 @@ import com.yourgamespace.anticooldown.api.events.WorldDisableEvent;
 import com.yourgamespace.anticooldown.api.events.WorldEnableEvent;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.CooldownHandler;
-import com.yourgamespace.anticooldown.utils.ObjectTransformer;
+import com.yourgamespace.anticooldown.utils.basics.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.WorldManager;
 import com.yourgamespace.anticooldown.utils.module.AntiCooldownModule;
 import de.tubeof.tubetils.api.cache.CacheContainer;

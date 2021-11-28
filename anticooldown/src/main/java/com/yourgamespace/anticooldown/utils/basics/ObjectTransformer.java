@@ -1,4 +1,4 @@
-package com.yourgamespace.anticooldown.utils;
+package com.yourgamespace.anticooldown.utils.basics;
 
 public class ObjectTransformer {
 

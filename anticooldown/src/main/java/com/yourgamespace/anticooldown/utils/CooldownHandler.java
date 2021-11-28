@@ -2,6 +2,7 @@ package com.yourgamespace.anticooldown.utils;
 
 import com.yourgamespace.anticooldown.api.events.PlayerCooldownChangeEvent;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
+import com.yourgamespace.anticooldown.utils.basics.ObjectTransformer;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;

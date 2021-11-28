@@ -5,6 +5,7 @@ import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.utility.MinecraftReflection;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
+import com.yourgamespace.anticooldown.utils.basics.VersionHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 

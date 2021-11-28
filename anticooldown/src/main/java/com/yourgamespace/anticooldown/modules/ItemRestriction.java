@@ -3,7 +3,7 @@ package com.yourgamespace.anticooldown.modules;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.CooldownHandler;
 import com.yourgamespace.anticooldown.utils.ItemRestrictionManager;
-import com.yourgamespace.anticooldown.utils.ObjectTransformer;
+import com.yourgamespace.anticooldown.utils.basics.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.WorldManager;
 import com.yourgamespace.anticooldown.utils.module.AntiCooldownModule;
 import de.tubeof.tubetils.api.cache.CacheContainer;
