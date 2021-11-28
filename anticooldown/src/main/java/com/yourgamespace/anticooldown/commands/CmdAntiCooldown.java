@@ -178,7 +178,7 @@ public class CmdAntiCooldown implements CommandExecutor {
         }
 
         int startIndex = page * maxLinesPerPage;
-        for(int cycle = 0; cycle < 3; ++cycle) {
+        for (int cycle = 0; cycle < 3; ++cycle) {
             if (!(helpMessages.size() >= (startIndex + cycle))) break;
             player.sendMessage(cacheContainer.get(String.class, "PREFIX") + helpMessages.get(startIndex + cycle));
         }
