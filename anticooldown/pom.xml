@@ -84,7 +84,7 @@
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
-                    <finalName>${project.name}-${project.version}</finalName>
+                    <finalName>${project.name}-${project.version}-B${build.number}</finalName>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
