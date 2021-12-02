@@ -139,7 +139,7 @@ public class ModuleHandler {
             jar = new JarFile(file);
             JarEntry entry = jar.getJarEntry("module.yml");
             if (entry == null) {
-                throw new ModuleException(new FileNotFoundException("Jar does not contain module.yml"));
+                throw new ModuleException(new FileNotFoundException("Module '" + file.getName() + "' does not contain module.yml"));
             }
 
             inputStream = jar.getInputStream(entry);
@@ -171,7 +171,7 @@ public class ModuleHandler {
         try {
             jarClass = Class.forName(description.getMain(), true, new ModuleClassLoader(file, getClass().getClassLoader(), description));
         } catch (ClassNotFoundException | IOException exception) {
-            throw new ModuleException(exception, "Cannot find main class `" + description.getMain() + "'");
+            throw new ModuleException(exception, "Cannot find main class `" + description.getMain() + "' for module '" + file.getName() + "'");
         }
 
         // Validate main and return
@@ -179,7 +179,7 @@ public class ModuleHandler {
             try {
                 pluginClass = jarClass.asSubclass(AntiCooldownModule.class);
             } catch (ClassCastException exception) {
-                throw new ModuleException(exception, "Main class `" + description.getMain() + "' does not extend AntiCooldownModule");
+                throw new ModuleException(exception, "Main class `" + description.getMain() + "' of module '" + file.getName() + "' does not extend AntiCooldownModule");
             }
             AntiCooldownModule antiCooldownModule = (AntiCooldownModule) pluginClass.getConstructor(boolean.class, boolean.class).newInstance(false, false);
             antiCooldownModule.setDescription(description);
