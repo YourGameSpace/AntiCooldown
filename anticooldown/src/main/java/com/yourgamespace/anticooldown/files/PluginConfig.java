@@ -33,11 +33,6 @@ public class PluginConfig {
 
         // Pre-load config version for upgrade check
         cacheContainer.add(Integer.class, "CONFIG_VERSION", config.getInt("ConfigVersion"));
-
-        for (String key : config.getKeys(true)) {
-            config.set(key, null);
-        }
-        saveConfig();
     }
 
     public void setupConfig() {
