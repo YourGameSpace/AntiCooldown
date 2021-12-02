@@ -39,7 +39,7 @@ public abstract class AntiCooldownModule implements Listener {
      * Set module description.
      * @param description
      */
-    protected void setDescription(ModuleDescription description) {
+    public void setDescription(ModuleDescription description) {
         this.description = description;
     }
 
