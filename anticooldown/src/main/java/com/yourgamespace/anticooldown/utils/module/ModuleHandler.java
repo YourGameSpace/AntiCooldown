@@ -44,7 +44,7 @@ public class ModuleHandler {
 
     public AntiCooldownModule getModule(String name) {
         for (AntiCooldownModule antiCooldownModule : enabledModules) {
-            if (antiCooldownModule.getModuleName().equalsIgnoreCase(name)) return antiCooldownModule;
+            if (antiCooldownModule.getDescription().getName().equalsIgnoreCase(name)) return antiCooldownModule;
         }
         return null;
     }
@@ -52,13 +52,13 @@ public class ModuleHandler {
     public void registerModule(AntiCooldownModule antiCooldownModule) {
         // If ProtocolLib is required: Check if installed
         if (antiCooldownModule.isProtocolLibRequired() && !data.isProtocolLibInstalled()) {
-            antiCooldownLogger.warn("§cModule §e" + antiCooldownModule.getModuleName() + " §crequires §eProtocolLib §cto be installed!");
+            antiCooldownLogger.warn("§cModule §e" + antiCooldownModule.getDescription().getName() + " §crequires §eProtocolLib §cto be installed!");
             return;
         }
 
         // If compatibility test failed: Do not enable module
         if (!antiCooldownModule.compatibilityTest()) {
-            antiCooldownLogger.warn("§cCompatibility-Test failed! Module §e" + antiCooldownModule.getModuleName() + " §cwill not be enabled!");
+            antiCooldownLogger.warn("§cCompatibility-Test failed! Module §e" + antiCooldownModule.getDescription().getName() + " §cwill not be enabled!");
             return;
         }
 
@@ -70,7 +70,7 @@ public class ModuleHandler {
         for (Iterator<AntiCooldownModule> antiCooldownModuleIterator = enabledModules.iterator(); antiCooldownModuleIterator.hasNext(); ) {
             AntiCooldownModule antiCooldownModule = antiCooldownModuleIterator.next();
 
-            if (!antiCooldownModule.getModuleName().equals(moduleName)) continue;
+            if (!antiCooldownModule.getDescription().getName().equals(moduleName)) continue;
             enabledModules.remove(antiCooldownModule);
             antiCooldownModule.disableModule();
         }
@@ -80,7 +80,7 @@ public class ModuleHandler {
         for (Iterator<AntiCooldownModule> antiCooldownModuleIterator = enabledModules.iterator(); antiCooldownModuleIterator.hasNext(); ) {
             AntiCooldownModule antiCooldownModule = antiCooldownModuleIterator.next();
 
-            if (!antiCooldownModule.getModuleName().equals(moduleName)) continue;
+            if (!antiCooldownModule.getDescription().getName().equals(moduleName)) continue;
             enabledModules.remove(antiCooldownModule);
             antiCooldownModule.disableModule(reason);
         }
