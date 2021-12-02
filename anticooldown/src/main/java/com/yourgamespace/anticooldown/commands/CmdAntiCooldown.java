@@ -37,9 +37,21 @@ public class CmdAntiCooldown implements CommandExecutor {
             return true;
         }
 
+        // Send help message if args 0
+        if (args.length == 0) {
+            sendHelpMessage(player, 1);
+            return true;
+        }
+
         String subCommand = args[0];
 
         if (subCommand.equalsIgnoreCase("help")) {
+            // Command require only 1 arg
+            if (args.length != 2) {
+                sendHelpMessage(player, 1);
+                return true;
+            }
+
             int page;
             try {
                 page = Integer.parseInt(args[1]);
@@ -144,9 +156,6 @@ public class CmdAntiCooldown implements CommandExecutor {
     }
 
     private void sendHelpMessage(Player player, int page) {
-        // Start with 0 in case of 1
-        page--;
-
         ArrayList<String> helpMessages = new ArrayList<>();
         ArrayList<String> moduleCommands = moduleCommandHandler.getCommands();
 
@@ -158,28 +167,28 @@ public class CmdAntiCooldown implements CommandExecutor {
         int maxPages = staticPages + modulePages;
 
         // Validate page index
-        if (!(page >= 0 && page <= maxPages)) {
+        if (!(page > 0) || maxPages < page) {
             player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§cThis help page was not be found!");
             return;
         }
 
         // Help Page Header
-        player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§7§m==== §aHelp-Page §e" + page + "$7/§e" + maxPages + " §7§m====");
+        player.sendMessage(cacheContainer.get(String.class, "PREFIX") + "§7§m========§f §aHelp-Page §e" + page + "§7/§e" + maxPages + " §7§m========");
 
         // Add messages to array
         // Static help messages
-        helpMessages.add("§7> §e/anticooldown help <Page> §7§oShow command usages");
-        helpMessages.add("§7> §e/anticooldown listDisabledWorlds §7§oList all disabled worlds");
-        helpMessages.add("§7> §e/anticooldown enableWorld [<World>] §7§oEnable a world");
-        helpMessages.add("§7> §e/anticooldown disableWorld [<World>] §7§oDisable a world");
+        helpMessages.add("§7> §e/ac help <Page> §7§oShow command usages");
+        helpMessages.add("§7> §e/ac listDisabledWorlds §7§oList all disabled worlds");
+        helpMessages.add("§7> §e/ac enableWorld [<World>] §7§oEnable a world");
+        helpMessages.add("§7> §e/ac disableWorld [<World>] §7§oDisable a world");
         // Module commands
         for (String moduleCommand : moduleCommands) {
-            helpMessages.add("§7> §e/anticooldown " + moduleCommand + " §7§o" + moduleCommandHandler.getDescription(moduleCommand));
+            helpMessages.add("§7> §e/ac " + moduleCommand + " §7§o" + moduleCommandHandler.getDescription(moduleCommand));
         }
 
-        int startIndex = page * maxLinesPerPage;
-        for (int cycle = 0; cycle < 3; ++cycle) {
-            if (!(helpMessages.size() >= (startIndex + cycle))) break;
+        int startIndex = (page - 1) * maxLinesPerPage;
+        for (int cycle = 0; cycle < maxLinesPerPage; ++cycle) {
+            if ((startIndex + cycle) > (helpMessages.size() - 1)) break;
             player.sendMessage(cacheContainer.get(String.class, "PREFIX") + helpMessages.get(startIndex + cycle));
         }
     }
