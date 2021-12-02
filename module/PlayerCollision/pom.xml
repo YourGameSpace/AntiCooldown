@@ -5,7 +5,7 @@
     <parent>
         <artifactId>module</artifactId>
         <groupId>com.yourgamespace</groupId>
-        <version>SNAPSHOT-4.0.3-DEV</version>
+        <version>SNAPSHOT-4.0.4-DEV</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 

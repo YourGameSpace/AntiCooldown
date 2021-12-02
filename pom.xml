@@ -6,7 +6,7 @@
 
     <groupId>com.yourgamespace</groupId>
     <artifactId>AntiCooldown</artifactId>
-    <version>SNAPSHOT-4.0.3-DEV</version>
+    <version>SNAPSHOT-4.0.4-DEV</version>
     <packaging>pom</packaging>
 
     <modules>

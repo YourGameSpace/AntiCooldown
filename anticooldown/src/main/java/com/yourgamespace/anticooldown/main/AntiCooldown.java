@@ -153,6 +153,8 @@ public class AntiCooldown extends JavaPlugin {
         moduleHandler.registerModule(new CustomItemDamage(false, true));
         moduleHandler.registerModule(new ItemRestriction(false, true));
 
+        moduleHandler.enableModules();
+
         antiCooldownLogger.info("§aModules have been successfully registered!");
     }
 

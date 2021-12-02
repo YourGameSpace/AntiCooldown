@@ -11,10 +11,9 @@ import java.util.regex.Pattern;
 public class ModuleDescription {
 
     private final Pattern VALID_NAME = Pattern.compile("^[A-Za-z0-9 _.-]+$");
-    private final ThreadLocal<Yaml> YAML = new ThreadLocal<>();
 
     public ModuleDescription(InputStream stream) throws InvalidDescriptionException {
-        loadMap(asMap(YAML.get().load(stream)));
+        loadMap(asMap(stream));
     }
 
     private String name;
@@ -85,8 +84,7 @@ public class ModuleDescription {
         }
     }
 
-    private Map<?, ?> asMap(Object object) throws InvalidDescriptionException {
-        if (object instanceof Map) return (Map) object;
-        throw new InvalidDescriptionException(object + " is not properly structured");
+    private Map<?, ?> asMap(InputStream inputStream) {
+        return new Yaml().load(inputStream);
     }
 }
