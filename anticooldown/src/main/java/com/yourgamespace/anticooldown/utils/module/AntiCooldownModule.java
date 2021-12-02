@@ -1,6 +1,5 @@
 package com.yourgamespace.anticooldown.utils.module;
 
-import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.basics.AntiCooldownLogger;
 import org.bukkit.Bukkit;
@@ -13,14 +12,13 @@ import org.bukkit.plugin.PluginManager;
 public abstract class AntiCooldownModule implements Listener {
 
     private final AntiCooldownLogger logger = AntiCooldown.getAntiCooldownLogger();
-    private final Data data = AntiCooldown.getData();
     private final PluginManager pluginManager = Bukkit.getPluginManager();
-    private final String moduleName = getClass().getSimpleName();
 
     private final boolean isProtocolLibRequired;
     private final boolean registerBukkitListeners;
-    private ModuleDescription description;
     private boolean isEnabled;
+    private ModuleDescription moduleDescription;
+
 
     public AntiCooldownModule(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
         this.isProtocolLibRequired = isProtocolLibRequired;
@@ -32,7 +30,7 @@ public abstract class AntiCooldownModule implements Listener {
      * @return Module description
      */
     public ModuleDescription getDescription() {
-        return this.description;
+        return this.moduleDescription;
     }
 
     /**
@@ -40,7 +38,7 @@ public abstract class AntiCooldownModule implements Listener {
      * @param description Module description
      */
     public void setDescription(ModuleDescription description) {
-        this.description = description;
+        this.moduleDescription = description;
     }
 
     /**
@@ -97,7 +95,7 @@ public abstract class AntiCooldownModule implements Listener {
         onEnable();
 
         setEnabled(true);
-        logger.info("§aModule §e" + moduleName + " §asuccessfully enabled!");
+        logger.info("§aModule §e" + getDescription().getName() + " §asuccessfully enabled!");
     }
 
     /**
@@ -109,7 +107,7 @@ public abstract class AntiCooldownModule implements Listener {
         onDisable();
         HandlerList.unregisterAll(this);
 
-        logger.info("§aModule §e" + moduleName + " §asuccessfully disabled!");
+        logger.info("§aModule §e" + getDescription().getName() + " §asuccessfully disabled!");
     }
 
     /**
@@ -123,7 +121,7 @@ public abstract class AntiCooldownModule implements Listener {
         onDisable();
         HandlerList.unregisterAll(this);
 
-        logger.info("§aModule §e" + moduleName + " §asuccessfully disabled! §eReason: " + reason);
+        logger.info("§aModule §e" + getDescription().getName() + " §asuccessfully disabled! §eReason: " + reason);
     }
 
     /**
@@ -133,15 +131,6 @@ public abstract class AntiCooldownModule implements Listener {
      */
     public boolean compatibilityTest() {
         return true;
-    }
-
-    /**
-     * Getter for module name.
-     *
-     * @return Returns the name of the module.
-     */
-    public String getModuleName() {
-        return moduleName;
     }
 
     /**
