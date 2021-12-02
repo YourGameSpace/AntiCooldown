@@ -37,7 +37,7 @@ public abstract class AntiCooldownModule implements Listener {
 
     /**
      * Set module description.
-     * @param description
+     * @param description Module description
      */
     public void setDescription(ModuleDescription description) {
         this.description = description;
@@ -57,7 +57,7 @@ public abstract class AntiCooldownModule implements Listener {
      * Handle module command methode
      * @param commandSender The command sender
      * @param args Used args of the command
-     * @return
+     * @return Returns true if command success or false if failed
      */
     public boolean onCommand(CommandSender commandSender, String[] args) {
         return false;
