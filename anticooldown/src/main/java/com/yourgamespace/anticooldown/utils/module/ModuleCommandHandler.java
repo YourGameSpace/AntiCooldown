@@ -85,7 +85,7 @@ public class ModuleCommandHandler {
      * @return True if command success or false, if failed
      */
     public boolean callCommand(String commandPrefix, CommandSender commandSender, String[] args) {
-        return moduleCommandHandlers.get(commandPrefix).onCommand(commandSender, args);
+        return moduleCommandHandlers.get(commandPrefix).onCommand(commandPrefix, commandSender, args);
     }
 
 }

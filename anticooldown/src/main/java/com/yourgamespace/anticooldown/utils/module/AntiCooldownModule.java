@@ -55,11 +55,12 @@ public abstract class AntiCooldownModule implements Listener {
 
     /**
      * Handle module command methode
+     * @param commandPrefix The invoked command prefix
      * @param commandSender The command sender
      * @param args Used args of the command
      * @return Returns true if command success or false if failed
      */
-    public boolean onCommand(CommandSender commandSender, String[] args) {
+    public boolean onCommand(String commandPrefix, CommandSender commandSender, String[] args) {
         return false;
     }
 
