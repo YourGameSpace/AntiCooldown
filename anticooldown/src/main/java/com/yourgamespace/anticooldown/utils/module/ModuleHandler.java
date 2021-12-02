@@ -24,7 +24,7 @@ import java.util.jar.JarFile;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@SuppressWarnings({"ForLoopReplaceableByForEach", "rawtypes", "unchecked"})
+@SuppressWarnings({"ForLoopReplaceableByForEach", "rawtypes", "unchecked", "MismatchedQueryAndUpdateOfCollection", "ResultOfMethodCallIgnored"})
 public class ModuleHandler {
 
     private final AntiCooldownLogger antiCooldownLogger = AntiCooldown.getAntiCooldownLogger();
