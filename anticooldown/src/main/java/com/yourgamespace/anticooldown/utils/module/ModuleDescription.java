@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 @SuppressWarnings({"unused", "FieldCanBeLocal"})
 public class ModuleDescription {
 
-    private final Pattern pattern = Pattern.compile("^[A-Za-z0-9 _.-]+$");
+    private final Pattern pattern = Pattern.compile("^[A-Za-z0-9_-]+$");
 
     private final String name;
     private final String main;
