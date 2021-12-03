@@ -6,6 +6,7 @@ import com.yourgamespace.anticooldown.utils.ItemRestrictionManager;
 import com.yourgamespace.anticooldown.utils.basics.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.WorldManager;
 import com.yourgamespace.anticooldown.utils.module.AntiCooldownModule;
+import com.yourgamespace.anticooldown.utils.module.ModuleDescription;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -26,8 +27,8 @@ public class ItemRestriction extends AntiCooldownModule {
     private final WorldManager worldManager = AntiCooldown.getWorldManager();
     private final CooldownHandler cooldownHandler = new CooldownHandler();
 
-    public ItemRestriction(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
-        super(isProtocolLibRequired, registerBukkitListeners);
+    public ItemRestriction(boolean isProtocolLibRequired, boolean registerBukkitListeners, ModuleDescription moduleDescription) {
+        super(isProtocolLibRequired, registerBukkitListeners, moduleDescription);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)

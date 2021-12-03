@@ -6,6 +6,7 @@ import com.yourgamespace.anticooldown.utils.basics.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.basics.VersionHandler;
 import com.yourgamespace.anticooldown.utils.WorldManager;
 import com.yourgamespace.anticooldown.utils.module.AntiCooldownModule;
+import com.yourgamespace.anticooldown.utils.module.ModuleDescription;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -20,8 +21,8 @@ public class SweepAttackDamage extends AntiCooldownModule {
     private final VersionHandler versionHandler = AntiCooldown.getVersionHandler();
     private final WorldManager worldManager = AntiCooldown.getWorldManager();
 
-    public SweepAttackDamage(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
-        super(isProtocolLibRequired, registerBukkitListeners);
+    public SweepAttackDamage(boolean isProtocolLibRequired, boolean registerBukkitListeners, ModuleDescription moduleDescription) {
+        super(isProtocolLibRequired, registerBukkitListeners, moduleDescription);
     }
 
     @Override

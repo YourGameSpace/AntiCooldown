@@ -7,53 +7,25 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "FieldCanBeLocal"})
 public class ModuleDescription {
 
-    private final Pattern VALID_NAME = Pattern.compile("^[A-Za-z0-9 _.-]+$");
+    private final Pattern pattern = Pattern.compile("^[A-Za-z0-9_-]+$");
+
+    private final String name;
+    private final String main;
+    private final String version;
+    private final String author;
+    private final String description;
 
     public ModuleDescription(InputStream stream) throws InvalidDescriptionException {
-        loadMap(asMap(stream));
-    }
+        Map<?, ?> map = new Yaml().load(stream);
 
-    private String name;
-    private String main;
-    private String version;
-    private String author;
-    private String description;
-
-    public String getName() {
-        return this.name;
-    }
-
-
-    public String getVersion() {
-        return this.version;
-    }
-
-
-    public String getAuthor() {
-        return this.author;
-    }
-
-
-    public String getMain() {
-        return this.main;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-
-    private void loadMap(Map<?, ?> map) throws InvalidDescriptionException {
         try {
             this.name = map.get("name").toString();
-            if (!VALID_NAME.matcher(this.name).matches()) {
+            if (!pattern.matcher(this.name).matches()) {
                 throw new InvalidDescriptionException("Name '" + this.name + "' contains invalid characters");
             }
-
-            this.name = this.name.replace(' ', '_');
         } catch (NullPointerException e) {
             throw new InvalidDescriptionException(e, "Name is not defined");
         } catch (ClassCastException e) {
@@ -76,15 +48,36 @@ public class ModuleDescription {
             throw new InvalidDescriptionException(e, "Main is of wrong type");
         }
 
-        if (map.get("description") != null) {
-            this.description = map.get("description").toString();
-        }
-        if (map.get("author") != null) {
-            this.author = map.get("author").toString();
-        }
+        this.description = map.get("description").toString();
+        this.author = map.get("author").toString();
     }
 
-    private Map<?, ?> asMap(InputStream inputStream) {
-        return new Yaml().load(inputStream);
+    public ModuleDescription(String name, String version, String description, String author) {
+        this.name = name;
+        this.version = version;
+        this.description = description;
+        this.author = author;
+        this.main = null;
     }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getVersion() {
+        return this.version;
+    }
+
+    public String getAuthor() {
+        return this.author;
+    }
+
+    public String getMain() {
+        return this.main;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
 }

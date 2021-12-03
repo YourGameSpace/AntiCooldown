@@ -12,12 +12,17 @@ import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @SuppressWarnings({"NullableProblems", "ConstantConditions"})
-public class CmdAntiCooldown implements CommandExecutor {
+public class CmdAntiCooldown implements CommandExecutor, TabCompleter {
 
     private final ModuleCommandHandler moduleCommandHandler = AntiCooldown.getModuleCommandHandler();
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
@@ -146,8 +151,13 @@ public class CmdAntiCooldown implements CommandExecutor {
             }
 
         } else if (moduleCommandHandler.isCommandPrefixRegistered(subCommand)) {
+            // Prepare args
+            List<String> moduleArgs = Arrays.asList(args);
+            moduleArgs.remove(0); // Remove the subcommand itself
+            String[] finalModuleArgs = moduleArgs.toArray(new String[0]);
+
             // Call module command
-            return moduleCommandHandler.callCommand(subCommand, commandSender, args);
+            return moduleCommandHandler.callCommand(subCommand, commandSender, finalModuleArgs);
         }
 
         // No command was found
@@ -191,5 +201,69 @@ public class CmdAntiCooldown implements CommandExecutor {
             if ((startIndex + cycle) > (helpMessages.size() - 1)) break;
             player.sendMessage(cacheContainer.get(String.class, "PREFIX") + helpMessages.get(startIndex + cycle));
         }
+    }
+
+    @Nullable
+    @Override
+    public List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
+        if (!(commandSender instanceof Player)) {
+            return null;
+        }
+        Player player = (Player) commandSender;
+        // Permissions Check
+        if (!(player.hasPermission("anticooldown.settings"))) {
+            return null;
+        }
+
+
+        ArrayList<String> tabCompletion = new ArrayList<>();
+
+        // /ac
+        if (args.length == 1) {
+            tabCompletion.add("help");
+            tabCompletion.add("listDisabledWorlds");
+            tabCompletion.add("enableWorld");
+            tabCompletion.add("disableWorld");
+            return tabCompletion;
+        }
+
+        String subCommand = args[0];
+
+        if (subCommand.equalsIgnoreCase("help")) {
+            // /ac help
+            if (args.length == 2) {
+                tabCompletion.add("<Page>");
+            }
+            return tabCompletion;
+        } else if (subCommand.equalsIgnoreCase("listDisabledWorlds")) {
+            // /ac listDisabledWorlds
+            return tabCompletion;
+        } else if (subCommand.equalsIgnoreCase("enableWorld")) {
+            // /ac enableWorld
+            if (args.length == 2) {
+                for (World world : Bukkit.getWorlds()) {
+                    tabCompletion.add(world.getName());
+                }
+            }
+            return tabCompletion;
+        } else if (subCommand.equalsIgnoreCase("disableWorld")) {
+            // /ac enableWorld
+            if (args.length == 2) {
+                for (World world : Bukkit.getWorlds()) {
+                    tabCompletion.add(world.getName());
+                }
+            }
+            return tabCompletion;
+        } else if (moduleCommandHandler.isCommandPrefixRegistered(subCommand)) {
+            // Prepare args
+            List<String> moduleArgs = Arrays.asList(args);
+            moduleArgs.remove(0); // Remove the subcommand itself
+            String[] finalModuleArgs = moduleArgs.toArray(new String[0]);
+
+            // Call module command
+            return moduleCommandHandler.callTabCompletion(subCommand, commandSender, finalModuleArgs);
+        }
+
+        return null;
     }
 }

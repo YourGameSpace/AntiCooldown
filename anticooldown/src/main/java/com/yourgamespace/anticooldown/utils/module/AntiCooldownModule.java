@@ -1,30 +1,49 @@
 package com.yourgamespace.anticooldown.utils.module;
 
-import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.basics.AntiCooldownLogger;
 import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 @SuppressWarnings("unused")
 public abstract class AntiCooldownModule implements Listener {
 
     private final AntiCooldownLogger logger = AntiCooldown.getAntiCooldownLogger();
-    private final Data data = AntiCooldown.getData();
+    private final ModuleCommandHandler moduleCommandHandler = AntiCooldown.getModuleCommandHandler();
     private final PluginManager pluginManager = Bukkit.getPluginManager();
-    private final String moduleName = getClass().getSimpleName();
 
     private final boolean isProtocolLibRequired;
     private final boolean registerBukkitListeners;
-    private ModuleDescription description;
     private boolean isEnabled;
+    private ModuleDescription moduleDescription;
 
+    /**
+     * Create a new AntiCooldownModule instance.
+     * @param isProtocolLibRequired Is ProtocolLib required
+     * @param registerBukkitListeners Should Bukkit Listeners be registered
+     */
     public AntiCooldownModule(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
         this.isProtocolLibRequired = isProtocolLibRequired;
         this.registerBukkitListeners = registerBukkitListeners;
+    }
+
+    /**
+     * Create a new AntiCooldownModule internal instance.
+     * @param isProtocolLibRequired Is ProtocolLib required
+     * @param registerBukkitListeners Should Bukkit Listeners be registered
+     * @param moduleDescription ModuleDescription of this module
+     */
+    public AntiCooldownModule(boolean isProtocolLibRequired, boolean registerBukkitListeners, ModuleDescription moduleDescription) {
+        this.isProtocolLibRequired = isProtocolLibRequired;
+        this.registerBukkitListeners = registerBukkitListeners;
+        this.moduleDescription = moduleDescription;
     }
 
     /**
@@ -32,15 +51,15 @@ public abstract class AntiCooldownModule implements Listener {
      * @return Module description
      */
     public ModuleDescription getDescription() {
-        return this.description;
+        return this.moduleDescription;
     }
 
     /**
      * Set module description.
-     * @param description
+     * @param description Module description
      */
-    protected void setDescription(ModuleDescription description) {
-        this.description = description;
+    public void setDescription(ModuleDescription description) {
+        this.moduleDescription = description;
     }
 
     /**
@@ -55,12 +74,25 @@ public abstract class AntiCooldownModule implements Listener {
 
     /**
      * Handle module command methode
+     * @param commandPrefix The invoked command prefix
      * @param commandSender The command sender
      * @param args Used args of the command
-     * @return
+     * @return Returns true if command success or false if failed
      */
-    public boolean onCommand(CommandSender commandSender, String[] args) {
+    public boolean onCommand(String commandPrefix, CommandSender commandSender, String[] args) {
         return false;
+    }
+
+    /**
+     * Handle tab complete for module command
+     * @param commandPrefix The invoked command prefix
+     * @param commandSender The command sender
+     * @param args Used args of the command
+     * @return Returns the list of tab completions
+     */
+    @Nullable
+    public List<String> onTabComplete(String commandPrefix, CommandSender commandSender, String[] args) {
+        return null;
     }
 
     /**
@@ -96,7 +128,7 @@ public abstract class AntiCooldownModule implements Listener {
         onEnable();
 
         setEnabled(true);
-        logger.info("§aModule §e" + moduleName + " §asuccessfully enabled!");
+        logger.info("§aModule §e" + getDescription().getName() + " §asuccessfully enabled!");
     }
 
     /**
@@ -108,7 +140,7 @@ public abstract class AntiCooldownModule implements Listener {
         onDisable();
         HandlerList.unregisterAll(this);
 
-        logger.info("§aModule §e" + moduleName + " §asuccessfully disabled!");
+        logger.info("§aModule §e" + getDescription().getName() + " §asuccessfully disabled!");
     }
 
     /**
@@ -122,7 +154,7 @@ public abstract class AntiCooldownModule implements Listener {
         onDisable();
         HandlerList.unregisterAll(this);
 
-        logger.info("§aModule §e" + moduleName + " §asuccessfully disabled! §eReason: " + reason);
+        logger.info("§aModule §e" + getDescription().getName() + " §asuccessfully disabled! §eReason: " + reason);
     }
 
     /**
@@ -135,21 +167,28 @@ public abstract class AntiCooldownModule implements Listener {
     }
 
     /**
-     * Getter for module name.
-     *
-     * @return Returns the name of the module.
-     */
-    public String getModuleName() {
-        return moduleName;
-    }
-
-    /**
      * Getter for isProtocolLibRequired.
      *
      * @return Returns if ProtocolLib is required for the module.
      */
     public boolean isProtocolLibRequired() {
         return isProtocolLibRequired;
+    }
+
+    /**
+     * Get AntiCooldownLogger instance
+     * @return AntiCooldownLogger instance
+     */
+    private AntiCooldownLogger getLogger() {
+        return logger;
+    }
+
+    /**
+     * Get ModuleCommandHandler
+     * @return ModuleCommandHandler instance
+     */
+    private ModuleCommandHandler getModuleCommandHandler() {
+        return moduleCommandHandler;
     }
 
 }

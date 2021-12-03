@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @SuppressWarnings("unused")
 public class ModuleCommandHandler {
@@ -16,6 +17,7 @@ public class ModuleCommandHandler {
 
     private final HashMap<String, String> moduleCommandDescriptions = new HashMap<>();
     private final HashMap<String, AntiCooldownModule> moduleCommandHandlers = new HashMap<>();
+    private final HashMap<String, AntiCooldownModule> moduleTabCompleteHandlers = new HashMap<>();
 
     /**
      * Register a new module command.
@@ -28,6 +30,10 @@ public class ModuleCommandHandler {
         moduleCommandHandlers.put(commandPrefix, antiCooldownModule);
     }
 
+    public void registerTabComplete(String commandPrefix, AntiCooldownModule antiCooldownModule) {
+        moduleTabCompleteHandlers.put(commandPrefix, antiCooldownModule);
+    }
+
     /**
      * Unregister a command by its command prefix.
      * @param commandPrefix The command prefix to be unregistered
@@ -36,6 +42,7 @@ public class ModuleCommandHandler {
     public void unregisterCommand(String commandPrefix, AntiCooldownModule antiCooldownModule) {
         moduleCommandDescriptions.remove(commandPrefix);
         moduleCommandHandlers.remove(commandPrefix);
+        moduleTabCompleteHandlers.remove(commandPrefix);
     }
 
     /**
@@ -47,6 +54,7 @@ public class ModuleCommandHandler {
             if (moduleCommandHandlers.get(commandPrefix).equals(antiCooldownModule)) {
                 moduleCommandHandlers.remove(commandPrefix);
                 moduleCommandDescriptions.remove(commandPrefix);
+                moduleTabCompleteHandlers.remove(commandPrefix);
             }
         }
     }
@@ -85,7 +93,18 @@ public class ModuleCommandHandler {
      * @return True if command success or false, if failed
      */
     public boolean callCommand(String commandPrefix, CommandSender commandSender, String[] args) {
-        return moduleCommandHandlers.get(commandPrefix).onCommand(commandSender, args);
+        return moduleCommandHandlers.get(commandPrefix).onCommand(commandPrefix, commandSender, args);
+    }
+
+    /**
+     * Call tab completion of an module command.
+     * @param commandPrefix The command prefix to be called
+     * @param commandSender The CommandSender to be delivered
+     * @param args Args as String[] to be delivered
+     * @return Returns the list of tab completions
+     */
+    public List<String> callTabCompletion(String commandPrefix, CommandSender commandSender, String[] args) {
+        return moduleTabCompleteHandlers.get(commandPrefix).onTabComplete(commandPrefix, commandSender, args);
     }
 
 }

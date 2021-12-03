@@ -21,6 +21,7 @@ import com.yourgamespace.anticooldown.utils.PlaceholderHandler;
 import com.yourgamespace.anticooldown.utils.basics.VersionHandler;
 import com.yourgamespace.anticooldown.utils.WorldManager;
 import com.yourgamespace.anticooldown.utils.module.ModuleCommandHandler;
+import com.yourgamespace.anticooldown.utils.module.ModuleDescription;
 import com.yourgamespace.anticooldown.utils.module.ModuleHandler;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import de.tubeof.tubetils.api.updatechecker.UpdateChecker;
@@ -143,15 +144,15 @@ public class AntiCooldown extends JavaPlugin {
     private void registerModules() {
         antiCooldownLogger.info("§aModules will be registered ...");
 
-        moduleHandler.registerModule(new UpdateNotifyOnJoin(false, true));
-        moduleHandler.registerModule(new AttackCooldown(false, true));
-        moduleHandler.registerModule(new SweepAttackDamage(false, true));
-        moduleHandler.registerModule(new SweepAttackParticle(true, false));
-        moduleHandler.registerModule(new CombatSounds(true, false));
-        moduleHandler.registerModule(new EnderpearlCooldown(false, true));
-        moduleHandler.registerModule(new PlayerCollision(true, true));
-        moduleHandler.registerModule(new CustomItemDamage(false, true));
-        moduleHandler.registerModule(new ItemRestriction(false, true));
+        moduleHandler.registerModule(new UpdateNotifyOnJoin(false, true, new ModuleDescription("UpdateNotifyOnJoin", "1.0", "Internal Module", "YourGameSpace")));
+        moduleHandler.registerModule(new AttackCooldown(false, true, new ModuleDescription("AttackCooldown", "1.0", "Internal Module", "YourGameSpace")));
+        moduleHandler.registerModule(new SweepAttackDamage(false, true, new ModuleDescription("SweepAttackDamage", "1.0", "Internal Module", "YourGameSpace")));
+        moduleHandler.registerModule(new SweepAttackParticle(true, false, new ModuleDescription("SweepAttackParticle", "1.0", "Internal Module", "YourGameSpace")));
+        moduleHandler.registerModule(new CombatSounds(true, false, new ModuleDescription("CombatSounds", "1.0", "Internal Module", "YourGameSpace")));
+        moduleHandler.registerModule(new EnderpearlCooldown(false, true, new ModuleDescription("EnderpearlCooldown", "1.0", "Internal Module", "YourGameSpace")));
+        moduleHandler.registerModule(new PlayerCollision(true, true, new ModuleDescription("PlayerCollision", "1.0", "Internal Module", "YourGameSpace")));
+        moduleHandler.registerModule(new CustomItemDamage(false, true, new ModuleDescription("CustomItemDamage", "1.0", "Internal Module", "YourGameSpace")));
+        moduleHandler.registerModule(new ItemRestriction(false, true, new ModuleDescription("ItemRestriction", "1.0", "Internal Module", "YourGameSpace")));
 
         moduleHandler.enableModules();
 
@@ -162,6 +163,7 @@ public class AntiCooldown extends JavaPlugin {
         antiCooldownLogger.info("§aCommands will be registered ...");
 
         getCommand("anticooldown").setExecutor(new CmdAntiCooldown());
+        getCommand("anticooldown").setTabCompleter(new CmdAntiCooldown());
 
         antiCooldownLogger.info("§aCommands have been successfully registered!");
     }
