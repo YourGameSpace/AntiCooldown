@@ -12,6 +12,7 @@ import org.bukkit.plugin.PluginManager;
 public abstract class AntiCooldownModule implements Listener {
 
     private final AntiCooldownLogger logger = AntiCooldown.getAntiCooldownLogger();
+    private final ModuleCommandHandler moduleCommandHandler = AntiCooldown.getModuleCommandHandler();
     private final PluginManager pluginManager = Bukkit.getPluginManager();
 
     private final boolean isProtocolLibRequired;
@@ -144,6 +145,22 @@ public abstract class AntiCooldownModule implements Listener {
      */
     public boolean isProtocolLibRequired() {
         return isProtocolLibRequired;
+    }
+
+    /**
+     * Get AntiCooldownLogger instance
+     * @return AntiCooldownLogger instance
+     */
+    private AntiCooldownLogger getLogger() {
+        return logger;
+    }
+
+    /**
+     * Get ModuleCommandHandler
+     * @return ModuleCommandHandler instance
+     */
+    private ModuleCommandHandler getModuleCommandHandler() {
+        return moduleCommandHandler;
     }
 
 }
