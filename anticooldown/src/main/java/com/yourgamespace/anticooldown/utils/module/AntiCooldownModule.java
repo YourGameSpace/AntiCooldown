@@ -19,7 +19,11 @@ public abstract class AntiCooldownModule implements Listener {
     private boolean isEnabled;
     private ModuleDescription moduleDescription;
 
-
+    /**
+     * Create a new AntiCooldownModule instance.
+     * @param isProtocolLibRequired Is ProtocolLib required
+     * @param registerBukkitListeners Should Bukkit Listeners be registered
+     */
     public AntiCooldownModule(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
         this.isProtocolLibRequired = isProtocolLibRequired;
         this.registerBukkitListeners = registerBukkitListeners;
