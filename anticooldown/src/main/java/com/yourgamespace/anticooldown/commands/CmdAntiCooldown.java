@@ -15,6 +15,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @SuppressWarnings({"NullableProblems", "ConstantConditions"})
 public class CmdAntiCooldown implements CommandExecutor {
@@ -146,8 +148,13 @@ public class CmdAntiCooldown implements CommandExecutor {
             }
 
         } else if (moduleCommandHandler.isCommandPrefixRegistered(subCommand)) {
+            // Prepare args
+            List<String> moduleArgs = Arrays.asList(args);
+            moduleArgs.remove(0); // Remove the subcommand itself
+            String[] finalModuleArgs = moduleArgs.toArray(new String[0]);
+
             // Call module command
-            return moduleCommandHandler.callCommand(subCommand, commandSender, args);
+            return moduleCommandHandler.callCommand(subCommand, commandSender, finalModuleArgs);
         }
 
         // No command was found
