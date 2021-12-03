@@ -52,6 +52,14 @@ public class ModuleDescription {
         this.author = map.get("author").toString();
     }
 
+    public ModuleDescription(String name, String version, String description, String author) {
+        this.name = name;
+        this.version = version;
+        this.description = description;
+        this.author = author;
+        this.main = null;
+    }
+
     public String getName() {
         return this.name;
     }

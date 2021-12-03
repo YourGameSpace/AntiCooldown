@@ -6,6 +6,7 @@ import com.yourgamespace.anticooldown.utils.ItemDamageManager;
 import com.yourgamespace.anticooldown.utils.basics.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.WorldManager;
 import com.yourgamespace.anticooldown.utils.module.AntiCooldownModule;
+import com.yourgamespace.anticooldown.utils.module.ModuleDescription;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -21,8 +22,8 @@ public class CustomItemDamage extends AntiCooldownModule {
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
     private final WorldManager worldManager = AntiCooldown.getWorldManager();
 
-    public CustomItemDamage(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
-        super(isProtocolLibRequired, registerBukkitListeners);
+    public CustomItemDamage(boolean isProtocolLibRequired, boolean registerBukkitListeners, ModuleDescription moduleDescription) {
+        super(isProtocolLibRequired, registerBukkitListeners, moduleDescription);
     }
 
     @EventHandler

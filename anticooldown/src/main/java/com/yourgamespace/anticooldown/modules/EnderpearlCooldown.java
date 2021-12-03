@@ -4,6 +4,7 @@ import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.basics.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.WorldManager;
 import com.yourgamespace.anticooldown.utils.module.AntiCooldownModule;
+import com.yourgamespace.anticooldown.utils.module.ModuleDescription;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -19,8 +20,8 @@ public class EnderpearlCooldown extends AntiCooldownModule {
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
     private final WorldManager worldManager = AntiCooldown.getWorldManager();
 
-    public EnderpearlCooldown(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
-        super(isProtocolLibRequired, registerBukkitListeners);
+    public EnderpearlCooldown(boolean isProtocolLibRequired, boolean registerBukkitListeners, ModuleDescription moduleDescription) {
+        super(isProtocolLibRequired, registerBukkitListeners, moduleDescription);
     }
 
     @EventHandler

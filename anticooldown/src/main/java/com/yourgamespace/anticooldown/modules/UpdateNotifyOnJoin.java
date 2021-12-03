@@ -3,6 +3,7 @@ package com.yourgamespace.anticooldown.modules;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.basics.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.module.AntiCooldownModule;
+import com.yourgamespace.anticooldown.utils.module.ModuleDescription;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import de.tubeof.tubetils.api.updatechecker.UpdateChecker;
 import org.bukkit.entity.Player;
@@ -14,8 +15,8 @@ public class UpdateNotifyOnJoin extends AntiCooldownModule {
     private final UpdateChecker updateChecker = AntiCooldown.getUpdateChecker();
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
 
-    public UpdateNotifyOnJoin(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
-        super(isProtocolLibRequired, registerBukkitListeners);
+    public UpdateNotifyOnJoin(boolean isProtocolLibRequired, boolean registerBukkitListeners, ModuleDescription moduleDescription) {
+        super(isProtocolLibRequired, registerBukkitListeners, moduleDescription);
     }
 
     @EventHandler

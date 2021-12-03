@@ -3,10 +3,14 @@ package com.yourgamespace.anticooldown.utils.module;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.basics.AntiCooldownLogger;
 import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 @SuppressWarnings("unused")
 public abstract class AntiCooldownModule implements Listener {
@@ -28,6 +32,18 @@ public abstract class AntiCooldownModule implements Listener {
     public AntiCooldownModule(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
         this.isProtocolLibRequired = isProtocolLibRequired;
         this.registerBukkitListeners = registerBukkitListeners;
+    }
+
+    /**
+     * Create a new AntiCooldownModule internal instance.
+     * @param isProtocolLibRequired Is ProtocolLib required
+     * @param registerBukkitListeners Should Bukkit Listeners be registered
+     * @param moduleDescription ModuleDescription of this module
+     */
+    public AntiCooldownModule(boolean isProtocolLibRequired, boolean registerBukkitListeners, ModuleDescription moduleDescription) {
+        this.isProtocolLibRequired = isProtocolLibRequired;
+        this.registerBukkitListeners = registerBukkitListeners;
+        this.moduleDescription = moduleDescription;
     }
 
     /**
@@ -65,6 +81,18 @@ public abstract class AntiCooldownModule implements Listener {
      */
     public boolean onCommand(String commandPrefix, CommandSender commandSender, String[] args) {
         return false;
+    }
+
+    /**
+     * Handle tab complete for module command
+     * @param commandPrefix The invoked command prefix
+     * @param commandSender The command sender
+     * @param args Used args of the command
+     * @return Returns the list of tab completions
+     */
+    @Nullable
+    public List<String> onTabComplete(String commandPrefix, CommandSender commandSender, String[] args) {
+        return null;
     }
 
     /**
