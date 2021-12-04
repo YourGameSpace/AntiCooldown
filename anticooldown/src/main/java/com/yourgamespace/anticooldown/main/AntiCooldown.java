@@ -23,6 +23,7 @@ import com.yourgamespace.anticooldown.utils.WorldManager;
 import com.yourgamespace.anticooldown.utils.module.ModuleCommandHandler;
 import com.yourgamespace.anticooldown.utils.module.ModuleDescription;
 import com.yourgamespace.anticooldown.utils.module.ModuleHandler;
+import com.yourgamespace.anticooldown.utils.module.ModulePlaceholderHandler;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import de.tubeof.tubetils.api.updatechecker.UpdateChecker;
 import de.tubeof.tubetils.api.updatechecker.enums.ApiMethode;
@@ -48,6 +49,7 @@ public class AntiCooldown extends JavaPlugin {
     private static VersionHandler versionHandler;
     private static ModuleHandler moduleHandler;
     private static ModuleCommandHandler moduleCommandHandler;
+    private static ModulePlaceholderHandler modulePlaceholderHandler;
     private static ProtocolManager protocolManager;
     private static UpdateChecker updateChecker;
 
@@ -108,6 +110,7 @@ public class AntiCooldown extends JavaPlugin {
         versionHandler = new VersionHandler();
         moduleHandler = new ModuleHandler();
         moduleCommandHandler = new ModuleCommandHandler();
+        modulePlaceholderHandler = new ModulePlaceholderHandler();
 
         //ProtocolLib
         if (Bukkit.getPluginManager().getPlugin("ProtocolLib") != null) {
@@ -257,6 +260,10 @@ public class AntiCooldown extends JavaPlugin {
 
     public static ModuleCommandHandler getModuleCommandHandler() {
         return moduleCommandHandler;
+    }
+
+    public static ModulePlaceholderHandler getModulePlaceholderHandler() {
+        return modulePlaceholderHandler;
     }
 
     public static ProtocolManager getProtocolManager() {
