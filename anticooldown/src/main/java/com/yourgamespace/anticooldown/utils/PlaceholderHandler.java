@@ -2,6 +2,7 @@ package com.yourgamespace.anticooldown.utils;
 
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.basics.ObjectTransformer;
+import com.yourgamespace.anticooldown.utils.module.ModulePlaceholderHandler;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
@@ -11,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 @SuppressWarnings("ConstantConditions")
 public class PlaceholderHandler extends PlaceholderExpansion {
 
+    private final ModulePlaceholderHandler modulePlaceholderHandler = AntiCooldown.getModulePlaceholderHandler();
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
     private final CooldownHandler cooldownHandler = new CooldownHandler();
     private final WorldManager worldManager = AntiCooldown.getWorldManager();
@@ -35,6 +37,7 @@ public class PlaceholderHandler extends PlaceholderExpansion {
         if (offlinePlayer == null) return null;
         Player player = offlinePlayer.getPlayer();
 
+        // Default AntiCooldown placeholders
         if (placeholder.equalsIgnoreCase("worldcooldown")) {
             if (worldManager.isWorldDisabled(player.getWorld().getName())) {
                 // World disabled = Cooldown enabled: Return enabled;
@@ -52,6 +55,10 @@ public class PlaceholderHandler extends PlaceholderExpansion {
             return ObjectTransformer.getString(cacheContainer.get(String.class, "PLACEHOLDER_PLAYER_COOLDOWN_ENABLED"));
         }
 
+        // Call module placeholder
+        if (modulePlaceholderHandler.isPlaceholderRegistered(placeholder)) {
+            modulePlaceholderHandler.callPlaceholder(placeholder, player);
+        }
 
         return null;
     }
