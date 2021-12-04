@@ -18,6 +18,7 @@ public abstract class AntiCooldownModule implements Listener {
 
     private final AntiCooldownLogger logger = AntiCooldown.getAntiCooldownLogger();
     private final ModuleCommandHandler moduleCommandHandler = AntiCooldown.getModuleCommandHandler();
+    private final ModulePlaceholderHandler modulePlaceholderHandler = AntiCooldown.getModulePlaceholderHandler();
     private final PluginManager pluginManager = Bukkit.getPluginManager();
 
     private final boolean isProtocolLibRequired;
@@ -200,6 +201,14 @@ public abstract class AntiCooldownModule implements Listener {
      */
     private ModuleCommandHandler getModuleCommandHandler() {
         return moduleCommandHandler;
+    }
+
+    /**
+     * Get ModulePlaceholderHandler
+     * @return ModulePlaceholderHandler instance
+     */
+    private ModulePlaceholderHandler getModulePlaceholderHandler() {
+        return modulePlaceholderHandler;
     }
 
 }
