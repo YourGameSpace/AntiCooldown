@@ -28,7 +28,8 @@ public class WorldManager {
         return disabledWorlds.contains(world);
     }
 
+    @SuppressWarnings("unchecked")
     public ArrayList<String> getDisabledWorlds() {
-        return disabledWorlds;
+        return (ArrayList<String>) disabledWorlds.clone();
     }
 }
