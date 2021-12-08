@@ -9,11 +9,15 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>EnderpearlCooldown</artifactId>
+    <artifactId>enderpearlcooldown</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+
+    <build>
+        <finalName>module-${project.artifactId}-${project.version}-B${build.number}</finalName>
+    </build>
 
 </project>
