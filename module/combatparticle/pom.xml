@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>sweepattackparticle</artifactId>
+    <version>1.0.0-DEV</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
