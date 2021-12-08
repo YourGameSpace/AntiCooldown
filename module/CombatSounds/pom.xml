@@ -9,11 +9,16 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>CombatSounds</artifactId>
+    <artifactId>combatsounds</artifactId>
+    <version>1.0.0-DEV</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+
+    <build>
+        <finalName>module-${project.artifactId}-${project.version}-B${build.number}</finalName>
+    </build>
 
 </project>
