@@ -84,7 +84,7 @@
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
-                    <finalName>${project.name}-${project.version}-B${build.number}.jar</finalName>
+                    <finalName>AntiCooldown-${project.version}-B${build.number}</finalName>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
@@ -106,7 +106,7 @@
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.2.1</version>
                 <configuration>
-                    <outputFile>${project.name}-${project.version}-B${build.number}.jar</outputFile>
+                    <finalName>AntiCooldown-${project.version}-B${build.number}</finalName>
                     <relocations>
                         <relocation>
                             <pattern>org.bstats</pattern>
