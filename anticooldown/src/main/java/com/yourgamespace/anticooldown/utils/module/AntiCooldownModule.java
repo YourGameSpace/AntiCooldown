@@ -4,6 +4,7 @@ import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.basics.AntiCooldownLogger;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
@@ -16,6 +17,7 @@ public abstract class AntiCooldownModule implements Listener {
 
     private final AntiCooldownLogger logger = AntiCooldown.getAntiCooldownLogger();
     private final ModuleCommandHandler moduleCommandHandler = AntiCooldown.getModuleCommandHandler();
+    private final ModulePlaceholderHandler modulePlaceholderHandler = AntiCooldown.getModulePlaceholderHandler();
     private final PluginManager pluginManager = Bukkit.getPluginManager();
 
     private final boolean isProtocolLibRequired;
@@ -70,6 +72,16 @@ public abstract class AntiCooldownModule implements Listener {
      * If necessary, possibility to run code when the module will be disabled.
      */
     public void onDisable() {}
+
+    /**
+     * Handle module placeholder methode
+     * @param placeholder The invoked placeholder
+     * @param player The player which may be involved for the request. Can also be 'null'.
+     * @return Returns the final placeholder content
+     */
+    public String onPlaceholder(String placeholder, Player player) {
+        return null;
+    }
 
     /**
      * Handle module command methode
@@ -188,6 +200,14 @@ public abstract class AntiCooldownModule implements Listener {
      */
     private ModuleCommandHandler getModuleCommandHandler() {
         return moduleCommandHandler;
+    }
+
+    /**
+     * Get ModulePlaceholderHandler
+     * @return ModulePlaceholderHandler instance
+     */
+    private ModulePlaceholderHandler getModulePlaceholderHandler() {
+        return modulePlaceholderHandler;
     }
 
 }
