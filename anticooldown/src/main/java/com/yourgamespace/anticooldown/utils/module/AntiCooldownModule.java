@@ -6,7 +6,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.jetbrains.annotations.Nullable;
 
@@ -21,7 +20,8 @@ public abstract class AntiCooldownModule {
     private final ModulePlaceholderHandler modulePlaceholderHandler = AntiCooldown.getModulePlaceholderHandler();
     private final PluginManager pluginManager = Bukkit.getPluginManager();
 
-    private final ArrayList<Listener> listeners = new ArrayList<>();
+    private final ArrayList<ModuleListener> listeners = new ArrayList<>();
+    private final ArrayList<ModulePacketHandler> packetHandlers = new ArrayList<>();
     private final boolean isProtocolLibRequired;
     private boolean isEnabled;
     private ModuleDescription moduleDescription;
@@ -125,23 +125,27 @@ public abstract class AntiCooldownModule {
     /**
      * If necessary, possibility to register packet handler.
      */
-    public void registerPacketHandler() {}
+    public void registerPacketHandler(ModulePacketHandler modulePacketHandler) {
+        AntiCooldown.getProtocolManager().addPacketListener(modulePacketHandler);
+        packetHandlers.add(modulePacketHandler);
+    }
 
     /**
      * Register bukkit listener
-     * @param listener The listener to be registered.
+     * @param moduleListener The ModuleListener to be registered.
      */
-    public void registerListener(Listener listener) {
-        pluginManager.registerEvents(listener, AntiCooldown.getInstance());
-        listeners.add(listener);
+    public void registerListener(ModuleListener moduleListener) {
+        pluginManager.registerEvents(moduleListener, AntiCooldown.getInstance());
+        listeners.add(moduleListener);
     }
 
     /**
      * Will enable this module.
      */
     public void enableModule() {
-        registerPacketHandler();
         onEnable();
+        listeners.forEach(ModuleListener::onLoad);
+        packetHandlers.forEach(ModulePacketHandler::onLoad);
 
         setEnabled(true);
         logger.info("§aModule §e" + getDescription().getName() + " §asuccessfully enabled!");
@@ -155,6 +159,7 @@ public abstract class AntiCooldownModule {
 
         onDisable();
         listeners.forEach(HandlerList::unregisterAll);
+        packetHandlers.forEach(AntiCooldown.getProtocolManager()::removePacketListener);
 
         logger.info("§aModule §e" + getDescription().getName() + " §asuccessfully disabled!");
     }
