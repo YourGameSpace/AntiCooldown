@@ -131,6 +131,14 @@ public abstract class AntiCooldownModule implements Listener {
     public void registerPacketHandler() {}
 
     /**
+     * Register bukkit listener
+     * @param listener The listener to be registered.
+     */
+    public void registerListener(Listener listener) {
+        pluginManager.registerEvents(listener, AntiCooldown.getInstance());
+    }
+
+    /**
      * Will enable this module.
      */
     public void enableModule() {
