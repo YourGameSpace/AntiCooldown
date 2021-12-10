@@ -13,17 +13,23 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
 @SuppressWarnings("ConstantConditions")
-public class CustomItemDamage extends AntiCooldownModule {
+public class CustomItemDamage extends AntiCooldownModule implements Listener {
 
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
     private final WorldManager worldManager = AntiCooldown.getWorldManager();
 
-    public CustomItemDamage(boolean isProtocolLibRequired, boolean registerBukkitListeners, ModuleDescription moduleDescription) {
-        super(isProtocolLibRequired, registerBukkitListeners, moduleDescription);
+    public CustomItemDamage(boolean isProtocolLibRequired, ModuleDescription moduleDescription) {
+        super(isProtocolLibRequired, moduleDescription);
+    }
+
+    @Override
+    public void onEnable() {
+        registerListener(this);
     }
 
     @EventHandler

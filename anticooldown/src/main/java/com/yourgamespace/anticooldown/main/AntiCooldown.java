@@ -147,15 +147,15 @@ public class AntiCooldown extends JavaPlugin {
     private void registerModules() {
         antiCooldownLogger.info("§aModules will be registered ...");
 
-        moduleHandler.registerModule(new UpdateNotifyOnJoin(false, true, new ModuleDescription("UpdateNotifyOnJoin", "1.0", "Internal Module", "YourGameSpace")));
-        moduleHandler.registerModule(new AttackCooldown(false, true, new ModuleDescription("AttackCooldown", "1.0", "Internal Module", "YourGameSpace")));
-        moduleHandler.registerModule(new SweepAttackDamage(false, true, new ModuleDescription("SweepAttackDamage", "1.0", "Internal Module", "YourGameSpace")));
-        moduleHandler.registerModule(new SweepAttackParticle(true, false, new ModuleDescription("SweepAttackParticle", "1.0", "Internal Module", "YourGameSpace")));
-        moduleHandler.registerModule(new CombatSounds(true, false, new ModuleDescription("CombatSounds", "1.0", "Internal Module", "YourGameSpace")));
-        moduleHandler.registerModule(new EnderpearlCooldown(false, true, new ModuleDescription("EnderpearlCooldown", "1.0", "Internal Module", "YourGameSpace")));
-        moduleHandler.registerModule(new PlayerCollision(true, true, new ModuleDescription("PlayerCollision", "1.0", "Internal Module", "YourGameSpace")));
-        moduleHandler.registerModule(new CustomItemDamage(false, true, new ModuleDescription("CustomItemDamage", "1.0", "Internal Module", "YourGameSpace")));
-        moduleHandler.registerModule(new ItemRestriction(false, true, new ModuleDescription("ItemRestriction", "1.0", "Internal Module", "YourGameSpace")));
+        moduleHandler.registerModule(new UpdateNotifyOnJoin(false, new ModuleDescription("UpdateNotifyOnJoin", "1.0", "Internal Module", "YourGameSpace")));
+        moduleHandler.registerModule(new AttackCooldown(false, new ModuleDescription("AttackCooldown", "1.0", "Internal Module", "YourGameSpace")));
+        moduleHandler.registerModule(new SweepAttackDamage(false, new ModuleDescription("SweepAttackDamage", "1.0", "Internal Module", "YourGameSpace")));
+        moduleHandler.registerModule(new SweepAttackParticle(true, new ModuleDescription("SweepAttackParticle", "1.0", "Internal Module", "YourGameSpace")));
+        moduleHandler.registerModule(new CombatSounds(true, new ModuleDescription("CombatSounds", "1.0", "Internal Module", "YourGameSpace")));
+        moduleHandler.registerModule(new EnderpearlCooldown(false, new ModuleDescription("EnderpearlCooldown", "1.0", "Internal Module", "YourGameSpace")));
+        moduleHandler.registerModule(new PlayerCollision(true, new ModuleDescription("PlayerCollision", "1.0", "Internal Module", "YourGameSpace")));
+        moduleHandler.registerModule(new CustomItemDamage(false, new ModuleDescription("CustomItemDamage", "1.0", "Internal Module", "YourGameSpace")));
+        moduleHandler.registerModule(new ItemRestriction(false, new ModuleDescription("ItemRestriction", "1.0", "Internal Module", "YourGameSpace")));
 
         moduleHandler.enableModules();
 

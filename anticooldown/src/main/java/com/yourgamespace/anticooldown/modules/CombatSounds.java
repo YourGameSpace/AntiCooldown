@@ -20,18 +20,13 @@ public class CombatSounds extends AntiCooldownModule {
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
     private final WorldManager worldManager = AntiCooldown.getWorldManager();
 
-    public CombatSounds(boolean isProtocolLibRequired, boolean registerBukkitListeners, ModuleDescription moduleDescription) {
-        super(isProtocolLibRequired, registerBukkitListeners, moduleDescription);
+    public CombatSounds(boolean isProtocolLibRequired, ModuleDescription moduleDescription) {
+        super(isProtocolLibRequired, moduleDescription);
     }
 
     @Override
     public void registerPacketHandler() {
         new PacketHandler();
-    }
-
-    @EventHandler
-    public void onWorldDisable(WorldDisableEvent event) {
-
     }
 
     public class PacketHandler {

@@ -6,7 +6,6 @@ import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.WorldManager;
-import com.yourgamespace.anticooldown.utils.basics.AntiCooldownLogger;
 import com.yourgamespace.anticooldown.utils.basics.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.module.AntiCooldownModule;
 import de.tubeof.tubetils.api.cache.CacheContainer;
@@ -16,8 +15,8 @@ import org.bukkit.entity.Player;
 @SuppressWarnings("unused")
 public class CombatSounds extends AntiCooldownModule {
 
-    public CombatSounds(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
-        super(true, false);
+    public CombatSounds(boolean isProtocolLibRequired) {
+        super(true);
     }
 
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
