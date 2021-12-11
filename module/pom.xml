@@ -14,7 +14,6 @@
     <version>5.0.0-DEV</version>
 
     <modules>
-        <module>attackcooldown</module>
         <module>combatparticle</module>
         <module>combatsounds</module>
         <module>customitemdamage</module>

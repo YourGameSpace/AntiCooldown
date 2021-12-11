@@ -14,6 +14,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
@@ -21,15 +22,20 @@ import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class ItemRestriction extends AntiCooldownModule {
+public class ItemRestriction extends AntiCooldownModule implements Listener {
 
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
     private final WorldManager worldManager = AntiCooldown.getWorldManager();
     private final CooldownHandler cooldownHandler = new CooldownHandler();
 
-    public ItemRestriction(boolean isProtocolLibRequired, boolean registerBukkitListeners, ModuleDescription moduleDescription) {
-        super(isProtocolLibRequired, registerBukkitListeners, moduleDescription);
+    public ItemRestriction(boolean isProtocolLibRequired, ModuleDescription moduleDescription) {
+        super(isProtocolLibRequired, moduleDescription);
     }
+
+    //@Override
+    //public void onEnable() {
+    //    registerListener(this);
+    //}
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onItemHold(PlayerItemHeldEvent event) {

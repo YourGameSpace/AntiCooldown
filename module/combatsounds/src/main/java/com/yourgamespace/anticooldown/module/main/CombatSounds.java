@@ -1,28 +1,26 @@
-package com.yourgamespace.anticooldown.modules;
+package com.yourgamespace.anticooldown.module.main;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
-import com.yourgamespace.anticooldown.api.events.WorldDisableEvent;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
-import com.yourgamespace.anticooldown.utils.basics.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.WorldManager;
+import com.yourgamespace.anticooldown.utils.basics.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.module.AntiCooldownModule;
-import com.yourgamespace.anticooldown.utils.module.ModuleDescription;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 
+@SuppressWarnings("unused")
 public class CombatSounds extends AntiCooldownModule {
+
+    public CombatSounds(boolean isProtocolLibRequired) {
+        super(true);
+    }
 
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
     private final WorldManager worldManager = AntiCooldown.getWorldManager();
-
-    public CombatSounds(boolean isProtocolLibRequired, ModuleDescription moduleDescription) {
-        super(isProtocolLibRequired, moduleDescription);
-    }
 
     //@Override
     //public void registerPacketHandler() {

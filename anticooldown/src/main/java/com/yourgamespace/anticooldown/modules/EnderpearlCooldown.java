@@ -12,17 +12,23 @@ import org.bukkit.entity.EnderPearl;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.projectiles.ProjectileSource;
 
-public class EnderpearlCooldown extends AntiCooldownModule {
+public class EnderpearlCooldown extends AntiCooldownModule implements Listener {
 
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
     private final WorldManager worldManager = AntiCooldown.getWorldManager();
 
-    public EnderpearlCooldown(boolean isProtocolLibRequired, boolean registerBukkitListeners, ModuleDescription moduleDescription) {
-        super(isProtocolLibRequired, registerBukkitListeners, moduleDescription);
+    public EnderpearlCooldown(boolean isProtocolLibRequired, ModuleDescription moduleDescription) {
+        super(isProtocolLibRequired, moduleDescription);
     }
+
+    //@Override
+    //public void onEnable() {
+    //    registerListener(this);
+    //}
 
     @EventHandler
     public void onEnderpearlShoot(ProjectileLaunchEvent event) {

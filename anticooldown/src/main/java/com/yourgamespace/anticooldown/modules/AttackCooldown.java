@@ -13,25 +13,28 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 @SuppressWarnings("ConstantConditions")
-public class AttackCooldown extends AntiCooldownModule {
+public class AttackCooldown extends AntiCooldownModule implements Listener {
 
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
     private final CooldownHandler cooldownHandler = new CooldownHandler();
     private final WorldManager worldManager = AntiCooldown.getWorldManager();
 
-    public AttackCooldown(boolean isProtocolLibRequired, boolean registerBukkitListeners, ModuleDescription moduleDescription) {
-        super(isProtocolLibRequired, registerBukkitListeners, moduleDescription);
+    public AttackCooldown(boolean isProtocolLibRequired, ModuleDescription moduleDescription) {
+        super(isProtocolLibRequired, moduleDescription);
     }
 
-    @Override
-    public void onEnable() {
-        cooldownHandler.setOnlinePlayersCooldown();
-    }
+    //@Override
+    //public void onEnable() {
+    //    registerListener(this);
+    //
+    //    cooldownHandler.setOnlinePlayersCooldown();
+    //}
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {

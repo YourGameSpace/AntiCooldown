@@ -6,44 +6,41 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public abstract class AntiCooldownModule implements Listener {
+public abstract class AntiCooldownModule {
 
     private final AntiCooldownLogger logger = AntiCooldown.getAntiCooldownLogger();
     private final ModuleCommandHandler moduleCommandHandler = AntiCooldown.getModuleCommandHandler();
     private final ModulePlaceholderHandler modulePlaceholderHandler = AntiCooldown.getModulePlaceholderHandler();
     private final PluginManager pluginManager = Bukkit.getPluginManager();
 
+    private final ArrayList<ModuleListener> listeners = new ArrayList<>();
+    private final ArrayList<ModulePacketHandler> packetHandlers = new ArrayList<>();
     private final boolean isProtocolLibRequired;
-    private final boolean registerBukkitListeners;
     private boolean isEnabled;
     private ModuleDescription moduleDescription;
 
     /**
      * Create a new AntiCooldownModule instance.
      * @param isProtocolLibRequired Is ProtocolLib required
-     * @param registerBukkitListeners Should Bukkit Listeners be registered
      */
-    public AntiCooldownModule(boolean isProtocolLibRequired, boolean registerBukkitListeners) {
+    public AntiCooldownModule(boolean isProtocolLibRequired) {
         this.isProtocolLibRequired = isProtocolLibRequired;
-        this.registerBukkitListeners = registerBukkitListeners;
     }
 
     /**
      * Create a new AntiCooldownModule internal instance.
      * @param isProtocolLibRequired Is ProtocolLib required
-     * @param registerBukkitListeners Should Bukkit Listeners be registered
      * @param moduleDescription ModuleDescription of this module
      */
-    public AntiCooldownModule(boolean isProtocolLibRequired, boolean registerBukkitListeners, ModuleDescription moduleDescription) {
+    public AntiCooldownModule(boolean isProtocolLibRequired, ModuleDescription moduleDescription) {
         this.isProtocolLibRequired = isProtocolLibRequired;
-        this.registerBukkitListeners = registerBukkitListeners;
         this.moduleDescription = moduleDescription;
     }
 
@@ -128,15 +125,32 @@ public abstract class AntiCooldownModule implements Listener {
     /**
      * If necessary, possibility to register packet handler.
      */
-    public void registerPacketHandler() {}
+    public void registerPacketHandler(ModulePacketHandler modulePacketHandler) {
+        AntiCooldown.getProtocolManager().addPacketListener(modulePacketHandler.sendingAdapter());
+        AntiCooldown.getProtocolManager().addPacketListener(modulePacketHandler.receivingAdapter());
+        packetHandlers.add(modulePacketHandler);
+    }
+
+    /**
+     * Register bukkit listener
+     * @param moduleListener The ModuleListener to be registered.
+     */
+    public void registerListener(ModuleListener moduleListener) {
+        pluginManager.registerEvents(moduleListener, AntiCooldown.getInstance());
+        listeners.add(moduleListener);
+    }
 
     /**
      * Will enable this module.
      */
     public void enableModule() {
-        if (registerBukkitListeners) pluginManager.registerEvents(this, AntiCooldown.getInstance());
-        registerPacketHandler();
         onEnable();
+        listeners.forEach(ModuleListener::onLoad);
+        packetHandlers.forEach(modulePacketHandler -> {
+            modulePacketHandler.onLoad();
+            AntiCooldown.getProtocolManager().addPacketListener(modulePacketHandler.sendingAdapter());
+            AntiCooldown.getProtocolManager().addPacketListener(modulePacketHandler.receivingAdapter());
+        });
 
         setEnabled(true);
         logger.info("§aModule §e" + getDescription().getName() + " §asuccessfully enabled!");
@@ -149,7 +163,15 @@ public abstract class AntiCooldownModule implements Listener {
         setEnabled(false);
 
         onDisable();
-        HandlerList.unregisterAll(this);
+        listeners.forEach(moduleListener -> {
+            moduleListener.onUnload();
+            HandlerList.unregisterAll(moduleListener);
+        });
+        packetHandlers.forEach(modulePacketHandler -> {
+            modulePacketHandler.onUnload();
+            AntiCooldown.getProtocolManager().removePacketListener(modulePacketHandler.sendingAdapter());
+            AntiCooldown.getProtocolManager().removePacketListener(modulePacketHandler.receivingAdapter());
+        });
 
         logger.info("§aModule §e" + getDescription().getName() + " §asuccessfully disabled!");
     }
@@ -163,7 +185,15 @@ public abstract class AntiCooldownModule implements Listener {
         setEnabled(false);
 
         onDisable();
-        HandlerList.unregisterAll(this);
+        listeners.forEach(moduleListener -> {
+            HandlerList.unregisterAll(moduleListener);
+            moduleListener.onUnload();
+        });
+        packetHandlers.forEach(modulePacketHandler -> {
+            modulePacketHandler.onUnload();
+            AntiCooldown.getProtocolManager().removePacketListener(modulePacketHandler.sendingAdapter());
+            AntiCooldown.getProtocolManager().removePacketListener(modulePacketHandler.receivingAdapter());
+        });
 
         logger.info("§aModule §e" + getDescription().getName() + " §asuccessfully disabled! §eReason: " + reason);
     }

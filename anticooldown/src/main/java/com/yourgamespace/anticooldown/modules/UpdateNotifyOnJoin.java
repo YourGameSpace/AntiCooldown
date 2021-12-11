@@ -8,16 +8,22 @@ import de.tubeof.tubetils.api.cache.CacheContainer;
 import de.tubeof.tubetils.api.updatechecker.UpdateChecker;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-public class UpdateNotifyOnJoin extends AntiCooldownModule {
+public class UpdateNotifyOnJoin extends AntiCooldownModule implements Listener {
 
     private final UpdateChecker updateChecker = AntiCooldown.getUpdateChecker();
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
 
-    public UpdateNotifyOnJoin(boolean isProtocolLibRequired, boolean registerBukkitListeners, ModuleDescription moduleDescription) {
-        super(isProtocolLibRequired, registerBukkitListeners, moduleDescription);
+    public UpdateNotifyOnJoin(boolean isProtocolLibRequired, ModuleDescription moduleDescription) {
+        super(isProtocolLibRequired, moduleDescription);
     }
+
+    //@Override
+    //public void onEnable() {
+    //    registerListener(this);
+    //}
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
