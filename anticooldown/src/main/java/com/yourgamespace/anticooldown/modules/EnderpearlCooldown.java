@@ -25,10 +25,10 @@ public class EnderpearlCooldown extends AntiCooldownModule implements Listener {
         super(isProtocolLibRequired, moduleDescription);
     }
 
-    @Override
-    public void onEnable() {
-        registerListener(this);
-    }
+    //@Override
+    //public void onEnable() {
+    //    registerListener(this);
+    //}
 
     @EventHandler
     public void onEnderpearlShoot(ProjectileLaunchEvent event) {

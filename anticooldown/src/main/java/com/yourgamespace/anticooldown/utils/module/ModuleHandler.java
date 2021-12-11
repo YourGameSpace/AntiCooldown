@@ -181,7 +181,7 @@ public class ModuleHandler {
             } catch (ClassCastException exception) {
                 throw new ModuleException(exception, "Main class `" + description.getMain() + "' of module '" + file.getName() + "' does not extend AntiCooldownModule");
             }
-            AntiCooldownModule antiCooldownModule = (AntiCooldownModule) pluginClass.getConstructor(boolean.class, boolean.class).newInstance(false, false);
+            AntiCooldownModule antiCooldownModule = (AntiCooldownModule) pluginClass.getConstructor(boolean.class).newInstance(false);
             antiCooldownModule.setDescription(description);
             return antiCooldownModule;
         } catch (IllegalAccessException exception) {

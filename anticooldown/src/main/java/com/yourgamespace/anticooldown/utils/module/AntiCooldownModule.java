@@ -126,7 +126,8 @@ public abstract class AntiCooldownModule {
      * If necessary, possibility to register packet handler.
      */
     public void registerPacketHandler(ModulePacketHandler modulePacketHandler) {
-        AntiCooldown.getProtocolManager().addPacketListener(modulePacketHandler);
+        AntiCooldown.getProtocolManager().addPacketListener(modulePacketHandler.sendingAdapter());
+        AntiCooldown.getProtocolManager().addPacketListener(modulePacketHandler.receivingAdapter());
         packetHandlers.add(modulePacketHandler);
     }
 
@@ -145,7 +146,11 @@ public abstract class AntiCooldownModule {
     public void enableModule() {
         onEnable();
         listeners.forEach(ModuleListener::onLoad);
-        packetHandlers.forEach(ModulePacketHandler::onLoad);
+        packetHandlers.forEach(modulePacketHandler -> {
+            modulePacketHandler.onLoad();
+            AntiCooldown.getProtocolManager().addPacketListener(modulePacketHandler.sendingAdapter());
+            AntiCooldown.getProtocolManager().addPacketListener(modulePacketHandler.receivingAdapter());
+        });
 
         setEnabled(true);
         logger.info("§aModule §e" + getDescription().getName() + " §asuccessfully enabled!");
@@ -158,8 +163,15 @@ public abstract class AntiCooldownModule {
         setEnabled(false);
 
         onDisable();
-        listeners.forEach(HandlerList::unregisterAll);
-        packetHandlers.forEach(AntiCooldown.getProtocolManager()::removePacketListener);
+        listeners.forEach(moduleListener -> {
+            moduleListener.onUnload();
+            HandlerList.unregisterAll(moduleListener);
+        });
+        packetHandlers.forEach(modulePacketHandler -> {
+            modulePacketHandler.onUnload();
+            AntiCooldown.getProtocolManager().removePacketListener(modulePacketHandler.sendingAdapter());
+            AntiCooldown.getProtocolManager().removePacketListener(modulePacketHandler.receivingAdapter());
+        });
 
         logger.info("§aModule §e" + getDescription().getName() + " §asuccessfully disabled!");
     }
@@ -173,7 +185,15 @@ public abstract class AntiCooldownModule {
         setEnabled(false);
 
         onDisable();
-        listeners.forEach(HandlerList::unregisterAll);
+        listeners.forEach(moduleListener -> {
+            HandlerList.unregisterAll(moduleListener);
+            moduleListener.onUnload();
+        });
+        packetHandlers.forEach(modulePacketHandler -> {
+            modulePacketHandler.onUnload();
+            AntiCooldown.getProtocolManager().removePacketListener(modulePacketHandler.sendingAdapter());
+            AntiCooldown.getProtocolManager().removePacketListener(modulePacketHandler.receivingAdapter());
+        });
 
         logger.info("§aModule §e" + getDescription().getName() + " §asuccessfully disabled! §eReason: " + reason);
     }

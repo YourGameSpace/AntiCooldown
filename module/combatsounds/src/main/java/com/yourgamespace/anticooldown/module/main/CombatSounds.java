@@ -22,10 +22,10 @@ public class CombatSounds extends AntiCooldownModule {
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
     private final WorldManager worldManager = AntiCooldown.getWorldManager();
 
-    @Override
-    public void registerPacketHandler() {
-        new PacketHandler();
-    }
+    //@Override
+    //public void registerPacketHandler() {
+    //    new PacketHandler();
+    //}
 
     public class PacketHandler {
 

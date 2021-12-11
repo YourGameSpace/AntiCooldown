@@ -27,10 +27,10 @@ public class SweepAttackParticle extends AntiCooldownModule {
     // TODO: Added own config option
     // TODO: Add own permissions
 
-    @Override
-    public void registerPacketHandler() {
-        new PacketHandler();
-    }
+    //@Override
+    //public void registerPacketHandler() {
+    //    new PacketHandler();
+    //}
 
     public class PacketHandler {
 

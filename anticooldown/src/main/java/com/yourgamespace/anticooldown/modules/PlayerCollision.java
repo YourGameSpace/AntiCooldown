@@ -23,10 +23,10 @@ public class PlayerCollision extends AntiCooldownModule implements Listener {
         super(isProtocolLibRequired, moduleDescription);
     }
 
-    @Override
-    public void onEnable() {
-        registerListener(this);
-    }
+    //@Override
+    //public void onEnable() {
+    //    registerListener(this);
+    //}
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {

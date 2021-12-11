@@ -24,10 +24,10 @@ public class CombatSounds extends AntiCooldownModule {
         super(isProtocolLibRequired, moduleDescription);
     }
 
-    @Override
-    public void registerPacketHandler() {
-        new PacketHandler();
-    }
+    //@Override
+    //public void registerPacketHandler() {
+    //    new PacketHandler();
+    //}
 
     public class PacketHandler {
 

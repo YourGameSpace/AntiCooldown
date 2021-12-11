@@ -35,10 +35,10 @@ public class SweepAttackDamage extends AntiCooldownModule implements Listener {
         return true;
     }
 
-    @Override
-    public void onEnable() {
-        registerListener(this);
-    }
+    //@Override
+    //public void onEnable() {
+    //    registerListener(this);
+    //}
 
     @EventHandler
     public void onSweepAttackDamage(EntityDamageByEntityEvent event) {

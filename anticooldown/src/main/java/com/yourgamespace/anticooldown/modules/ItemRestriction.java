@@ -32,10 +32,10 @@ public class ItemRestriction extends AntiCooldownModule implements Listener {
         super(isProtocolLibRequired, moduleDescription);
     }
 
-    @Override
-    public void onEnable() {
-        registerListener(this);
-    }
+    //@Override
+    //public void onEnable() {
+    //    registerListener(this);
+    //}
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onItemHold(PlayerItemHeldEvent event) {

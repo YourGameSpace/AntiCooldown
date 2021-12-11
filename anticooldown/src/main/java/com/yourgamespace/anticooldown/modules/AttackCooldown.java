@@ -29,12 +29,12 @@ public class AttackCooldown extends AntiCooldownModule implements Listener {
         super(isProtocolLibRequired, moduleDescription);
     }
 
-    @Override
-    public void onEnable() {
-        registerListener(this);
-
-        cooldownHandler.setOnlinePlayersCooldown();
-    }
+    //@Override
+    //public void onEnable() {
+    //    registerListener(this);
+    //
+    //    cooldownHandler.setOnlinePlayersCooldown();
+    //}
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
