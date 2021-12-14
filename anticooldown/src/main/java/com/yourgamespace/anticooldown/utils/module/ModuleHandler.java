@@ -100,7 +100,6 @@ public class ModuleHandler {
 
         for (File file : Objects.requireNonNull(folder.listFiles())) {
             try {
-                long millis = System.currentTimeMillis();
                 AntiCooldownModule antiCooldownModule = loadModule(file);
                 if (antiCooldownModule != null) {
                     registerModule(antiCooldownModule);
@@ -115,7 +114,6 @@ public class ModuleHandler {
         checkFolder();
 
         try {
-            long millis = System.currentTimeMillis();
             AntiCooldownModule antiCooldownModule = loadModule(file);
             if (antiCooldownModule != null) {
                 registerModule(antiCooldownModule);
