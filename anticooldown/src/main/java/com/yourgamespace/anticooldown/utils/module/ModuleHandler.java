@@ -43,10 +43,7 @@ public class ModuleHandler {
     }
 
     public AntiCooldownModule getModule(String name) {
-        for (AntiCooldownModule antiCooldownModule : enabledModules) {
-            if (antiCooldownModule.getDescription().getName().equalsIgnoreCase(name)) return antiCooldownModule;
-        }
-        return null;
+        return enabledModules.stream().filter(antiCooldownModule -> antiCooldownModule.getDescription().getName().equals(name)).findFirst().orElse(null);
     }
 
     public void registerModule(AntiCooldownModule antiCooldownModule) {
