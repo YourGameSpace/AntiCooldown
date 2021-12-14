@@ -68,7 +68,7 @@ public class ModuleHandler {
             AntiCooldownModule antiCooldownModule = antiCooldownModuleIterator.next();
 
             if (!antiCooldownModule.getDescription().getName().equals(moduleName)) continue;
-            enabledModules.remove(antiCooldownModule);
+            antiCooldownModuleIterator.remove();
             antiCooldownModule.disableModule();
         }
     }
@@ -78,7 +78,7 @@ public class ModuleHandler {
             AntiCooldownModule antiCooldownModule = antiCooldownModuleIterator.next();
 
             if (!antiCooldownModule.getDescription().getName().equals(moduleName)) continue;
-            enabledModules.remove(antiCooldownModule);
+            antiCooldownModuleIterator.remove();
             antiCooldownModule.disableModule(reason);
         }
     }
