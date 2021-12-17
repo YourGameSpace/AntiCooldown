@@ -8,6 +8,7 @@ import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.WorldManager;
 import com.yourgamespace.anticooldown.utils.basics.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.module.AntiCooldownModule;
+import com.yourgamespace.anticooldown.utils.module.ModuleConfig;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -21,6 +22,14 @@ public class CombatSounds extends AntiCooldownModule {
 
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
     private final WorldManager worldManager = AntiCooldown.getWorldManager();
+
+    @Override
+    public void onEnable() {
+        ModuleConfig config = new ModuleConfig(this, null, null);
+        config.getConfig().addDefault("Test", true);
+        config.getConfig().addDefault("Enable", 41223);
+        config.saveConfig();
+    }
 
     //@Override
     //public void registerPacketHandler() {
