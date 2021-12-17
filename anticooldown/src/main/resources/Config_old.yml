@@ -3,7 +3,7 @@ Messages:
   # Prefix for chat messages
   Prefix: '§7[§3AntiCooldown§7] '
   # Prefix for actionbar messages
-  ActionBarPrefix: '§3AntiCooldown§7 » '
+  ActionBarPrefix: §3AntiCooldown§7 »
 
   # Messages related to a world switch
   SwitchWorld:
@@ -200,19 +200,6 @@ Settings:
     # If there is an update, should this be displayed to an admin when logging in?
     # Available options: true, false
     IngameNotify: true
-
-Modules:
-  UpdateChecker:
-    # Should AntiCooldown check for updates?
-    # Available options: true, false
-    UseUpdateChecker: true
-    # If there is an update, should this be output in the console?
-    # Available options: true, false
-    ConsoleNotify: true
-    # If there is an update, should this be displayed to an admin when logging in?
-    # Available options: true, false
-    IngameNotify: true
-
 
 # Version of the current config
 # DO NOT CHANGE!

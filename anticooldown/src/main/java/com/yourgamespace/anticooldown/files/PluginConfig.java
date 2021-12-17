@@ -37,6 +37,98 @@ public class PluginConfig {
 
     public void setupConfig() {
         if (!configFile.exists()) AntiCooldown.getInstance().saveResource(configFile.getName(), false);
+
+        // START Messages
+        config.addDefault("Messages.Prefix", "§7[§3AntiCooldown§7] ");
+        config.addDefault("Messages.ActionBarPrefix", "§3AntiCooldown§7 »");
+        config.addDefault("Messages.SwitchWorld.Bypassed", "§ePvP Cooldown is §c§lnot disabled §ein this world, but you have §2Bypass-Permissions§a! §aCooldown is disable for you.");
+        config.addDefault("Messages.SwitchWorld.Enabled", "§ePvP Cooldown is §a§ldisabled §ein this world!");
+        config.addDefault("Messages.SwitchWorld.Disabled", "§ePvP Cooldown is §c§lnot disabled §ein this world!");
+        config.addDefault("Messages.Login.Bypassed", "§aHey, welcome to the server! §ePvP Cooldown is §c§lnot disabled §ein this world, but you have §2Bypass-Permissions§a! §aCooldown is disable for you.");
+        config.addDefault("Messages.Login.Enabled", "§aHey, welcome to the server! §ePvP Cooldown is §a§ldisabled §ein this world!");
+        config.addDefault("Messages.Login.Disabled", "§aHey, welcome to the server! §ePvP Cooldown is §c§lnot disabled §ein this world!");
+        config.addDefault("Messages.CustomItemDamage.ActionBarMessage", "%actionbar_prefix% §aCustom-Damage applied: §7%finaldamage%§c❤ §7Damage");
+        config.addDefault("Messages.ItemRestriction.ActionBarMessage.Enabled", "%actionbar_prefix% §aItem is no longer restricted! PvP Cooldown is §a§ldisabled §aagain");
+        config.addDefault("Messages.ItemRestriction.ActionBarMessage.Disabled", "%actionbar_prefix% §cItem is restricted! PvP Cooldown is temporarily §c§lactivated");
+        config.addDefault("Messages.Setting.AddDisabledWorld", "§aOK! In the world §e%world% §athe cooldown is now activated.");
+        config.addDefault("Messages.Setting.RemoveDisabledWorld", "§aOK! In the world §e%world% §athe cooldown is now deactivated.");
+        config.addDefault("Messages.Error.WorldAlreadyDisabled", "§cThis world is already §c§ldeactivated§c!");
+        config.addDefault("Messages.Error.WorldAlreadyEnabled", "§cThis world is already §a§lactivated§c!");
+        config.addDefault("Messages.Error.PlayerNotOnline", "§cThe player is not online!");
+        config.addDefault("Messages.Error.NoPerms", "§cNo permissions!");
+        // END Messages
+
+        //Placeholder
+        config.addDefault("Placeholder.World.CooldownEnabled", "Enabled");
+        config.addDefault("Placeholder.World.CooldownDisabled", "Disabled");
+        config.addDefault("Placeholder.Player.CooldownEnabled", "Enabled");
+        config.addDefault("Placeholder.Player.CooldownDisabled", "Disabled");
+
+        // Config List Options
+        //List: Restricted Items
+        List<String> restrictedItems = config.getStringList("Settings.Values.RestrictedItems");
+        restrictedItems.add("DIAMOND_AXE");
+        restrictedItems.add("GOLDEN_AXE");
+        restrictedItems.add("IRON_AXE");
+        restrictedItems.add("STONE_AXE");
+        restrictedItems.add("NETHERITE_AXE");
+        restrictedItems.add("WOODEN_AXE");
+
+        //List: Disabled Worlds
+        List<String> disabledWorlds = config.getStringList("Settings.Values.DisabledWorlds");
+        disabledWorlds.add("YourWorldName");
+
+        //List: Item Damage Values
+        List<String> customItemDamage = config.getStringList("Settings.Values.CustomItemDamage");
+        customItemDamage.add("WOOD_AXE:3.0D");
+        customItemDamage.add("WOODEN_AXE:3.0D");
+        customItemDamage.add("GOLD_AXE:3.0D");
+        customItemDamage.add("GOLDEN_AXE:3.0D");
+        customItemDamage.add("STONE_AXE:4.0D");
+        customItemDamage.add("IRON_AXE:5.0D");
+        customItemDamage.add("DIAMOND_AXE:6.0D");
+        customItemDamage.add("WOOD_PICKAXE:2.0D");
+        customItemDamage.add("WOODEN_PICKAXE:2.0D");
+        customItemDamage.add("GOLD_PICKAXE:2.0D");
+        customItemDamage.add("GOLDEN_PICKAXE:2.0D");
+        customItemDamage.add("STONE_PICKAXE:3.0D");
+        customItemDamage.add("IRON_PICKAXE:4.0D");
+        customItemDamage.add("DIAMOND_PICKAXE:5.0D");
+        customItemDamage.add("WOODEN_SHOVEL:1.0D");
+        customItemDamage.add("GOLDEN_SHOVEL:1.0D");
+        customItemDamage.add("STONE_SHOVEL:2.0D");
+        customItemDamage.add("IRON_SHOVEL:3.0D");
+        customItemDamage.add("DIAMOND_SHOVEL:4.0D");
+
+        // START Settings
+        //Settings: Permissions
+        config.addDefault("Settings.Permissions.UsePermissions", false);
+        config.addDefault("Settings.Permissions.UseBypassPermission", false);
+        //Settings: Messages
+        config.addDefault("Settings.Messages.UseLoginMessage", true);
+        config.addDefault("Settings.Messages.UseSwitchWorldMessage", true);
+        //Settings: Values
+        config.addDefault("Settings.Values.AttackSpeed", 100);
+        config.addDefault("Settings.Values.DisabledWorlds", disabledWorlds);
+        config.addDefault("Settings.Values.RestrictedItems", restrictedItems);
+        config.addDefault("Settings.Values.CustomItemDamage", customItemDamage);
+        //Settings: Features
+        config.addDefault("Settings.Features.DisableSweepAttacks", true);
+        config.addDefault("Settings.Features.DisableNewCombatSounds", true);
+        config.addDefault("Settings.Features.DisablePlayerCollision", true);
+        config.addDefault("Settings.Features.DisableEnderpearlCooldown", true);
+        config.addDefault("Settings.Features.CustomItemDamage.EnableCustomItemDamage", true);
+        config.addDefault("Settings.Features.CustomItemDamage.SendActionBar", true);
+        config.addDefault("Settings.Features.ItemRestriction.EnableItemRestriction", false);
+        config.addDefault("Settings.Features.ItemRestriction.SendActionBar", true);
+        config.addDefault("Settings.Features.ItemRestriction.UseAsWhitelist", false);
+        //Settings: UpdateChecker
+        config.addDefault("Settings.Updates.UseUpdateChecker", true);
+        config.addDefault("Settings.Updates.ConsoleNotify", true);
+        config.addDefault("Settings.Updates.IngameNotify", true);
+        // END Settings
+
+        config.addDefault("ConfigVersion", data.getCurrentConfigVersion());
     }
 
     public void upgradeConfig() {
@@ -67,6 +159,10 @@ public class PluginConfig {
 
     public void loadConfig() {
         antiCooldownLogger.info("§aLoad configurations from config file §e" + configFile.getName() + " §a...");
+
+        config.set(AntiCooldown.getInstance().getDescription().getName() + "_COMMENT_" + 1, " " + "Test");
+        config.set("Test", "Test123123");
+        saveConfig();
 
         //Messages
         cacheContainer.add(String.class, "PREFIX", config.getString("Messages.Prefix"));
