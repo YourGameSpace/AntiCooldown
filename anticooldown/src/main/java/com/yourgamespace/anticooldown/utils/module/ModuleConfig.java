@@ -3,7 +3,6 @@ package com.yourgamespace.anticooldown.utils.module;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,13 +11,17 @@ import java.io.IOException;
 public class ModuleConfig {
 
     private final AntiCooldownModule antiCooldownModule;
-    private final String configSuffix;
-    private final String configPrefix;
+    private String configSuffix;
+    private String configPrefix;
 
-    public ModuleConfig(@NotNull AntiCooldownModule antiCooldownModule, @Nullable String configPrefix, @Nullable String configSuffix) {
+    public ModuleConfig(@NotNull AntiCooldownModule antiCooldownModule, @NotNull String configPrefix, @NotNull String configSuffix) {
         this.antiCooldownModule = antiCooldownModule;
         this.configPrefix = configPrefix;
         this.configSuffix = configSuffix;
+    }
+
+    public ModuleConfig(@NotNull AntiCooldownModule antiCooldownModule) {
+        this.antiCooldownModule = antiCooldownModule;
     }
 
     private File configFile;
@@ -27,7 +30,11 @@ public class ModuleConfig {
     public final File getFile() {
         // If null then assign
         if (configFile == null) {
-            configFile = new File("plugins/AntiCooldown", "module-" + configPrefix + antiCooldownModule.getDescription().getName().toLowerCase() + configSuffix + ".yml");
+            if (configPrefix == null || configSuffix == null) {
+                configFile = new File("plugins/AntiCooldown", "module-" + antiCooldownModule.getDescription().getName().toLowerCase() + ".yml");
+            } else {
+                configFile = new File("plugins/AntiCooldown", "module-" + configPrefix + antiCooldownModule.getDescription().getName().toLowerCase() + configSuffix + ".yml");
+            }
         }
 
         // Create file if not exists

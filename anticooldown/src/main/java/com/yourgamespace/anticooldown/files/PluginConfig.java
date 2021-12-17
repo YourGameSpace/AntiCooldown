@@ -29,6 +29,7 @@ public class PluginConfig {
     public PluginConfig() {}
 
     public void initConfigFile() {
+        if (!configFile.exists()) AntiCooldown.getInstance().saveResource(configFile.getName(), false);
         config = YamlConfiguration.loadConfiguration(configFile);
 
         // Pre-load config version for upgrade check
@@ -36,8 +37,6 @@ public class PluginConfig {
     }
 
     public void setupConfig() {
-        if (!configFile.exists()) AntiCooldown.getInstance().saveResource(configFile.getName(), false);
-
         // START Messages
         config.addDefault("Messages.Prefix", "§7[§3AntiCooldown§7] ");
         config.addDefault("Messages.ActionBarPrefix", "§3AntiCooldown§7 »");

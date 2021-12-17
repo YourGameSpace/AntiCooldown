@@ -136,9 +136,9 @@ public class AntiCooldown extends JavaPlugin {
     private void manageConfigs() {
         antiCooldownLogger.info("§aLoading config files ...");
 
-        pluginConfig.setupConfig();
         pluginConfig.initConfigFile();
         pluginConfig.upgradeConfig();
+        pluginConfig.setupConfig();
         pluginConfig.loadConfig();
 
         antiCooldownLogger.info("§aConfig files was successfully loaded!");

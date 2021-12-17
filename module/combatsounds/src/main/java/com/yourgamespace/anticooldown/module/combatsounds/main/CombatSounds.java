@@ -25,9 +25,12 @@ public class CombatSounds extends AntiCooldownModule {
 
     @Override
     public void onEnable() {
-        ModuleConfig config = new ModuleConfig(this, null, null);
+        ModuleConfig config = new ModuleConfig(this);
+        config.getConfig().options().copyDefaults(true);
+
         config.getConfig().addDefault("Test", true);
         config.getConfig().addDefault("Enable", 41223);
+
         config.saveConfig();
     }
 
