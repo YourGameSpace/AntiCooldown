@@ -23,17 +23,6 @@ public class CombatSounds extends AntiCooldownModule {
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
     private final WorldManager worldManager = AntiCooldown.getWorldManager();
 
-    @Override
-    public void onEnable() {
-        ModuleConfig config = new ModuleConfig(this);
-        config.getConfig().options().copyDefaults(true);
-
-        config.getConfig().addDefault("Test", true);
-        config.getConfig().addDefault("Enable", 41223);
-
-        config.saveConfig();
-    }
-
     //@Override
     //public void registerPacketHandler() {
     //    new PacketHandler();
