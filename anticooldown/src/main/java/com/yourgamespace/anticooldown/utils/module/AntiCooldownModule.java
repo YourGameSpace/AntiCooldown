@@ -1,5 +1,6 @@
 package com.yourgamespace.anticooldown.utils.module;
 
+import com.yourgamespace.anticooldown.files.PluginConfig;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.basics.AntiCooldownLogger;
 import org.bukkit.Bukkit;
@@ -10,6 +11,7 @@ import org.bukkit.plugin.PluginManager;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @SuppressWarnings("unused")
@@ -18,8 +20,10 @@ public abstract class AntiCooldownModule {
     private final AntiCooldownLogger logger = AntiCooldown.getAntiCooldownLogger();
     private final ModuleCommandHandler moduleCommandHandler = AntiCooldown.getModuleCommandHandler();
     private final ModulePlaceholderHandler modulePlaceholderHandler = AntiCooldown.getModulePlaceholderHandler();
+    private final PluginConfig pluginConfig = AntiCooldown.getPluginConfig();
     private final PluginManager pluginManager = Bukkit.getPluginManager();
 
+    private final HashMap<String, Object> configOptions = new HashMap<>();
     private final ArrayList<ModuleListener> listeners = new ArrayList<>();
     private final ArrayList<ModulePacketHandler> packetHandlers = new ArrayList<>();
     private final boolean isProtocolLibRequired;
@@ -220,7 +224,7 @@ public abstract class AntiCooldownModule {
      * Get AntiCooldownLogger instance
      * @return AntiCooldownLogger instance
      */
-    private AntiCooldownLogger getLogger() {
+    public AntiCooldownLogger getLogger() {
         return logger;
     }
 
@@ -228,7 +232,7 @@ public abstract class AntiCooldownModule {
      * Get ModuleCommandHandler
      * @return ModuleCommandHandler instance
      */
-    private ModuleCommandHandler getModuleCommandHandler() {
+    public ModuleCommandHandler getModuleCommandHandler() {
         return moduleCommandHandler;
     }
 
@@ -236,7 +240,7 @@ public abstract class AntiCooldownModule {
      * Get ModulePlaceholderHandler
      * @return ModulePlaceholderHandler instance
      */
-    private ModulePlaceholderHandler getModulePlaceholderHandler() {
+    public ModulePlaceholderHandler getModulePlaceholderHandler() {
         return modulePlaceholderHandler;
     }
 

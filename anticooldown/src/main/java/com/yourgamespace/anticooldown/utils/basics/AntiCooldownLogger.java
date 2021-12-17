@@ -15,7 +15,7 @@ public class AntiCooldownLogger {
         AntiCooldown.getInstance().getLogger().warning(message);
     }
 
-    public void debug(Class paramClass, String message) {
+    public void debug(Class<?> paramClass, String message) {
         AntiCooldown.getInstance().getLogger().fine("[DEBUG] [" + paramClass.getName() + "]§r " + message);
     }
 }
