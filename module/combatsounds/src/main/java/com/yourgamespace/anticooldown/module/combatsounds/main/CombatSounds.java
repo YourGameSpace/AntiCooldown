@@ -1,4 +1,4 @@
-package com.yourgamespace.anticooldown.module.main;
+package com.yourgamespace.anticooldown.module.combatsounds.main;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.ListenerPriority;

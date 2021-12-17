@@ -1,5 +1,5 @@
 name: CombatSounds
 version: 1.0.0-DEV
-main: com.yourgamespace.anticooldown.module.main.CombatSounds
+main: com.yourgamespace.anticooldown.module.combatsounds.main.CombatSounds
 author: YourGameSpace
 description: Disable new combat sounds
