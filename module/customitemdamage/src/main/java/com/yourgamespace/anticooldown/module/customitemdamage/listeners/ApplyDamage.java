@@ -2,7 +2,7 @@ package com.yourgamespace.anticooldown.module.customitemdamage.listeners;
 
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.module.customitemdamage.utils.ItemDamageHandler;
-import com.yourgamespace.anticooldown.utils.ItemDamageManager;
+import com.yourgamespace.anticooldown.module.customitemdamage.utils.ItemDamageManager;
 import com.yourgamespace.anticooldown.utils.WorldManager;
 import com.yourgamespace.anticooldown.utils.basics.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.module.ModuleListener;
@@ -23,7 +23,10 @@ public class ApplyDamage extends ModuleListener {
 
     @EventHandler
     public void onDamage(EntityDamageByEntityEvent event) {
-        if (!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "ENABLE_CUSTOM_ITEM_DAMAGE"))) return;
+        // PERMA REMOVED: Removed since module system. (5.0.0)
+        // Unnecessary check: Module can be removed or disabled.
+        //if (!ObjectTransformer.getBoolean(cacheContainer.get(Boolean.class, "ENABLE_CUSTOM_ITEM_DAMAGE"))) return;
+        // END PERMA REMOVED
         if (!(event.getDamager() instanceof Player)) return;
         Player player = (Player) event.getDamager();
         ItemStack itemStack = player.getInventory().getItemInMainHand();

@@ -2,7 +2,6 @@ package com.yourgamespace.anticooldown.files;
 
 import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
-import com.yourgamespace.anticooldown.utils.ItemDamageManager;
 import com.yourgamespace.anticooldown.utils.ItemRestrictionManager;
 import com.yourgamespace.anticooldown.utils.basics.AntiCooldownLogger;
 import com.yourgamespace.anticooldown.utils.basics.ObjectTransformer;
@@ -226,12 +225,12 @@ public class PluginConfig {
             antiCooldownLogger.info("§aWorld §e" + disabledWorld + " §adisabled!");
         }
 
-        //Values: CustomItemDamage
-        for (String customItemDamage : config.getStringList("Settings.Values.CustomItemDamage")) {
-            String[] itemParams = customItemDamage.split(":");
-
-            ItemDamageManager.addCache(itemParams[0], itemParams[1]);
-        }
+        // //Values: CustomItemDamage
+        // for (String customItemDamage : config.getStringList("Settings.Values.CustomItemDamage")) {
+        //     String[] itemParams = customItemDamage.split(":");
+        //
+        //     ItemDamageManager.addCache(itemParams[0], itemParams[1]);
+        // }
 
         antiCooldownLogger.info("§aConfigurations from config file §e" + configFile.getName() + " §asuccessfully loaded!");
     }

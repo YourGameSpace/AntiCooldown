@@ -1,4 +1,4 @@
-package com.yourgamespace.anticooldown.utils;
+package com.yourgamespace.anticooldown.module.customitemdamage.utils;
 
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.basics.AntiCooldownLogger;
@@ -11,7 +11,6 @@ import java.util.HashMap;
 public class ItemDamageManager {
 
     private static final AntiCooldownLogger antiCooldownLogger = AntiCooldown.getAntiCooldownLogger();
-
     private static final HashMap<Material, Double> itemDamages = new HashMap<>();
 
     public static void addCache(String paramMaterial, String paramDamage) {
