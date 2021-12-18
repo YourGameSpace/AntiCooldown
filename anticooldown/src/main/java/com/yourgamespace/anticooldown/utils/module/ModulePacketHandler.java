@@ -26,17 +26,13 @@ public abstract class ModulePacketHandler {
 
     public void onReceiving(PacketEvent event) {}
 
-    public final PacketAdapter sendingAdapter() {
+    public final PacketAdapter packetAdapter() {
         return new PacketAdapter(AntiCooldown.getInstance(), listenerPriority, packetTypes) {
             @Override
             public void onPacketSending(PacketEvent event) {
                 onSending(event);
             }
-        };
-    }
 
-    public final PacketAdapter receivingAdapter() {
-        return new PacketAdapter(AntiCooldown.getInstance(), listenerPriority, packetTypes) {
             @Override
             public void onPacketReceiving(PacketEvent event) {
                 onReceiving(event);
