@@ -13,6 +13,8 @@ public class Config {
     public Config() {}
 
     public void setupConfig() {
+        moduleConfig.getConfig().options().copyDefaults(true);
+
         //List: Item Damage Values
         List<String> customItemDamage = moduleConfig.getConfig().getStringList("OverrideItemDamage");
         customItemDamage.add("WOOD_AXE:3.0D");
