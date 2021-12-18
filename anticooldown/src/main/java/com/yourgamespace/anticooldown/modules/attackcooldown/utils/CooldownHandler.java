@@ -58,11 +58,10 @@ public class CooldownHandler {
                 // If disabled and is not bypassed, do nothing;
                 if (isBypassed) {
                     disableCooldown(player);
-                    Bukkit.getPluginManager().callEvent(new PlayerCooldownChangeEvent(player));
                 } else {
                     enableCooldown(player);
-                    Bukkit.getPluginManager().callEvent(new PlayerCooldownChangeEvent(player));
                 }
+                Bukkit.getPluginManager().callEvent(new PlayerCooldownChangeEvent(player));
             } else {
                 disableCooldown(player);
                 Bukkit.getPluginManager().callEvent(new PlayerCooldownChangeEvent(player));
