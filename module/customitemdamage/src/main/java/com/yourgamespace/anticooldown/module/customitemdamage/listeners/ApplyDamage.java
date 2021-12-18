@@ -1,36 +1,25 @@
-package com.yourgamespace.anticooldown.modules;
+package com.yourgamespace.anticooldown.module.customitemdamage.listeners;
 
 import com.yourgamespace.anticooldown.main.AntiCooldown;
-import com.yourgamespace.anticooldown.utils.ItemDamageHandler;
+import com.yourgamespace.anticooldown.module.customitemdamage.utils.ItemDamageHandler;
 import com.yourgamespace.anticooldown.utils.ItemDamageManager;
-import com.yourgamespace.anticooldown.utils.basics.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.WorldManager;
-import com.yourgamespace.anticooldown.utils.module.AntiCooldownModule;
-import com.yourgamespace.anticooldown.utils.module.ModuleDescription;
+import com.yourgamespace.anticooldown.utils.basics.ObjectTransformer;
+import com.yourgamespace.anticooldown.utils.module.ModuleListener;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
 @SuppressWarnings("ConstantConditions")
-public class CustomItemDamage extends AntiCooldownModule implements Listener {
+public class ApplyDamage extends ModuleListener {
 
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
     private final WorldManager worldManager = AntiCooldown.getWorldManager();
-
-    public CustomItemDamage(boolean isProtocolLibRequired, ModuleDescription moduleDescription) {
-        super(isProtocolLibRequired, moduleDescription);
-    }
-
-    //@Override
-    //public void onEnable() {
-    //    registerListener(this);
-    //}
 
     @EventHandler
     public void onDamage(EntityDamageByEntityEvent event) {

@@ -151,10 +151,8 @@ public class AntiCooldown extends JavaPlugin {
         moduleHandler.registerModule(new AttackCooldown(false, new ModuleDescription("AttackCooldown", "1.0", "Internal Module", "YourGameSpace")));
         moduleHandler.registerModule(new SweepAttackDamage(false, new ModuleDescription("SweepAttackDamage", "1.0", "Internal Module", "YourGameSpace")));
         moduleHandler.registerModule(new SweepAttackParticle(true, new ModuleDescription("SweepAttackParticle", "1.0", "Internal Module", "YourGameSpace")));
-        moduleHandler.registerModule(new CombatSounds(true, new ModuleDescription("CombatSounds", "1.0", "Internal Module", "YourGameSpace")));
         moduleHandler.registerModule(new EnderpearlCooldown(false, new ModuleDescription("EnderpearlCooldown", "1.0", "Internal Module", "YourGameSpace")));
         moduleHandler.registerModule(new PlayerCollision(true, new ModuleDescription("PlayerCollision", "1.0", "Internal Module", "YourGameSpace")));
-        moduleHandler.registerModule(new CustomItemDamage(false, new ModuleDescription("CustomItemDamage", "1.0", "Internal Module", "YourGameSpace")));
         moduleHandler.registerModule(new ItemRestriction(false, new ModuleDescription("ItemRestriction", "1.0", "Internal Module", "YourGameSpace")));
 
         moduleHandler.enableModules();
