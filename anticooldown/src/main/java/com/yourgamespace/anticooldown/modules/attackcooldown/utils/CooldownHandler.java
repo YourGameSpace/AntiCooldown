@@ -1,7 +1,8 @@
-package com.yourgamespace.anticooldown.utils;
+package com.yourgamespace.anticooldown.modules.attackcooldown.utils;
 
 import com.yourgamespace.anticooldown.api.events.PlayerCooldownChangeEvent;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
+import com.yourgamespace.anticooldown.utils.WorldManager;
 import com.yourgamespace.anticooldown.utils.basics.ObjectTransformer;
 import de.tubeof.tubetils.api.cache.CacheContainer;
 import org.bukkit.Bukkit;
@@ -14,8 +15,7 @@ public class CooldownHandler {
     private final CacheContainer cacheContainer = AntiCooldown.getCacheContainer();
     private final WorldManager worldManager = AntiCooldown.getWorldManager();
 
-    public CooldownHandler() {
-    }
+    public CooldownHandler() {}
 
     public boolean isCooldownDisabled(Player player) {
         return player.getAttribute(Attribute.GENERIC_ATTACK_SPEED).getBaseValue() != 4;
@@ -58,11 +58,10 @@ public class CooldownHandler {
                 // If disabled and is not bypassed, do nothing;
                 if (isBypassed) {
                     disableCooldown(player);
-                    Bukkit.getPluginManager().callEvent(new PlayerCooldownChangeEvent(player));
                 } else {
                     enableCooldown(player);
-                    Bukkit.getPluginManager().callEvent(new PlayerCooldownChangeEvent(player));
                 }
+                Bukkit.getPluginManager().callEvent(new PlayerCooldownChangeEvent(player));
             } else {
                 disableCooldown(player);
                 Bukkit.getPluginManager().callEvent(new PlayerCooldownChangeEvent(player));

@@ -5,21 +5,19 @@ import com.comphenix.protocol.ProtocolManager;
 import com.yourgamespace.anticooldown.commands.CmdAntiCooldown;
 import com.yourgamespace.anticooldown.data.Data;
 import com.yourgamespace.anticooldown.files.PluginConfig;
-import com.yourgamespace.anticooldown.modules.AttackCooldown;
-import com.yourgamespace.anticooldown.modules.CombatSounds;
-import com.yourgamespace.anticooldown.modules.CustomItemDamage;
 import com.yourgamespace.anticooldown.modules.EnderpearlCooldown;
 import com.yourgamespace.anticooldown.modules.ItemRestriction;
 import com.yourgamespace.anticooldown.modules.PlayerCollision;
 import com.yourgamespace.anticooldown.modules.SweepAttackDamage;
 import com.yourgamespace.anticooldown.modules.SweepAttackParticle;
 import com.yourgamespace.anticooldown.modules.UpdateNotifyOnJoin;
-import com.yourgamespace.anticooldown.utils.CooldownHandler;
+import com.yourgamespace.anticooldown.modules.attackcooldown.main.AttackCooldown;
+import com.yourgamespace.anticooldown.modules.attackcooldown.utils.CooldownHandler;
+import com.yourgamespace.anticooldown.utils.PlaceholderHandler;
+import com.yourgamespace.anticooldown.utils.WorldManager;
 import com.yourgamespace.anticooldown.utils.basics.AntiCooldownLogger;
 import com.yourgamespace.anticooldown.utils.basics.ObjectTransformer;
-import com.yourgamespace.anticooldown.utils.PlaceholderHandler;
 import com.yourgamespace.anticooldown.utils.basics.VersionHandler;
-import com.yourgamespace.anticooldown.utils.WorldManager;
 import com.yourgamespace.anticooldown.utils.module.ModuleCommandHandler;
 import com.yourgamespace.anticooldown.utils.module.ModuleDescription;
 import com.yourgamespace.anticooldown.utils.module.ModuleHandler;
@@ -136,9 +134,9 @@ public class AntiCooldown extends JavaPlugin {
     private void manageConfigs() {
         antiCooldownLogger.info("§aLoading config files ...");
 
-        pluginConfig.setupConfig();
         pluginConfig.initConfigFile();
         pluginConfig.upgradeConfig();
+        pluginConfig.setupConfig();
         pluginConfig.loadConfig();
 
         antiCooldownLogger.info("§aConfig files was successfully loaded!");
@@ -151,10 +149,8 @@ public class AntiCooldown extends JavaPlugin {
         moduleHandler.registerModule(new AttackCooldown(false, new ModuleDescription("AttackCooldown", "1.0", "Internal Module", "YourGameSpace")));
         moduleHandler.registerModule(new SweepAttackDamage(false, new ModuleDescription("SweepAttackDamage", "1.0", "Internal Module", "YourGameSpace")));
         moduleHandler.registerModule(new SweepAttackParticle(true, new ModuleDescription("SweepAttackParticle", "1.0", "Internal Module", "YourGameSpace")));
-        moduleHandler.registerModule(new CombatSounds(true, new ModuleDescription("CombatSounds", "1.0", "Internal Module", "YourGameSpace")));
         moduleHandler.registerModule(new EnderpearlCooldown(false, new ModuleDescription("EnderpearlCooldown", "1.0", "Internal Module", "YourGameSpace")));
         moduleHandler.registerModule(new PlayerCollision(true, new ModuleDescription("PlayerCollision", "1.0", "Internal Module", "YourGameSpace")));
-        moduleHandler.registerModule(new CustomItemDamage(false, new ModuleDescription("CustomItemDamage", "1.0", "Internal Module", "YourGameSpace")));
         moduleHandler.registerModule(new ItemRestriction(false, new ModuleDescription("ItemRestriction", "1.0", "Internal Module", "YourGameSpace")));
 
         moduleHandler.enableModules();

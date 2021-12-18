@@ -1,4 +1,4 @@
-package com.yourgamespace.anticooldown.utils;
+package com.yourgamespace.anticooldown.module.customitemdamage.utils;
 
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;

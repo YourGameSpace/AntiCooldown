@@ -43,10 +43,7 @@ public class ModuleHandler {
     }
 
     public AntiCooldownModule getModule(String name) {
-        for (AntiCooldownModule antiCooldownModule : enabledModules) {
-            if (antiCooldownModule.getDescription().getName().equalsIgnoreCase(name)) return antiCooldownModule;
-        }
-        return null;
+        return enabledModules.stream().filter(antiCooldownModule -> antiCooldownModule.getDescription().getName().equals(name)).findFirst().orElse(null);
     }
 
     public void registerModule(AntiCooldownModule antiCooldownModule) {
@@ -71,7 +68,7 @@ public class ModuleHandler {
             AntiCooldownModule antiCooldownModule = antiCooldownModuleIterator.next();
 
             if (!antiCooldownModule.getDescription().getName().equals(moduleName)) continue;
-            enabledModules.remove(antiCooldownModule);
+            antiCooldownModuleIterator.remove();
             antiCooldownModule.disableModule();
         }
     }
@@ -81,7 +78,7 @@ public class ModuleHandler {
             AntiCooldownModule antiCooldownModule = antiCooldownModuleIterator.next();
 
             if (!antiCooldownModule.getDescription().getName().equals(moduleName)) continue;
-            enabledModules.remove(antiCooldownModule);
+            antiCooldownModuleIterator.remove();
             antiCooldownModule.disableModule(reason);
         }
     }
@@ -100,7 +97,6 @@ public class ModuleHandler {
 
         for (File file : Objects.requireNonNull(folder.listFiles())) {
             try {
-                long millis = System.currentTimeMillis();
                 AntiCooldownModule antiCooldownModule = loadModule(file);
                 if (antiCooldownModule != null) {
                     registerModule(antiCooldownModule);
@@ -115,7 +111,6 @@ public class ModuleHandler {
         checkFolder();
 
         try {
-            long millis = System.currentTimeMillis();
             AntiCooldownModule antiCooldownModule = loadModule(file);
             if (antiCooldownModule != null) {
                 registerModule(antiCooldownModule);

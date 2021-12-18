@@ -1,5 +1,6 @@
 package com.yourgamespace.anticooldown.utils.module;
 
+import com.yourgamespace.anticooldown.files.PluginConfig;
 import com.yourgamespace.anticooldown.main.AntiCooldown;
 import com.yourgamespace.anticooldown.utils.basics.AntiCooldownLogger;
 import org.bukkit.Bukkit;
@@ -10,6 +11,7 @@ import org.bukkit.plugin.PluginManager;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @SuppressWarnings("unused")
@@ -18,8 +20,10 @@ public abstract class AntiCooldownModule {
     private final AntiCooldownLogger logger = AntiCooldown.getAntiCooldownLogger();
     private final ModuleCommandHandler moduleCommandHandler = AntiCooldown.getModuleCommandHandler();
     private final ModulePlaceholderHandler modulePlaceholderHandler = AntiCooldown.getModulePlaceholderHandler();
+    private final PluginConfig pluginConfig = AntiCooldown.getPluginConfig();
     private final PluginManager pluginManager = Bukkit.getPluginManager();
 
+    private final HashMap<String, Object> configOptions = new HashMap<>();
     private final ArrayList<ModuleListener> listeners = new ArrayList<>();
     private final ArrayList<ModulePacketHandler> packetHandlers = new ArrayList<>();
     private final boolean isProtocolLibRequired;
@@ -126,8 +130,7 @@ public abstract class AntiCooldownModule {
      * If necessary, possibility to register packet handler.
      */
     public void registerPacketHandler(ModulePacketHandler modulePacketHandler) {
-        AntiCooldown.getProtocolManager().addPacketListener(modulePacketHandler.sendingAdapter());
-        AntiCooldown.getProtocolManager().addPacketListener(modulePacketHandler.receivingAdapter());
+        AntiCooldown.getProtocolManager().addPacketListener(modulePacketHandler.packetAdapter());
         packetHandlers.add(modulePacketHandler);
     }
 
@@ -148,8 +151,7 @@ public abstract class AntiCooldownModule {
         listeners.forEach(ModuleListener::onLoad);
         packetHandlers.forEach(modulePacketHandler -> {
             modulePacketHandler.onLoad();
-            AntiCooldown.getProtocolManager().addPacketListener(modulePacketHandler.sendingAdapter());
-            AntiCooldown.getProtocolManager().addPacketListener(modulePacketHandler.receivingAdapter());
+            AntiCooldown.getProtocolManager().addPacketListener(modulePacketHandler.packetAdapter());
         });
 
         setEnabled(true);
@@ -169,8 +171,7 @@ public abstract class AntiCooldownModule {
         });
         packetHandlers.forEach(modulePacketHandler -> {
             modulePacketHandler.onUnload();
-            AntiCooldown.getProtocolManager().removePacketListener(modulePacketHandler.sendingAdapter());
-            AntiCooldown.getProtocolManager().removePacketListener(modulePacketHandler.receivingAdapter());
+            AntiCooldown.getProtocolManager().removePacketListener(modulePacketHandler.packetAdapter());
         });
 
         logger.info("§aModule §e" + getDescription().getName() + " §asuccessfully disabled!");
@@ -191,8 +192,7 @@ public abstract class AntiCooldownModule {
         });
         packetHandlers.forEach(modulePacketHandler -> {
             modulePacketHandler.onUnload();
-            AntiCooldown.getProtocolManager().removePacketListener(modulePacketHandler.sendingAdapter());
-            AntiCooldown.getProtocolManager().removePacketListener(modulePacketHandler.receivingAdapter());
+            AntiCooldown.getProtocolManager().removePacketListener(modulePacketHandler.packetAdapter());
         });
 
         logger.info("§aModule §e" + getDescription().getName() + " §asuccessfully disabled! §eReason: " + reason);
@@ -220,7 +220,7 @@ public abstract class AntiCooldownModule {
      * Get AntiCooldownLogger instance
      * @return AntiCooldownLogger instance
      */
-    private AntiCooldownLogger getLogger() {
+    public AntiCooldownLogger getLogger() {
         return logger;
     }
 
@@ -228,7 +228,7 @@ public abstract class AntiCooldownModule {
      * Get ModuleCommandHandler
      * @return ModuleCommandHandler instance
      */
-    private ModuleCommandHandler getModuleCommandHandler() {
+    public ModuleCommandHandler getModuleCommandHandler() {
         return moduleCommandHandler;
     }
 
@@ -236,7 +236,7 @@ public abstract class AntiCooldownModule {
      * Get ModulePlaceholderHandler
      * @return ModulePlaceholderHandler instance
      */
-    private ModulePlaceholderHandler getModulePlaceholderHandler() {
+    public ModulePlaceholderHandler getModulePlaceholderHandler() {
         return modulePlaceholderHandler;
     }
 

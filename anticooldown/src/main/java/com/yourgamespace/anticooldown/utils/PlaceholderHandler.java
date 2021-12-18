@@ -1,6 +1,7 @@
 package com.yourgamespace.anticooldown.utils;
 
 import com.yourgamespace.anticooldown.main.AntiCooldown;
+import com.yourgamespace.anticooldown.modules.attackcooldown.utils.CooldownHandler;
 import com.yourgamespace.anticooldown.utils.basics.ObjectTransformer;
 import com.yourgamespace.anticooldown.utils.module.ModulePlaceholderHandler;
 import de.tubeof.tubetils.api.cache.CacheContainer;

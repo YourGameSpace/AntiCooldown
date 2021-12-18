@@ -3,7 +3,7 @@ Messages:
   # Prefix for chat messages
   Prefix: '§7[§3AntiCooldown§7] '
   # Prefix for actionbar messages
-  ActionBarPrefix: '§3AntiCooldown§7 » '
+  ActionBarPrefix: §3AntiCooldown§7 »
 
   # Messages related to a world switch
   SwitchWorld:

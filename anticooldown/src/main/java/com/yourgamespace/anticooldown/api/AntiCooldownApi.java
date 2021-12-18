@@ -1,6 +1,6 @@
 package com.yourgamespace.anticooldown.api;
 
-import com.yourgamespace.anticooldown.utils.CooldownHandler;
+import com.yourgamespace.anticooldown.modules.attackcooldown.utils.CooldownHandler;
 import org.bukkit.entity.Player;
 
 public class AntiCooldownApi {
